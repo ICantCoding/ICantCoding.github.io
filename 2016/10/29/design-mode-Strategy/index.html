@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>策略模式 | ShanGe 的 Coding 漫漫路</title>
+  <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="面向对象的编程, 并不是类越多越好, 类的划分是为了封装, 但分类的基础是抽象, 具有相同相同属性和功能的对象的抽象集合才是类! 面对算法的时常变动, 我们一般采用策略模式。策略模式(Strategy): 它定义了算法家族, 分别将算法封装起来, 让这些算法之间可以相互替换, 此模式让算法的变化, 不会影响到使用算法的客户。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="策略模式"/>
+  <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="ShanGe 的 Coding 漫漫路" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">ShanGe 的 Coding 漫漫路</a></h1>
+		    <h2><a href="/">要做的只是静下心来,大步向前,然后泰然的接受一切,冷静的处理一切！</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/collection"><i class="fa fa-book"></i>文集</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		    		  <a href="/me"><i class="fa fa-user"></i>关于我</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
+		    
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+  
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-10-29T15:40:01.000Z"><a href="/2016/10/29/design-mode-Strategy/">2016-10-29</a></time>
+        
+  
+    <h1 class="title">策略模式</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        <p>面向对象的编程, 并不是类越多越好, 类的划分是为了封装, 但分类的基础是抽象, 具有相同相同属性和功能的对象的抽象集合才是类! 面对算法的时常变动, 我们一般采用策略模式。策略模式(Strategy): 它定义了算法家族, 分别将算法封装起来, 让这些算法之间可以相互替换, 此模式让算法的变化, 不会影响到使用算法的客户。<br><a id="more"></a></p>
+<p><strong>策略模式<strong></strong></strong></p>
+<ul>
+<li>1.策略模式是一种定义一系列算法的方法, 从概念上来看, 所有这些算法完成的都是相同的工作, 知识实现不同, 它可以以相同的方式调用所有的算法, 减少了各种 <strong style="color:red">算法类</strong> 和 <strong style="color:red">使用算法类</strong> 之间的耦合度[DPE].</li>
+<li>2.策略模式还简化了单元测试, 因为每个算法都有自己的类, 可以通过自己的接口单独测试. </li>
+<li>3.策略模式就是用来封装算法的, 但在实践中, 我们发现可以用它来封装几乎任何类型的规则, 只要在分析过程中听到需要在不同时间应用不同的业务规则, 就可以考虑使用策略模式处理这种变化的可能性[DPE]。</li>
+</ul>
+<p><hr><br>用java来简单的写一写策略模式</p>
+<ul>
+<li>1.首先我们提供一个算法的公共接口<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Strategy</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">AlgorithmInterface</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+<li>2再分别去创建我们这些算法的具体类, 这些算法类继承自算法的基本类<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class ConcreteStrategyA : Strategy&#123;</div><div class="line">	public ovverride void AlgorithmInterface()&#123;</div><div class="line">		Console.WriteLine("算法A实现");</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class ConcreteStrategyB : Strategy&#123;</div><div class="line">	public ovverride void AlgorithmInterface()&#123;</div><div class="line">		Console.WriteLine("算法B实现");</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class ConcreteStrategyC : Strategy&#123;</div><div class="line">	public ovverride void AlgorithmInterface()&#123;</div><div class="line">		Console.WriteLine("算法C实现");</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+<li>3.我们再要去创建一个算法管理类, 来维护一个队Strategy对象的引用<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span></span>&#123;</div><div class="line">	Strategy strategy;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Context</span><span class="params">(Strategy strategy)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.strategy = strategy;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ContextInterface</span><span class="params">()</span></span>&#123;</div><div class="line">		strategy.AlgorithmInterface();</div><div class="line">	&#125;</div><div class="line">&#125;	</div></pre></td></tr></table></figure></li>
+<li>4.关于这个策略模式,我们客户端代码如何去使用啦？<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Context context;</div><div class="line">context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStrategyA());</div><div class="line"><span class="comment">//使用的算法A</span></div><div class="line">context.ContextInterface();</div><div class="line"></div><div class="line">context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStrategyB());</div><div class="line"><span class="comment">//使用的算法B</span></div><div class="line">context.ContextInterface();</div><div class="line"></div><div class="line">context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStrategyC());</div><div class="line"><span class="comment">//使用的算法C</span></div><div class="line">context.ContextInterface();</div><div class="line"></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><hr><br>下面我们用objective-c采用策略模式结合简单工厂模式来实现《大话设计模式》中的商场收银软件, 实现商场打折, 和满300返100的活动算法</p>
+<ul>
+<li>1.创建我们的活动规则基类<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//不需要去实现acceptCash的具体内容, 让子类来实现</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CashSuper</span> : <span class="title">NSObject</span></span></div><div class="line">- (<span class="keyword">double</span>)acceptCash:(<span class="keyword">double</span>)money;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></li>
+<li>2.创建商场活动规则的具体类, 继承自活动规则基类<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//正常收费</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CashNormal</span> : <span class="title">CashSuper</span></span></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CashNormal</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">double</span>)acceptCash:(<span class="keyword">double</span>)money&#123;</div><div class="line">    <span class="keyword">return</span> money;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//打折收费子类</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CashRebate</span> : <span class="title">CashSuper</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>) <span class="keyword">double</span> moneyRebate;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CashRebate</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">double</span>)acceptCash:(<span class="keyword">double</span>)money&#123;</div><div class="line">    <span class="keyword">return</span> money * _moneyRebate;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返利收费子类</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CashReturn</span> : <span class="title">CashSuper</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>) <span class="keyword">double</span> moneyCondition;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>) <span class="keyword">double</span> moneyReturn;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CashReturn</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">double</span>)acceptCash:(<span class="keyword">double</span>)money&#123;</div><div class="line">    <span class="keyword">if</span>(money &gt;= _moneyCondition)&#123;</div><div class="line">        <span class="keyword">return</span> money - floor(money / _moneyCondition) * _moneyReturn;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> money;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></li>
+<li>3.创建我们的策略模式管理类<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//策略模式</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CashContext</span> : <span class="title">NSObject</span></span></div><div class="line">&#123;</div><div class="line">    CashSuper* _cash;</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">instancetype</span>)initWithType:(<span class="built_in">NSString</span>*)type;</div><div class="line">- (<span class="keyword">double</span>)getResult:(<span class="keyword">double</span>)money;</div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CashContext</span></span></div><div class="line"></div><div class="line"><span class="comment">//注意：在基本的策略模式中, 选择所用具体实现的职责由客户端对象承担, 并转给策略模式的context对象, 也就是说本来由客户端决定的采用何种算法判断,通过简单工厂模式, 转移到了策略模式内部, 这最大化地减轻了客户端的职责。</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithType:(<span class="built_in">NSString</span>*)type&#123;</div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">self</span>)&#123;</div><div class="line">        <span class="keyword">if</span>([type isEqualToString:<span class="string">@"正常收费"</span>])&#123;</div><div class="line">            _cash = [[CashNormal alloc] init];</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>([type isEqualToString:<span class="string">@"满300返100"</span>])&#123;</div><div class="line">            _cash = [[CashReturn alloc] init];</div><div class="line">            ((CashReturn*)_cash).moneyReturn = <span class="number">100</span>;</div><div class="line">            ((CashReturn*)_cash).moneyCondition = <span class="number">300</span>;</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>([type isEqualToString:<span class="string">@"打8折"</span>])&#123;</div><div class="line">            _cash = [[CashRebate alloc] init];</div><div class="line">            ((CashRebate*)_cash).moneyRebate = <span class="number">0.8</span>f;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">double</span>)getResult:(<span class="keyword">double</span>)money&#123;</div><div class="line">    <span class="keyword">return</span> [_cash acceptCash:money];</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></li>
+<li>4.客户端如何使用<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CashContext* context = [[CashContext alloc] initWithType:<span class="string">@"打8折"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%lf"</span>,[context getResult:<span class="number">100.0</span>f]);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/设计模式/">设计模式</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/策略模式/">策略模式</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
+</div>
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+  
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
+  
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/10/29/design-mode-Strategy/" data-title="策略模式" data-url="http://yoursite.com/2016/10/29/design-mode-Strategy/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
+      <aside id="sidebar" class="alignright">
+   <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
+    <input type="hidden" name="wd" value="site:yoursite.com"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
+  </form>
+</div> 
+
+  
+<div class="widget tag">
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+</div>
+ 
+
+
+  <div class="widget tag">
+  <h3 class="title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+
+  
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a>
+  </div>
+</div>
+
+
+  
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+</aside>
+      <div class="clearfix"></div>
+    </div>
+  
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2016 Tian Shanshan
+    
+  </div>
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  
+  <div class="visit">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </div>
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('zh-CN',{single:undefined, root:'calendar'});
+    
+    });
+  </script>
+
+
+<!-- 『不蒜子』计数服务 -->
+<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- wumii关联推荐 -->
+<script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
+
+<!-- 百度推荐 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div>
+
+<!-- 站内搜索-Swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','sC-iNFrvTTNtiXEVNwo1','2.0.0');
+</script>
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
