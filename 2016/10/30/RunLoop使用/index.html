@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | ShanGe 的 Coding 漫漫路</title>
+  <title>OS X/iOS中的RunLoop机制与使用 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
   
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+  <meta name="description" content="RunLoop, 一个多么重要的概念！很多系统, 很多框架其实都有RunLoop的概念, 只是叫法不一样, 通常被称作 Event Loop。它的关键点在于：如何管理事件/消息, 如何让线程在没有处理消息时休眠以避免资源占用, 在有消息到来时会立刻被唤醒!">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Hello World"/>
+  <meta property="og:title" content="OS X/iOS中的RunLoop机制与使用"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -83,10 +83,10 @@
     <header>
         <div class="icon"></div>
         
-        <time datetime="2016-10-26T10:27:27.000Z"><a href="/2016/10/26/hello-world/">2016-10-26</a></time>
+        <time datetime="2016-10-30T10:51:31.000Z"><a href="/2016/10/30/RunLoop使用/">2016-10-30</a></time>
         
   
-    <h1 class="title">Hello World</h1>
+    <h1 class="title">OS X/iOS中的RunLoop机制与使用</h1>
   
 
     </header>
@@ -95,25 +95,37 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#为什么会有RunLoop"><span class="toc-text">为什么会有RunLoop</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#OSX-iOS中的线程"><span class="toc-text">OSX/iOS中的线程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CFRunLoopRef与NSRunLoop创建"><span class="toc-text">CFRunLoopRef与NSRunLoop创建</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#RunLoop对外的接口"><span class="toc-text">RunLoop对外的接口</span></a></li></ol>
     </div>
 
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>RunLoop, 一个多么重要的概念！很多系统, 很多框架其实都有RunLoop的概念, 只是叫法不一样, 通常被称作 Event Loop。它的关键点在于：如何管理事件/消息, 如何让线程在没有处理消息时休眠以避免资源占用, 在有消息到来时会立刻被唤醒!<br><a id="more"></a></p>
+<h5 id="为什么会有RunLoop"><a href="#为什么会有RunLoop" class="headerlink" title="为什么会有RunLoop"></a>为什么会有RunLoop</h5><p>我们都知道一个线程一次只能执行一个任务, 任务一旦执行完成, 线程就要退出。我们需要一个机制,就是让线程能随时处理事件,让线程不要退出。RunLoop就是用来做这件事情的！<br>那RunLoop的逻辑代码可能就如下边所示:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loop</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	initialize();</div><div class="line">	<span class="keyword">do</span>&#123;</div><div class="line">		<span class="keyword">var</span> message = get_next_message();</div><div class="line">		process_message(message);</div><div class="line">	&#125;<span class="keyword">while</span>(message != quit);</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>RunLoop实际上就是一个对象, 这个对象管理了其需要处理的事件和消息, 并提供了一个入口函数来执行上面EventLoop的逻辑。线程执行了这个函数后, 就会一直处于这个函数内部“接受消息-&gt;等待-&gt;处理”的循环中,直到这个循环被某种原因结束掉！</p>
+<p><hr></p>
+<h5 id="OSX-iOS中的线程"><a href="#OSX-iOS中的线程" class="headerlink" title="OSX/iOS中的线程"></a>OSX/iOS中的线程</h5><p>有两个线程对象：pthread_t 和 NSThread, 可以肯定的是pthread_t和NSThread是一一对应的。<br>获取主线程：pthread_main_np(), [NSThread mainThread];<br>获取当前线程：pthread_self(), [NSThread currentThread];</p>
+<p><hr></p>
+<h5 id="CFRunLoopRef与NSRunLoop创建"><a href="#CFRunLoopRef与NSRunLoop创建" class="headerlink" title="CFRunLoopRef与NSRunLoop创建"></a>CFRunLoopRef与NSRunLoop创建</h5><p>苹果是不允许直接创建RunLoop的, 苹果只提供了两个自动获取的函数：CFRunLoopGetMain()和CFRunLoopGetCurrent();</p>
+<ul>
+<li>1.下面我们来看看上边两个函数内部的逻辑<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//全局的Dictionary,key是pthread_t, value是CFRunLoopRef,这个字典就是用来保存整个应用程序中的线程和该线程对应的RunLoop的！</span></div><div class="line"><span class="keyword">static</span> CFMutableDictionaryRef loopsDic;</div><div class="line"><span class="comment">//访问loopsDic时的线程锁</span></div><div class="line"><span class="keyword">static</span> CFSpinLock_t loopsLock;</div><div class="line"><span class="comment">//获取一个pthread对应的RunLoop</span></div><div class="line">CFRunLoopRef _CFRunLoopGet(<span class="keyword">pthread_t</span> thread)&#123;</div><div class="line">	OSSpinLockLock(&amp;loopsLock);</div><div class="line">	<span class="keyword">if</span>(!loopsDic)&#123;</div><div class="line">		<span class="comment">//如果loopsDic为空,说明主线程还没有创建RunLoop,那么必须去创建一个</span></div><div class="line">		loopsDic = CFDictionaryCreateMutable();</div><div class="line">		CFRunLoopRef mainLoop = _CFRunLoopCreate();</div><div class="line">		CFDictionarySetValue(loopsDic, pthread_main_thread_np(), mainLoop);</div><div class="line">	&#125;</div><div class="line">	CFRunLoopRef loop = CFDictionaryGetValue(loopsDic, thread);</div><div class="line">	<span class="keyword">if</span>(!loop)&#123;</div><div class="line">		<span class="comment">//取不到的时候,就创建一个</span></div><div class="line">		loop = _CFRunLoopCreate();</div><div class="line">		CFDictionarySetValue(loopsDic, thread, loop);</div><div class="line">		<span class="comment">//注册一个回调, 当线程销毁时, 顺便也销毁其对应的RunLoop</span></div><div class="line">		_CFSetTSD(..., thread, loop, __CFFinalizeRunLoop);</div><div class="line">	&#125;</div><div class="line">	OSSpinLockUnLock(&amp;loopsLock);</div><div class="line">	<span class="keyword">return</span> loop;</div><div class="line">&#125;</div><div class="line"><span class="function">CFRunLoopRef <span class="title">CFRunLoopGetMain</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> __CFRunLoopGet(pthread_main_thread_np());</div><div class="line">&#125;</div><div class="line"><span class="function">CFRunLoopRef <span class="title">CFRunLoopGetCurrent</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> _CFRunLoopGet(pthread_self());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+从上边的代码就可以看以下几点：<br><ul><br>  <li>1.线程与RunLoop是一一对应的,一个线程拥有一个RunLoop</li><br>  <li>2.应用中的每个线程与RunLoop保存在全局的一个Dictionary对象中</li><br>  <li>3.线程刚创建的时候并没有RunLoop(主线程除外), 如果你不主动获取线程的RunLoop, 那么这个线程的RunLoop就一直不会创建.</li><br>  <li>4.RunLoop的创建是发生在<strong style="color:red;">第一次获取</strong>时, RunLoop的销毁是发生在线程结束时。</li><br></ul><br><hr><h5 id="RunLoop对外的接口"><a href="#RunLoop对外的接口" class="headerlink" title="RunLoop对外的接口"></a>RunLoop对外的接口</h5>在CoreFoundation里边关于RunLoop有五个类:<br><ul><br>  <li>CFRunLoopRef</li><br>  <li>CFRunLoopModeRef</li><br>  <li>CFRunLoopSourceRef</li><br>  <li>CFRunLoopTimerRef</li><br>  <li>CFRunLoopObserverRef</li><br></ul><br>以上几个类的关系图:<br><div><img src="../images/RunLoop内部类图.png"></div><br>下面我们一一来了解后四个类: </li>
+<li>1.CFRunLoopModeRef</li>
+<li></li>
+</ul>
 
       
     </div>
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/Runloop/">Runloop</a>
+  </div>
+
         
+  <div class="tags">
+    <a href="/tags/objective-c/">objective-c</a>, <a href="/tags/Runloop/">Runloop</a>
+  </div>
+
         <div class = "counter">
   <span id="busuanzi_container_page_pv" style="display:none">
       总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
@@ -143,7 +155,7 @@
     
     
         <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key="2016/10/26/hello-world/" data-title="Hello World" data-url="http://yoursite.com/2016/10/26/hello-world/"></div>
+        <div class="ds-thread" data-thread-key="2016/10/30/RunLoop使用/" data-title="OS X/iOS中的RunLoop机制与使用" data-url="http://yoursite.com/2016/10/30/RunLoop使用/"></div>
         <!-- 多说评论框 end -->
         <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
         <script type="text/javascript">
