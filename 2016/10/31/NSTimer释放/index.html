@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NSTimer释放 | ShanGe 的 Coding 漫漫路</title>
+  <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="前段时间在开发ios的一个项目中, 遇到一个问题, 如果不释放NSTimer, 则NSTimer所属的那个视图控制器则不能够得到释放, 从而引起内存泄漏! 然后我就会寻找适当的时机, 来释放掉NSTimer, 但是当时并不太清楚为什么NSTimer不释放, 所属的类就得不到释放? 后来翻阅资料才明白, 是因为NSTimer强引用了所在的类！ 如果不先释放NSTimer, NSTimer所属的类就得不到释放！">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="NSTimer释放"/>
+  <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="ShanGe 的 Coding 漫漫路" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">ShanGe 的 Coding 漫漫路</a></h1>
+		    <h2><a href="/">要做的只是静下心来,大步向前,然后泰然的接受一切,冷静的处理一切！</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/categories/collection"><i class="fa fa-pencil"></i>文集</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		    		  <a href="/me"><i class="fa fa-user"></i>关于我</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
+		    
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+  
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-10-31T13:54:41.000Z"><a href="/2016/10/31/NSTimer释放/">2016-10-31</a></time>
+        
+  
+    <h1 class="title">NSTimer释放</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#NSTimer在哪里强引用了所属的类？"><span class="toc-text">NSTimer在哪里强引用了所属的类？</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#解决NSTimer的强引用问题"><span class="toc-text">解决NSTimer的强引用问题</span></a></li></ol></li></ol>
+    </div>
+
+        <p>前段时间在开发ios的一个项目中, 遇到一个问题, 如果不释放NSTimer, 则NSTimer所属的那个视图控制器则不能够得到释放, 从而引起内存泄漏! 然后我就会寻找适当的时机, 来释放掉NSTimer, 但是当时并不太清楚为什么NSTimer不释放, 所属的类就得不到释放? 后来翻阅资料才明白, 是因为NSTimer强引用了所在的类！ 如果不先释放NSTimer, NSTimer所属的类就得不到释放！<br><a id="more"></a></p>
+<h5 id="NSTimer在哪里强引用了所属的类？"><a href="#NSTimer在哪里强引用了所属的类？" class="headerlink" title="NSTimer在哪里强引用了所属的类？"></a>NSTimer在哪里强引用了所属的类？</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:interval target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(fire:) userInfo:userInfo repeats:repeats];</div></pre></td></tr></table></figure>
+<p>这里 target:self 是NSTimer产生对self强引用的原因所在. NSTimer内部对target这个元素进行了retain, 所以, 如果self中不释放NSTimer, 那么self是不能被释放的. 所以我们必须要在释放self之前, 释放掉NSTimer。</p>
+<h6 id="解决NSTimer的强引用问题"><a href="#解决NSTimer的强引用问题" class="headerlink" title="解决NSTimer的强引用问题"></a>解决NSTimer的强引用问题</h6><p>知道原因的所在后, 我们就可以得到一种解决办法,那就是—-不让NSTimer对Target强引用！具体如何做啦？我们来看看下边的代码(参考至github)<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">HWWeakTimerTarget</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span> target;<span class="comment">//这里是弱引用, 自动引用计数不会加1</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) SEL selector;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">NSTimer</span>* timer;<span class="comment">//这里也是弱引用, 自动引用计数不会加1</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">HWWeakTimerTarget</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>) fire:(<span class="built_in">NSTimer</span> *)timer &#123;</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">self</span>.target) &#123;</div><div class="line">        [<span class="keyword">self</span>.target performSelector:<span class="keyword">self</span>.selector withObject:timer.userInfo afterDelay:<span class="number">0.0</span>f];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [<span class="keyword">self</span>.timer invalidate];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^HWTimerHandler)(<span class="keyword">id</span> userInfo);</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">HWWeakTimer</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">+ (<span class="built_in">NSTimer</span> *) scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)interval</div><div class="line">                                      target:(<span class="keyword">id</span>)aTarget</div><div class="line">                                    selector:(SEL)aSelector</div><div class="line">                                    userInfo:(<span class="keyword">id</span>)userInfo</div><div class="line">                                     repeats:(<span class="built_in">BOOL</span>)repeats;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSTimer</span> *)scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)interval</div><div class="line">                                      block:(HWTimerHandler)block</div><div class="line">                                   userInfo:(<span class="keyword">id</span>)userInfo</div><div class="line">                                    repeats:(<span class="built_in">BOOL</span>)repeats;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">HWWeakTimer</span></span></div><div class="line"></div><div class="line">+ (<span class="built_in">NSTimer</span> *) scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)interval</div><div class="line">                                      target:(<span class="keyword">id</span>)aTarget</div><div class="line">                                    selector:(SEL)aSelector</div><div class="line">                                    userInfo:(<span class="keyword">id</span>)userInfo</div><div class="line">                                     repeats:(<span class="built_in">BOOL</span>)repeats &#123;</div><div class="line">    HWWeakTimerTarget* timerTarget = [[HWWeakTimerTarget alloc] init];</div><div class="line">    timerTarget.target = aTarget;</div><div class="line">    timerTarget.selector = aSelector;</div><div class="line">    timerTarget.timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:interval</div><div class="line">                                                         target:timerTarget</div><div class="line">                                                       selector:<span class="keyword">@selector</span>(fire:)</div><div class="line">                                                       userInfo:userInfo</div><div class="line">                                                        repeats:repeats];</div><div class="line">    <span class="keyword">return</span> timerTarget.timer;</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSTimer</span> *)scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)interval</div><div class="line">                                      block:(HWTimerHandler)block</div><div class="line">                                   userInfo:(<span class="keyword">id</span>)userInfo</div><div class="line">                                    repeats:(<span class="built_in">BOOL</span>)repeats &#123;</div><div class="line">    <span class="built_in">NSMutableArray</span> *userInfoArray = [<span class="built_in">NSMutableArray</span> arrayWithObject:[block <span class="keyword">copy</span>]];</div><div class="line">    <span class="keyword">if</span> (userInfo != <span class="literal">nil</span>) &#123;</div><div class="line">        [userInfoArray addObject:userInfo];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> scheduledTimerWithTimeInterval:interval</div><div class="line">                                         target:<span class="keyword">self</span></div><div class="line">                                       selector:<span class="keyword">@selector</span>(_timerBlockInvoke:)</div><div class="line">                                       userInfo:[userInfoArray <span class="keyword">copy</span>]</div><div class="line">                                        repeats:repeats];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)_timerBlockInvoke:(<span class="built_in">NSArray</span>*)userInfo &#123;</div><div class="line">    HWTimerHandler block = userInfo[<span class="number">0</span>];</div><div class="line">    <span class="keyword">id</span> info = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">if</span> (userInfo.count == <span class="number">2</span>) &#123;</div><div class="line">        info = userInfo[<span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// or `!block ?: block();` @sunnyxx</span></div><div class="line">    <span class="keyword">if</span> (block) &#123;</div><div class="line">        block(info);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>使用方法:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">_timer = [HWWeakTimer scheduledTimerWithTimeInterval:<span class="number">3.0</span>f block:^(<span class="keyword">id</span> userInfo) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, userInfo);</div><div class="line">    &#125; userInfo:<span class="string">@"Fire"</span> repeats:<span class="literal">YES</span>];</div></pre></td></tr></table></figure><br>这样做 NSTimer 的所属类就不会被NSTimer强引用, 那么所属类就不会因为NSTimer的没释放而不释放了, 但是还有很重要的一点就是在释放所属类的时候必须要去释放NSTimer, 所以我们要在所属类的dealloc方法里边去调用 [_timer invalidate];_timer = nil; 来释放NSTimer;</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/NSTimer/">NSTimer</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/objective-c/">objective-c</a>, <a href="/tags/NSTimer/">NSTimer</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
+</div>
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+  
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
+  
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/10/31/NSTimer释放/" data-title="NSTimer释放" data-url="http://yoursite.com/2016/10/31/NSTimer释放/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
+      <aside id="sidebar" class="alignright">
+   <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
+    <input type="hidden" name="wd" value="site:yoursite.com"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
+  </form>
+</div> 
+
+  
+<div class="widget tag">
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+</div>
+ 
+
+
+  <div class="widget tag">
+  <h3 class="title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+
+  
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a>
+  </div>
+</div>
+
+
+  
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+  </div>
+
+</aside>
+      <div class="clearfix"></div>
+    </div>
+  
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2016 Tian Shanshan
+    
+  </div>
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  
+  <div class="visit">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </div>
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('zh-CN',{single:undefined, root:'calendar'});
+    
+    });
+  </script>
+
+
+<!-- 『不蒜子』计数服务 -->
+<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- wumii关联推荐 -->
+<script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
+
+<!-- 百度推荐 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div>
+
+<!-- 站内搜索-Swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','sC-iNFrvTTNtiXEVNwo1','2.0.0');
+</script>
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
