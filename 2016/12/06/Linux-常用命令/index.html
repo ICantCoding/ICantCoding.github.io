@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>NSTimer | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux 文件目录操作常用命令 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="Linux 常用命令！那是必须掌握的技能呀！不多说！一起来看看吧！">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux 文件目录操作常用命令"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +77,97 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-12-06T12:49:10.000Z"><a href="/2016/12/06/Linux-常用命令/">2016-12-06</a></time>
+        
+  
+    <h1 class="title">Linux 文件目录操作常用命令</h1>
+  
 
-<h2 class="archive-title fa-tag">NSTimer</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-10-31T13:54:41.000Z"><a href="/2016/10/31/NSTimer释放/">2016-10-31</a></time>
-          
-            <h1 class="title"><a href="/2016/10/31/NSTimer释放/">NSTimer释放</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/objective-c/">objective-c</a>, <a href="/tags/NSTimer/">NSTimer</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        <p>Linux 常用命令！那是必须掌握的技能呀！不多说！一起来看看吧！<br><a id="more"></a></p>
+<ul><br>    <li><br>        1. <strong style="color:red;">ls -ladih /etc</strong><br> 选项 d 用于显示目录本身的信息,而不显示目录下文件的信息！<br>选项 i 用于查看文件的inode节点, 在linux下, 系统是根据inode节点(有点想文件的索引号)来查找文件的！<br>选项 h 表示文件显示信息人性化, 结合选项l使用可以查看文件的具体大小！<br><br>    </li><br>    <li><br>        2. <strong style="color:red;">mkdir -p /tmp/mulu0</strong><br>选项 p 用于递归创建目录, 即在不存在的目录下, 创建子目录.<br><br>        <strong style="color:red;">mkdir /tmp/mulu1 /tmp/mulu2</strong><br>支持同时创建多个目录.<br>    </li><br>    <li><br>        3. <strong style="color:red;">pwd</strong><br>显示当前工作目录的绝对路径, pwd全拼 print working directory.<br>    </li><br>    <li><br>        4. <strong style="color:red;">rmdir /tmp/mulu0</strong><br><br>        删除空目录, 注意, 用于删除空目录！不能删除非空的目录！<br>    </li><br>    <li><br>        5. <strong style="color:red;">cp -rp [原目录/文件] [目标目录]</strong><br><br>        选项 r 用于复制目录<br><br>        选项 p 用户保持文件的属性<br><br>        <strong style="color:red;">cp /root/install.log /root/install.log.syslog /tmp</strong><br><br>        可以复制多个文件到一个目录下<br><br>        <strong style="color:red;">cp -r /tmp/mulu1 /root/mulu11</strong><br><br>        复制文件目录的同时支持改名!<br>    </li><br>    <li><br>        6. <strong style="color:red;">mv [原目录/文件] [目标目录]</strong><br><br>        剪切和改名<br><br>        <strong style="color:red;">mv /tmp/mulu1 /root</strong><br>剪切<br><br>        <strong style="color:red;">mv /tmp/mulu1 /tmp/mulu11</strong><br>改名<br><br>    </li><br>    <li><br>        7. <strong style="color:red;">rm -rf [文件或目录]</strong><br><br>        选项 -r 删除目录<br><br>        选项 -f 强制执行删除, 不会问你要不要确定删除！！<br><br>    </li><br>    <li><br>        8. <strong style="color:red;">touch filename.txt</strong><br><br>        创建一个文件<br><br>        <strong style="color:red;">touch program files</strong><br><br>        创建了两个文件, 分别是 program 和 files<br><br>        <strong style="color:red;">touch “program files”</strong><br><br>        创建了一个文件, 叫 program files<br>    </li><br>    <li><br>        9. <strong style="color:red;">cat -n /etc/issue</strong><br><br>         查看文件内容, 选项 -n 显示行号!<br>    </li><br>    <li><br>        10. <strong style="color:red;">tac /etc/issue</strong><br><br>        倒着查看文件内容.<br>    </li><br>    <li><br>        11. <strong style="color:red;">more /etc/issue</strong><br>分页显示文件内容, 进入more页面后 空格或f翻页, Enter换行, q或Q退出, 奇葩之后向后翻页<br>    </li><br>    <li><br>        12. <strong style="color:red;">less /etc/issue</strong><br> 跟more差不多, 而且支持向上翻页, 也支持搜索, /xxx<br>    </li><br>    <li><br>        13. <strong style="color:red;">head -n 7 /etc/services</strong><br><br>        显示文件的前7行<br>    </li><br>    <li><br>        14. <strong style="color:red;">tail -n 3 /etc/services</strong><br><br>        查看文件的最后3行<br><br>        <strong style="color:red;">tail -f /var/log/messages</strong><br><br>        动态显示文件末尾内容！动态实时变化！<br>    </li><br>    <li><br>        15. <strong style="color:red;">ln -s [原文件] [目标文件]</strong><br><br>        生成链接文件<br><br>        <strong style="color:red;">ln -s /etc/issue /tmp/issue.soft</strong><br><br>        创建文件/etc/issue的软链接/tmp/issue.soft<br><br>        <strong style="color:red;">ln /etc/issue /tmp/issue.hard</strong><br><br>        创建文件/etc/issue的硬链接/tmp/issue.hard, 感觉跟cp -p一样的效果, 但是必须指出,硬连接的这两个文件会同步更新！硬链接之所以能同步更新, 是因为硬链接的这两个文件具有相同的inode节点。对其中一个文件的修改， 系统会根据inode节点来映射到两个文件.注意硬链接不能跨分区，而软链接可以跨分区, 硬链接不能针对目录使用，而软链接可以。<br>    </li><br></ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Linux/">Linux</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/Linux-常用命令/">Linux 常用命令</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/12/06/Linux-常用命令/" data-title="Linux 文件目录操作常用命令" data-url="http://yoursite.com/2016/12/06/Linux-常用命令/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
