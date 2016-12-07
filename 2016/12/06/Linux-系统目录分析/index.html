@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ios开发技巧-宏定义篇 | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux-系统目录分析 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
   
-  <meta name="description" content="做着自己的项目, 写着自己的代码！永远是一只井底之蛙！要去学习别人的长处, 优点, 思想！才能够进步得更快！">
+  <meta name="description" content="今天来了解记录下, Linux系统各目录的作用">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="ios开发技巧-宏定义篇"/>
+  <meta property="og:title" content="Linux-系统目录分析"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -83,10 +83,10 @@
     <header>
         <div class="icon"></div>
         
-        <time datetime="2016-11-12T12:38:08.000Z"><a href="/2016/11/12/ios开发技巧-宏定义篇/">2016-11-12</a></time>
+        <time datetime="2016-12-06T14:48:49.000Z"><a href="/2016/12/06/Linux-系统目录分析/">2016-12-06</a></time>
         
   
-    <h1 class="title">ios开发技巧-宏定义篇</h1>
+    <h1 class="title">Linux-系统目录分析</h1>
   
 
     </header>
@@ -95,17 +95,41 @@
       
         
     <div id="toc">
-        
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#存放二进制命令的目录"><span class="toc-text">存放二进制命令的目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设备保存文件目录"><span class="toc-text">设备保存文件目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#配置文件保存位置目录"><span class="toc-text">配置文件保存位置目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#用户家目录-属主目录"><span class="toc-text">用户家目录(属主目录)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#系统函数库保存位置"><span class="toc-text">系统函数库保存位置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lost-found目录"><span class="toc-text">lost+found目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#挂载目录"><span class="toc-text">挂载目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#第三方安装软件保存的目录"><span class="toc-text">第三方安装软件保存的目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#虚拟文件系统"><span class="toc-text">虚拟文件系统</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#超级用户家目录"><span class="toc-text">超级用户家目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#服务数据目录"><span class="toc-text">服务数据目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#临时目录"><span class="toc-text">临时目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#系统软件资源目录"><span class="toc-text">系统软件资源目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#动态数据保存位置"><span class="toc-text">动态数据保存位置</span></a></li></ol>
     </div>
 
-        <p>做着自己的项目, 写着自己的代码！永远是一只井底之蛙！要去学习别人的长处, 优点, 思想！才能够进步得更快！<br><a id="more"></a></p>
-<ol>
-<li><p>在项目开发过程中, 我们最好把项目可能用到的全局的一些数据信息(比如,App主题色,App字体大小等等)全局信息都用#define预先定义好！</p>
-</li>
-<li><p>宏定义拼接字符串</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Server_Images就表示字符串@"https://www.baidu.com/images"</span></div><div class="line"><span class="meta">#define Server_App @<span class="meta-string">"https://www.baidu.com"</span></span></div><div class="line"><span class="meta">#define Server_Images Server_App@<span class="meta-string">"/images"</span></span></div></pre></td></tr></table></figure>
-</li>
-</ol>
+        <p>今天来了解记录下, Linux系统各目录的作用<br><a id="more"></a></p>
+<h5 id="存放二进制命令的目录"><a href="#存放二进制命令的目录" class="headerlink" title="存放二进制命令的目录"></a>存放二进制命令的目录</h5><p>命令在linux里边都是可执行的二进制文件.命令通常保存在下边四个目录中, 我们分别来看看.</p>
+<p><strong style="color:red;">/bin/</strong> : 存放系统命令的目录, 普通用户和超级用户都可以执行。</p><br><p><strong style="color:red;">/sbin/</strong> : 保存和系统环境设置相关的命令, bin前边的s表示super, 表明只有超级用户可以使用这些命令进行系统环境设置。</p><br><p><strong style="color:red;">/usr/bin/</strong> : 注意呀!这里的usr不是user的意思, 在这个目录下, 存放系统命令, 普通用户和超级用户都可以执行(因为bin前面没有s嘛), 这些命令和系统启动无关, 在单用户模式下不能执行!</p><br><p><strong style="color:red;">/usr/sbin/</strong> : 存放根文件系统不必要的系统管理命令.</p><br>##### 系统启动分区（目录）<br><p><strong style="color:red;">/boot/</strong> : 系统启动目录, 保存系统启动相关的文件, 如内核文件和启动引导程序(grub)文件等</p>
+
+<h5 id="设备保存文件目录"><a href="#设备保存文件目录" class="headerlink" title="设备保存文件目录"></a>设备保存文件目录</h5><p><strong style="color:red;">/dev/</strong> : 设备文件保存位置, linux中所有内容都以文件形式保存, 包括硬件（硬盘,软盘,U盘,网卡…等）.那么这个目录就是用来保存所有硬件设备文件的.</p>
+
+<h5 id="配置文件保存位置目录"><a href="#配置文件保存位置目录" class="headerlink" title="配置文件保存位置目录"></a>配置文件保存位置目录</h5><p><strong style="color:red;">/etc/</strong> : 配置文件保存位置, 系统内所有采用默认安装方式(rpm安装)的服务的配置文件全部都保存在这个目录当中.</p>
+
+<h5 id="用户家目录-属主目录"><a href="#用户家目录-属主目录" class="headerlink" title="用户家目录(属主目录)"></a>用户家目录(属主目录)</h5><p><strong style="color:red;">/home/</strong> : home目录下有不同用户的自己家的目录.</p>
+
+<h5 id="系统函数库保存位置"><a href="#系统函数库保存位置" class="headerlink" title="系统函数库保存位置"></a>系统函数库保存位置</h5><p><strong style="color:red;">/lib/</strong></p>
+
+<h5 id="lost-found目录"><a href="#lost-found目录" class="headerlink" title="lost+found目录"></a>lost+found目录</h5><p><strong style="color:red;">/lost+found/</strong> : 当系统意外崩溃或机器意外关机, 而产生一些文件碎片放在这里. 当系统启动的过程中fsck工具会检查这个目录, 并修复已经损坏的文件系统. 这个目录只在分区中出现, 比如/boot/lost+found/</p>
+
+<h5 id="挂载目录"><a href="#挂载目录" class="headerlink" title="挂载目录"></a>挂载目录</h5><p><strong style="color:red;">/media/</strong> : 挂载目录. 系统建议使用来挂载媒体设备的(软盘, 光盘).</p><br><p><strong style="color:red;">/mnt/</strong> : 挂载目录. 这个目录系统建议挂载额外设备, 如U盘, 移动硬盘和其他操作系统的分区.</p><br><p><strong style="color:red;">/misc/</strong> : 挂载目录. 系统建议用来挂载NFS服务的共享目录.</p>
+
+<h5 id="第三方安装软件保存的目录"><a href="#第三方安装软件保存的目录" class="headerlink" title="第三方安装软件保存的目录"></a>第三方安装软件保存的目录</h5><p><strong style="color:red;">/opt/</strong> : 第三方安装的软件保存位置. 不过现如今, 大家都喜欢把软件放置到/usr/local/目录下.</p><br><p><strong style="color:red;">/usr/local/</strong> : 作用同/opt/目录</p>
+
+<h5 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h5><p><strong style="color:red;">/proc/</strong> : 虚拟文件系统, 该目录中的数据并不保存到硬盘当中, 而是保存到内存当中. 主要保存系统的内核, 进程, 外部设备状态和网络状态灯. 如/proc/cpuinfo就是保存cpu信息的等等…</p><br><p><strong style="color:red;">/sys/</strong> : 虚拟文件系统, 同/proc/都是保存在内存中的. 主要是保存于内核相关信息的.</p>
+
+<h5 id="超级用户家目录"><a href="#超级用户家目录" class="headerlink" title="超级用户家目录"></a>超级用户家目录</h5><p><strong style="color:red;">/root/</strong> : 超级用户的家目录.</p>
+
+<h5 id="服务数据目录"><a href="#服务数据目录" class="headerlink" title="服务数据目录"></a>服务数据目录</h5><p><strong style="color:red;">/srv/</strong> : 一些系统服务启动之后, 可以在这个目录中保存所需要的数据.</p>
+
+<h5 id="临时目录"><a href="#临时目录" class="headerlink" title="临时目录"></a>临时目录</h5><p><strong style="color:red;">/tmp/</strong> : 临时目录, 系统存放临时文件的目录, 该目录下所有用户都可以访问和写入. 每次开机最好都把该目录清空, 不要在该目录下保存重要的数据.</p>
+
+<h5 id="系统软件资源目录"><a href="#系统软件资源目录" class="headerlink" title="系统软件资源目录"></a>系统软件资源目录</h5><p><strong style="color:red;">/usr/</strong> : Unix Software Resource, 记住呀, 不是user!! 所以不是存放用户数据, 而是存放系统软件资源的目录.系统安装的软件大多数都保存在这里.</p>
+
+<h5 id="动态数据保存位置"><a href="#动态数据保存位置" class="headerlink" title="动态数据保存位置"></a>动态数据保存位置</h5><p><strong style="color:red;">/var/</strong> : 动态数据保存文件. 主要保存缓存, 日志以及软件运行所产生的文件.</p>
+
+
+
 
       
     </div>
@@ -114,12 +138,12 @@
         
   
   <div class="categories">
-    <a href="/categories/ios项目开发经验/">ios项目开发经验</a>
+    <a href="/categories/Linux/">Linux</a>
   </div>
 
         
   <div class="tags">
-    <a href="/tags/ios/">ios</a>
+    <a href="/tags/Linux目录分析/">Linux目录分析</a>
   </div>
 
         <div class = "counter">
@@ -151,7 +175,7 @@
     
     
         <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key="2016/11/12/ios开发技巧-宏定义篇/" data-title="ios开发技巧-宏定义篇" data-url="http://yoursite.com/2016/11/12/ios开发技巧-宏定义篇/"></div>
+        <div class="ds-thread" data-thread-key="2016/12/06/Linux-系统目录分析/" data-title="Linux-系统目录分析" data-url="http://yoursite.com/2016/12/06/Linux-系统目录分析/"></div>
         <!-- 多说评论框 end -->
         <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
         <script type="text/javascript">
