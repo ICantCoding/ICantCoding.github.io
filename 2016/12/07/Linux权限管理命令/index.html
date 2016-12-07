@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>hexo markdown简单的使用 | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux权限管理命令 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
   
-  <meta name="description" content="能看到这篇文章,说明已经用 github 和 hexo 成功搭建了自己的个人博客, 接下来要面临的问题: 如何才能写出正确格式的文章, 那就有必要学习 hexo Basic Usage 和 markdown !">
+  <meta name="description" content="文件都是具有权限的, 系统管理中, 合理的给用户分配权限是相当重要的话题! 在linux系统中只有两种角色可以更改文件的权限！1.root 2.文件的所有者. 在linux系统中只有一种角色可以更改文件的拥有者! 1.root.下边我们来学习linux下, 如何管理文件权限.">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="hexo markdown简单的使用"/>
+  <meta property="og:title" content="Linux权限管理命令"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -83,10 +83,10 @@
     <header>
         <div class="icon"></div>
         
-        <time datetime="2016-10-27T09:09:45.000Z"><a href="/2016/10/27/hexo markdown简单的使用/">2016-10-27</a></time>
+        <time datetime="2016-12-07T13:54:06.000Z"><a href="/2016/12/07/Linux权限管理命令/">2016-12-07</a></time>
         
   
-    <h1 class="title">hexo markdown简单的使用</h1>
+    <h1 class="title">Linux权限管理命令</h1>
   
 
     </header>
@@ -95,28 +95,14 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">下面来演示 hexo 的 tag plugins 的部分用法(逐渐完善) :</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#权限-r-w-x-的深入理解"><span class="toc-text">权限 r w x 的深入理解</span></a></li></ol>
     </div>
 
-        <p>能看到这篇文章,说明已经用 <strong>github</strong> 和 <strong>hexo</strong> 成功搭建了自己的个人博客, 接下来要面临的问题: 如何才能写出正确格式的文章, 那就有必要学习 <strong>hexo Basic Usage</strong> 和 <strong>markdown</strong> !<br><a id="more"></a></p>
-<p></p><h6 style="font-weight:800">下面来演示 <span style="color:red;">hexo</span> 的 <span style="color:red;">tag plugins</span> 的部分用法(逐渐完善) :</h6><p></p>
-<p><hr></p>
-<ul>
-<li>添加图片,只有图片加载失败才会出现字<br><img src="https://www.zybuluo.com/static/img/logo.png" width="100" height="100" title="good">
-<hr></li>
-<li>添加url链接<br><a href="https://www.baidu.com" target="_blank" rel="external">百度</a>
-<hr></li>
-<li>添加代码(两种方式)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b)</span></span>&#123;</div><div class="line">	<span class="keyword">int</span> temp = *a;</div><div class="line">	*a = *b;</div><div class="line">	*b = temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b)</span></span>&#123;</div><div class="line">	<span class="keyword">int</span> temp = *a;</div><div class="line">	*a = *b;</div><div class="line">	*b = temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
+        <p>文件都是具有权限的, 系统管理中, 合理的给用户分配权限是相当重要的话题! 在linux系统中只有两种角色可以更改文件的权限！1.root 2.文件的所有者. 在linux系统中只有一种角色可以更改文件的拥有者! 1.root.<br>下边我们来学习linux下, 如何管理文件权限.<br><a id="more"></a></p>
+<h5 id="权限-r-w-x-的深入理解"><a href="#权限-r-w-x-的深入理解" class="headerlink" title="权限 r w x 的深入理解"></a>权限 r w x 的深入理解</h5><p>对文件:<br><br>r:查看文件内容<br><br>w:修改文件内容<br><br>x:执行文件（该文件一般是script(脚本), command(命令)）<br><br>对目录:<br><br>r:拥有列出目录中的内容, 比如可以ls<br><br>w:拥有在目录下边,创建(touch), 删除(rm, rmdir)权限<br><br>x:可以进入目录<br><br>注意:删除文件操作, 需要对这个文件所属目录拥有w权限！而不是说对这个文件需要w权限, 对文件的w权限只表示用户只能修改文件内容！</p>
 <hr>
 
-
-
-
-
-
+<ul><br>    <li><br>        1. <strong style="color:red;">chmod</strong><br><br>        全称: change the permissions mode of a file<br><br>        chmod [{ugoa}{+-=}] [文件或目录]<br><br>        chmod [mode=421] [文件或目录]<br><br>        选项 -R 注意大写R, 递归目录, 目录下所有文件权限都修改.<br><br>        <strong style="color:red;">chmod u+x,g+w,o-r list.txt</strong><br><br>        <strong style="color:red;">chmod 777 list.txt</strong><br><br>    </li><br>    <li><br>        2. <strong style="color:red;">chown [用户] [文件或目录]</strong><br><br>        全称: change file ownership, 改变文件或目录的所有者.<br><br>        注意: 更改文件的所有者,只能让root权限来修改！<br>    </li><br>    <li><br>        3. <strong style="color:red;">chgrp [用户组] [文件或目录]</strong><br><br>        全称: change file group ownership. 改变文件或目录的所属组<br><br>        注意: 更改文件的用户组,只能让root权限来修改<br><br>        <strong style="color:red;">chgrp mvgroup list.txt</strong><br><br>    </li><br>    <li><br>        4. <strong style="color:red;">umask</strong><br><br>        全称: the user file-creation mask, 这是一个Shell内置命令. 用于显示, 设置文件的缺省权限.<br><br>        选项 -S 以rwx形式显示新建文件缺省权限.<br><br>        <strong style="color:red;">umask -S</strong> 显示缺省权限 u=rwx,g=rx,o=rx.<br><br>        <strong style="color:red;">umask</strong> 显示权限掩码值 0022, 而文件权限为777-022=755<br><br>        <strong style="color:red;">umask 023</strong> 设置缺省权限 777-023=754<br><br>    </li><br></ul>
 
       
     </div>
@@ -125,12 +111,12 @@
         
   
   <div class="categories">
-    <a href="/categories/hexo/">hexo</a>
+    <a href="/categories/Linux/">Linux</a>
   </div>
 
         
   <div class="tags">
-    <a href="/tags/hexo/">hexo</a>, <a href="/tags/markdown/">markdown</a>
+    <a href="/tags/Linux权限管理命令/">Linux权限管理命令</a>
   </div>
 
         <div class = "counter">
@@ -162,7 +148,7 @@
     
     
         <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key="2016/10/27/hexo markdown简单的使用/" data-title="hexo markdown简单的使用" data-url="http://yoursite.com/2016/10/27/hexo markdown简单的使用/"></div>
+        <div class="ds-thread" data-thread-key="2016/12/07/Linux权限管理命令/" data-title="Linux权限管理命令" data-url="http://yoursite.com/2016/12/07/Linux权限管理命令/"></div>
         <!-- 多说评论框 end -->
         <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
         <script type="text/javascript">
