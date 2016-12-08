@@ -95,34 +95,21 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find的选项"><span class="toc-text">find的选项</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#which"><span class="toc-text">which</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#grep"><span class="toc-text">grep</span></a></li></ol>
     </div>
 
         <p>windows下, 搜索文件我自己感觉很恼火呀！还是Linux下搜索文件方便! 我们可以根据文件名(-name), 文件大小(-size), 文件时间(-amin,-cmin,-mmin), 所属人(-user), 所属组(-group),等等来进行搜索, 我们一起来看看！<br><a id="more"></a></p>
-<h5 id="find"><a href="#find" class="headerlink" title="find"></a>find</h5><p></p><p><strong style="color:red;">find [搜索范围] [匹配条件]</strong></p><p></p>
-<h5 id="find的选项"><a href="#find的选项" class="headerlink" title="find的选项"></a>find的选项</h5><p></p><p><strong style="color:red;">-name</strong></p><p></p>
-<p></p><p>find /etc -name init 搜索/etc目录下名字为init的文件</p><p></p>
-<p></p><p><strong style="color:red;">* 通配符,匹配任意字符,包括0个</strong></p><p></p>
-<p></p><p><strong style="color:red;">? 通配符,匹配一个字符</strong></p><p></p>
-<p></p><p><strong style="color:red;">-iname 让文件名在搜索的时候不区分大小写</strong></p><p></p>
-<p></p><p><strong style="color:red;">-size 根据文件大小来查找文件</strong></p><p></p>
-<p></p><p>+大于, -小于, =等于</p><p></p>
-<p></p><p>find /etc -size +204800      <br>linux下文件大小按块来表示一个块就是0.5K(512Byte字节), 所以100M换算成块,就是100 <em> 1024 </em> 2个数据块</p><p></p>
-<p></p><p><strong style="color:red;">-user 根据文件所有者来查找</strong></p><p></p>
-<p></p><p><strong style="color:red;">-group 根据文件所属组来查找文件</strong></p><p></p>
-<p></p><p><strong style="color:red;">-amin 根据访问时间access来查找</strong></p><p></p>
-<p></p><p><strong style="color:red;">-cmin 根据文件属性修改的时间来查找</strong></p><p></p>
-<p></p><p><strong style="color:red;">-mmin 根据文件内容的修改时间来查找</strong></p><p></p>
-<p></p><p>+5超过5分钟时间, -5少于5分钟, =等于5分钟 </p><p></p>
-<p></p><p><strong style="color:red;">-a 两个条件同时满足</strong></p><p></p>
-<p></p><p>fint /etc -name tss.txt -a -mmin +5    <br>查找tss.txt并且内容修改时间超过5分钟的文件就查找出来</p><p></p>
-<p></p><p><strong style="color:red;">-o 多个条件满足之一</strong></p><p></p>
-<p></p><p><strong style="color:red;">-type 根据文件类型 d(目录), f(文件), l(软连接）</strong></p><p></p>
-<p></p><p><strong style="color:red;">-exec 命令 {} \; 用来对查找出的文件执行后续操作</strong></p><p></p>
-<p></p><p>find /etc -name init -exec ls -l {} \;<br>列出找到文件的属性信息.</p><p></p>
-<p></p><p><strong style="color:red;">-ok 命令 {} \; 跟exec的却别就是执行操作的时候会确认询问</strong></p><p></p>
-<p></p><p><strong style="color:red;">-inum 根据inode(文件的节点, 通过ls -i可以查看)来查找文件, 这种查找方式对硬链接文件很有用.</strong></p><p></p>
-<p></p><p><strong style="color:red;"></strong></p><p></p>
+<h5 id="find"><a href="#find" class="headerlink" title="find"></a>find</h5><p><strong style="color:red;">find [搜索范围] [匹配条件]</strong></p><p><br>##### find的选项<br></p><p><strong style="color:red;">-name</strong></p><br><p>find /etc -name init 搜索/etc目录下名字为init的文件</p><br><p><strong style="color:red;"><em> 通配符,匹配任意字符,包括0个</em></strong></p><br><p><strong style="color:red;">? 通配符,匹配一个字符</strong></p><br><p><strong style="color:red;">-iname 让文件名在搜索的时候不区分大小写</strong></p><p><br></p><p><strong style="color:red;">-size 根据文件大小来查找文件</strong></p><p><br></p><p>+大于, -小于, =等于</p><br><p>find /etc -size +204800      <br>linux下文件大小按块来表示一个块就是0.5K(512Byte字节), 所以100M换算成块,就是100  1024 * 2个数据块</p><br><p><strong style="color:red;">-user 根据文件所有者来查找</strong></p><p><br></p><p><strong style="color:red;">-group 根据文件所属组来查找文件</strong></p><p><br></p><p><strong style="color:red;">-amin 根据访问时间access来查找</strong></p><p><br></p><p><strong style="color:red;">-cmin 根据文件属性修改的时间来查找</strong></p><p><br></p><p><strong style="color:red;">-mmin 根据文件内容的修改时间来查找</strong></p><p><br></p><p>+5超过5分钟时间, -5少于5分钟, =等于5分钟 </p><br><p><strong style="color:red;">-a 两个条件同时满足</strong></p><p><br></p><p>fint /etc -name tss.txt -a -mmin +5    <br>查找tss.txt并且内容修改时间超过5分钟的文件就查找出来</p><br><p><strong style="color:red;">-o 多个条件满足之一</strong></p><p><br></p><p><strong style="color:red;">-type 根据文件类型 d(目录), f(文件), l(软连接）</strong></p><p><br></p><p><strong style="color:red;">-exec 命令 {} \; 用来对查找出的文件执行后续操作</strong></p><p><br></p><p>find /etc -name init -exec ls -l {} \;<br>列出找到文件的属性信息.</p><br><p><strong style="color:red;">-ok 命令 {} \; 跟exec的却别就是执行操作的时候会确认询问</strong></p><p><br></p><p><strong style="color:red;">-inum 根据inode(文件的节点, 通过ls -i可以查看)来查找文件, 这种查找方式对硬链接文件很有用.</strong></p><p><br></p><p><strong style="color:red;"></strong></p><p><br><br>##### locate在文件资料库中查找文件<br></p><p><strong style="color:red;">locate</strong></p><br><p>了解locate命令, 首先要知道一个mlocate.db的文件资料库(db更像是数据库), locate命令不是find那样,在文件范围, 磁盘分区中查找文件, 而是通过mlocate.db这个文件资料库来查找文件, mlocate.db是linux系统维护的一个文件数据库, 所以locate查找的效率比find高很多.</p><br><p><strong style="color:red;">注意: locate有一个最大的问题就是, 文件系统库可能没有来得及及时更新, 以至于使用locate可能查找不到想找的文件. 但是我们可以使用updatedb这个命令来更新locate对应的文件资料库.</strong></p><br><p><strong style="color:red;">updatedb</strong></p><br><p><strong style="color:red;">再注意: 文件资料库并不是针对linux系统中的所有文件都维护, 比如tmp目录的文件就没有被文件资料库所管理(/tmp目录并没有被收录到文件资料库), 所以不管怎样使用locate(包括使用updatedb之后)都无法查找到不是文件资料库涉及到的文件.</strong></p>
+
+<h5 id="which"><a href="#which" class="headerlink" title="which"></a>which</h5><p><strong style="color:red;">which 命令名称</strong></p><br><p> which 使用来搜索命令所在目录以及别名信息.</p><br><p>which ls<br><br>##### whereis<br></p><p><strong style="color:red;">where [命令名称]</strong></p><br><p>搜索命令所在目录及帮助文档路径.</p>
+
+<h5 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h5><p><strong style="color:red;">grep 关键字 文件</strong></p><br><p>查找文件中包含关键字的那一行,并显示出来, 用来在文件中查找关键字, 注意是查找文件内容, 而不像之前的命令那种是查找文件.</p><br><p>选项 -i : 用于关键字不区分大小写.</p><br><p>选项 -v : 用于排除指定字串</p><br><p><strong style="color:red;">grep -v ^# /etc/initab</strong> : 排除#开头的行</p>
+
+
+
+
+
+
 
       
     </div>
