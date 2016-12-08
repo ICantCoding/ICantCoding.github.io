@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ios开发篇 | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux文件搜索命令 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="windows下, 搜索文件我自己感觉很恼火呀！还是Linux下搜索文件方便! 我们可以根据文件名(-name), 文件大小(-size), 文件时间(-amin,-cmin,-mmin), 所属人(-user), 所属组(-group),等等来进行搜索, 我们一起来看看！">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux文件搜索命令"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +77,120 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-12-08T13:30:30.000Z"><a href="/2016/12/08/Linux文件搜索命令/">2016-12-08</a></time>
+        
+  
+    <h1 class="title">Linux文件搜索命令</h1>
+  
 
-<h2 class="archive-title fa-folder">ios开发篇</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-11-09T06:21:11.000Z"><a href="/2016/11/09/ios国际化/">2016-11-09</a></time>
-          
-            <h1 class="title"><a href="/2016/11/09/ios国际化/">ios国际化</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/ios国际化/">ios国际化</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#find"><span class="toc-text">find</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#find的选项"><span class="toc-text">find的选项</span></a></li></ol>
+    </div>
+
+        <p>windows下, 搜索文件我自己感觉很恼火呀！还是Linux下搜索文件方便! 我们可以根据文件名(-name), 文件大小(-size), 文件时间(-amin,-cmin,-mmin), 所属人(-user), 所属组(-group),等等来进行搜索, 我们一起来看看！<br><a id="more"></a></p>
+<h5 id="find"><a href="#find" class="headerlink" title="find"></a>find</h5><p></p><p><strong style="color:red;">find [搜索范围] [匹配条件]</strong></p><p></p>
+<h5 id="find的选项"><a href="#find的选项" class="headerlink" title="find的选项"></a>find的选项</h5><p></p><p><strong style="color:red;">-name</strong></p><p></p>
+<p></p><p>find /etc -name init 搜索/etc目录下名字为init的文件</p><p></p>
+<p></p><p><strong style="color:red;">* 通配符,匹配任意字符,包括0个</strong></p><p></p>
+<p></p><p><strong style="color:red;">? 通配符,匹配一个字符</strong></p><p></p>
+<p></p><p><strong style="color:red;">-iname 让文件名在搜索的时候不区分大小写</strong></p><p></p>
+<p></p><p><strong style="color:red;">-size 根据文件大小来查找文件</strong></p><p></p>
+<p></p><p>+大于, -小于, =等于</p><p></p>
+<p></p><p>find /etc -size +204800      <br>linux下文件大小按块来表示一个块就是0.5K(512Byte字节), 所以100M换算成块,就是100 <em> 1024 </em> 2个数据块</p><p></p>
+<p></p><p><strong style="color:red;">-user 根据文件所有者来查找</strong></p><p></p>
+<p></p><p><strong style="color:red;">-group 根据文件所属组来查找文件</strong></p><p></p>
+<p></p><p><strong style="color:red;">-amin 根据访问时间access来查找</strong></p><p></p>
+<p></p><p><strong style="color:red;">-cmin 根据文件属性修改的时间来查找</strong></p><p></p>
+<p></p><p><strong style="color:red;">-mmin 根据文件内容的修改时间来查找</strong></p><p></p>
+<p></p><p>+5超过5分钟时间, -5少于5分钟, =等于5分钟 </p><p></p>
+<p></p><p><strong style="color:red;">-a 两个条件同时满足</strong></p><p></p>
+<p></p><p>fint /etc -name tss.txt -a -mmin +5    <br>查找tss.txt并且内容修改时间超过5分钟的文件就查找出来</p><p></p>
+<p></p><p><strong style="color:red;">-o 多个条件满足之一</strong></p><p></p>
+<p></p><p><strong style="color:red;">-type 根据文件类型 d(目录), f(文件), l(软连接）</strong></p><p></p>
+<p></p><p><strong style="color:red;">-exec 命令 {} \; 用来对查找出的文件执行后续操作</strong></p><p></p>
+<p></p><p>find /etc -name init -exec ls -l {} \;<br>列出找到文件的属性信息.</p><p></p>
+<p></p><p><strong style="color:red;">-ok 命令 {} \; 跟exec的却别就是执行操作的时候会确认询问</strong></p><p></p>
+<p></p><p><strong style="color:red;">-inum 根据inode(文件的节点, 通过ls -i可以查看)来查找文件, 这种查找方式对硬链接文件很有用.</strong></p><p></p>
+<p></p><p><strong style="color:red;"></strong></p><p></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Linux/">Linux</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/Linux文件搜索命令/">Linux文件搜索命令</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/12/08/Linux文件搜索命令/" data-title="Linux文件搜索命令" data-url="http://yoursite.com/2016/12/08/Linux文件搜索命令/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
