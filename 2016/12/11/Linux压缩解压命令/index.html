@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux压缩解压命令 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="linux下文件压缩包, 该如何解压啦？">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux压缩解压命令"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,55 +77,103 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-12-11T11:35:40.000Z"><a href="/2016/12/11/Linux压缩解压命令/">2016-12-11</a></time>
+        
+  
+    <h1 class="title">Linux压缩解压命令</h1>
+  
 
-<h2 class="archive-title fa-folder">iOS</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-11-21T06:09:39.000Z"><a href="/2016/11/21/Objective-c中的Runtime机制/">2016-11-21</a></time>
-          
-            <h1 class="title"><a href="/2016/11/21/Objective-c中的Runtime机制/">Objective-c中的Runtime机制</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Runtime/">Runtime</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#压缩格式-gz-zip-rar"><span class="toc-text">压缩格式(.gz, .zip, .rar)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">gz</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">tar</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">zip是linux和windows都拥有的压缩格式.</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">bzip2(zip的升级版)</span></a></li></ol></li></ol>
+    </div>
+
+        <p>linux下文件压缩包, 该如何解压啦？<br><a id="more"></a></p>
+<h5 id="压缩格式-gz-zip-rar"><a href="#压缩格式-gz-zip-rar" class="headerlink" title="压缩格式(.gz, .zip, .rar)"></a>压缩格式(.gz, .zip, .rar)</h5><p></p><h6>gz</h6><br><strong style="color:red;">注意: 1.gzip只能压缩文件, 不能压缩目录. 2.压缩后,并不保存源文件</strong><br><br><strong style="color:red;">gzip [要制作成.gz格式的文件]</strong><br><br>压缩一个文件为.gz格式<br><br>该命令所在路径为 /bin/gzip<br><p></p>
+<p><strong style="color:red;">gunzip [.gz格式的压缩文件]]</strong><br><br><strong style="color:red;">gzip -d [.gz格式的压缩文件]</strong><br><br>解压缩一个.gz格式的文件<br><br>该命令所在路径为 /bin/gunzip<br></p>
+<p></p><h6>tar</h6><br><strong style="color:red;">tar 选项[-zjcvf] [压缩后文件名] [目录]</strong><br><br>该命令路径: /bin/tar, 用于打包目录,压缩后文件格式为: .tar.gz<br><br>-c 打包<br><br>-v 显示详细信息<br><br>-f 指定文件名<br><br>-z 打包同时压缩成.tar.gz格式<br><br>-j 打包同时压缩成.tar.bz2格式<br><p></p>
+<p><strong style="color:red;">tar 选项[-xvfz] [解压缩的文件]</strong><br><br>用于解开.tar.gz格式的压缩包.<br><br>-x 解包<br></p>
+<p></p><h6>zip是linux和windows都拥有的压缩格式.</h6><br><strong style="color:red;">注意: zip压缩文件会保存源文件.</strong><br><br><strong style="color:red;">zip 选项[-r] [压缩后文件名] [文件或目录]</strong><br><br>该命令路径: usr/bin/zip, 用于压缩文件或目录, 压缩后文件格式: .zip<br><br>-r 压缩目录<br><br><strong style="color:red;">unzip [压缩文件名]</strong><br><br>该命令路径： usr/bin/unzip, 用户解压缩.zip的压缩包<br><p></p>
+<p></p><h6>bzip2(zip的升级版)</h6><br><strong style="color:red;">bzip2 选项[-k] [文件]</strong><br><br>压缩文件, 压缩后文件格式为: .bz2<br><br>-k 产生压缩文件后保留原文件.<br><p></p>
+<p><strong style="color:red;">bunzip2 选项[-k] [压缩文件]</strong><br><br>该命令的路径: /usr/bin/bunzip2. 解压缩bz2格式的文件.<br><br>-k 解压缩后保留原文件.<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Linux/">Linux</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-11-11T10:22:52.000Z"><a href="/2016/11/11/GCD技术使用/">2016-11-11</a></time>
-          
-            <h1 class="title"><a href="/2016/11/11/GCD技术使用/">GCD技术使用</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
+        
   <div class="tags">
-    <a href="/tags/GCD/">GCD</a>, <a href="/tags/多线程/">多线程</a>
+    <a href="/tags/linux压缩解压命令/">linux压缩解压命令</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/12/11/Linux压缩解压命令/" data-title="Linux压缩解压命令" data-url="http://yoursite.com/2016/12/11/Linux压缩解压命令/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
