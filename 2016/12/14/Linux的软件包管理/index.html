@@ -95,18 +95,30 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#软件包分类"><span class="toc-text">软件包分类</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#软件包分类"><span class="toc-text">软件包分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#RPM包命名原则"><span class="toc-text">RPM包命名原则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#RPM包依赖性"><span class="toc-text">RPM包依赖性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#RPM命令"><span class="toc-text">RPM命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#RPM包-校验和文件提取"><span class="toc-text">RPM包 校验和文件提取</span></a></li></ol>
     </div>
 
         <p>Linux下的软件, 我们必须要学会安装!不是太难！加油吧！<br><a id="more"></a></p>
 <h5 id="软件包分类"><a href="#软件包分类" class="headerlink" title="软件包分类"></a>软件包分类</h5><ol>
-<li>源码包, 没有编译, 高级语言包！<ul><br> <li><br>     开源<br> </li><br> <li><br>     可以自由选择所需的功能<br> </li><br> <li><br>     软件是编译安装, 所以更加适合自己的系统, 更加稳定也效率更高.<br> </li><br> <li><br>     卸载方便<br> </li><br></ul></li>
-<li>二进制包(RPM包, 系统默认包), 已经经过编译的, 机器语言包!<ul><br><li><br> 包管理系统简单, 只通过几个命令就可以实现包的安装, 升级, 查询,和卸载.<br></li><br><li><br> 安装速度比源码包安装快得多.<br></li><br></ul>
-
-
+<li>1源码包, 没有编译, 高级语言包！<ul><br> <li><br>     开源<br> </li><br> <li><br>     可以自由选择所需的功能<br> </li><br> <li><br>     软件是编译安装, 所以更加适合自己的系统, 更加稳定也效率更高.<br> </li><br> <li><br>     卸载方便<br> </li><br></ul></li>
+<li>2二进制包(RPM包, 系统默认包), 已经经过编译的, 机器语言包!<ul><br><li><br> 包管理系统简单, 只通过几个命令就可以实现包的安装, 升级, 查询,和卸载.<br></li><br><li><br> 安装速度比源码包安装快得多.<br></li><br></ul>
 
 </li>
 </ol>
+<h5 id="RPM包命名原则"><a href="#RPM包命名原则" class="headerlink" title="RPM包命名原则"></a>RPM包命名原则</h5><p>httpd-2.2.15-15.el6.centos.1.i686.rpm<br><br>httpd 软件包名<br><br>2.2.15 软件版本<br><br>15 软件发布的次数<br><br>el6.centos 适合的Linux平台<br><br>i686 适合的硬件平台(还有x64, noarch)<br><br>rpm rpm包扩展名<br><br><strong style="color:red">注意: 包名, 包全名的区别. httpd就是包名, httpd-2.2.15-15.el6.centos.1.i686.rpm就是包全名</strong></p>
+<h5 id="RPM包依赖性"><a href="#RPM包依赖性" class="headerlink" title="RPM包依赖性"></a>RPM包依赖性</h5><p>1.树形依赖 a-&gt;b-&gt;c (a依赖b, b依赖c, 所以必须先装c, 再装b, 再装c, 卸载的时候就要先卸载a, 再卸载b, 再卸载c).<br><br>2.环形依赖 a-&gt;b-&gt;c-&gt;a (a依赖b, b依赖c, c又依赖a, 这就很尴尬呀! 解决办法就是用一条命令同时装a, b, c)<br><br>3.模块依赖 <br><br>模块依赖报错如下:<br><br>Failed dependencies: libodbcinst.so.2 is needed by mysql-connector-odbc-5.1.15r1144-7.el6.i686<br><br><strong style="color:red;">其中libobdcinst.so.2是软件包库依赖, 它是某一个软件包中的软件, 所以要去安装这个库的软件包, 才能解决这个问题. 我们可以到www.rpmfind.net去找到这个软件库需要安装的包名.</strong></p>
+<h5 id="RPM命令"><a href="#RPM命令" class="headerlink" title="RPM命令"></a>RPM命令</h5><p><strong style="color:red;">RPM安装: rpm -ivh 包全名</strong><br><br>选项 -i (install) 安装<br><br>选项 -v (verbose) 显示详细信息<br><br>选项 -h (hash) 显示进度<br><br>选项 –nodeps 不检测依赖性(一般不用)<br></p>
+<p><strong style="color:red;">RPM包升级: rpm -Uvh 包全名</strong><br><br>选项 -U (upgrade) 升级<br></p>
+<p><strong style="color:red;">RPM包卸载: rpm -e 包名</strong><br><br>选项 -e (erase) 卸载<br></p>
+<p><strong style="color:red;">查询是否安装: rpm -q 包名</strong><br><br>选项 -q (query) 查询<br></p>
+<p><strong style="color:red;">查询所有安装过得rpm包: rpm -qa</strong><br><br>选项 -a (all) 所有<br></p>
+<p><strong style="color:red;">查询安装过软件包详细信息: rpm -qi 包名</strong><br><br>选项 -i (information) 信息<br></p>
+<p><strong style="color:red;">查询未安装过得软件包详细信息: rpm -qip 包全名</strong><br><br>选项 -p (package)<br></p>
+<p><strong style="color:red;">查询包中文件安装的位置: rpm -ql 包名</strong><br><br>选项 -l (list) 列表<br><br>选项 -p (package) 查询未安装包信息<br></p>
+<p><strong style="color:red;">查询系统文件属于哪个RPM包: rpm -qf 系统文件名</strong><br><br>选项 -f (file) 查询系统文件属于哪个软件包<br></p>
+<p><strong style="color:red;">查询软件包的依赖性: rpm -qR 包名</strong><br><br>选项 -R (requires) 查询软件包的依赖性<br><br>选项 -p (package) 查询未安装包信息, 注意接包全名<br></p>
+<h5 id="RPM包-校验和文件提取"><a href="#RPM包-校验和文件提取" class="headerlink" title="RPM包 校验和文件提取"></a>RPM包 校验和文件提取</h5><p><strong style="color:red;">包校验: rpm -V 包名</strong><br><br>验证内容中的8个信息的具体内容如下:<br><br>S 文件大小是否改变<br><br>M 文件的类型或文件的权限(rwx)是否被改变<br><br>5 文件MD5校验和是否改变(可以看成文件内容是否改变)<br><br>D 设备当中, 代码是否改变<br><br>L 文件路径是否改变<br><br>U 文件的属主(所有者) 是否改变<br><br>G 文件的属组是否改变<br><br>T 文件的修改时间是否改变<br><br>文件类型如下:<br><br>c 配置文件 (config file)<br><br>d 普通文件 (documentation)<br><br>g “鬼”文件 (ghost file), 很少见, 就是该文件不应该被这个RPM包包含<br><br>l 授权文件(license file)<br><br>r 描述文件(read me)<br></p>
+<p><strong style="color:red;">RPM包中的文件提取: rpm2cpio 包全名 | cpio -idv .包中文件绝对路径</strong><br><br>rpm2cpio 将rpm包转换为cpio格式<br><br>cpio 是一个标准工具, 它用于创建软件档案文件和从档案文件中提取文件. <br><br><strong style="color:red;">cpio -idv &lt; [文件|设备]</strong><br><br>选项 -i 还原copy-in模式<br><br>选项 -d 还原时自动新建目录<br><br>选项 -v 显示还原过程<br><br>举例(如何修复误操作的文件): <br><br>查询到/bin/ls文件属于哪个包<br><br>rpm -qf /bin/ls<br><br>造成ls命令误删除假象<br><br>mv /bin/ls /tmp/<br><br>提取RPM包中ls命令到当前目录的/bin/ls下<br><br>rpm2cpio /mnt/cdrom/Packages/coreutils-8.4-19.el6.i686.rpm | cpio -idv ./bin/ls<br><br>把从包中提取出来的ls命令赋值回/bin/目录下, 修复文件丢失.<br><br>cp /root/bin/ls /bin/</p>
 
       
     </div>
