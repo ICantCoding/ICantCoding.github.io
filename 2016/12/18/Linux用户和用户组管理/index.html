@@ -71,9 +71,9 @@ root:x:0:0:root:/root:/bin/b">
 		</div>
 		<div id="sub-nav" class="alignright">
 		    
-		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
 		    
-		      <a href="/customization"><i class="fa fa-question-circle"></i>留言</a>
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
 		    
 		</div>
 	</div>
@@ -111,6 +111,10 @@ root:x:0:0:root:/root:/bin/b">
 <p><strong style="color:red;">/etc/passwd</strong><br><br>man 5 passwd 查看passwd配置文件信息.<br></p>
 <p>root:x:0:0:root:/root:/bin/bash<br><br>bin:x:1:1:bin:/bin:/sbin/nologin<br></p>
 <p>字段1: 用户名称<br><br>字段2: 密码标志, x表示这个用户有密码, etc/shadow文件下有保存的密码(当然是密文).<br><br>字段3: UID(用户ID), 0表示超级用户, 1~499表示系统用户(伪用户), 500~65535表示普通用户. <br><br>字段4: GID(用户初始组ID), <i style="color:red;">初始组</i>: 就是指用户一登录就立刻拥有这个用户组的相关权限, 每个用户的初始组只能有一个, 一般就是和这个用户的用户名相同的组名作为这个用户的初始组. <i style="color:red;">附加组</i>: 指用户可以加入多个其他的用户组, 并拥有这些组的权限, 附加组可以有多个. <br><br>字段5: 用户说明, 就是对这个用户的备注说明. <br><br>字段6: 用户的家目录, 普通用户的家目录:/home/用户名/, 超级用户的家目录:/root/ <br><br>字段7: 登录之后的shell, shell就是Linux的命令解释器. 一般情况下root用户和添加的普通用户的shell就是/bin/bash, 而伪用户一般是/sbin/nologin, 这个/sbin/nologin表示不可用这个用户登录linux操作系统. 所以我们有的时候可以更改普通用户的shell为/sbin/nologin来禁止该用户登录linux系统. <br></p>
+<p><strong style="color:red;">/etc/shadow 影子文件</strong><br></p>
+<p>字段1: 用户名<br><br>字段2: 加密密码, 加密算法升级为SHA512散列加密算法. 如果密码位是 “!!” 或 “*” 代表没有密码, 不能登录.<br><br>字段3: 密码最后一次修改日期, 使用1970年1月1日作为标准时间, 每过一天时间戳加1.<br><br>字段4: 两次修改密码的间隔, 如果为10, 表示离上一次修改密码, 下次修改密码需要10天之后.<br><br>字段5: 密码有效期, 如果为9999就表示要9999天后失效.<br><br>字段6: 密码修改到期前的警告天数.<br><br>字段7: 密码过期后的宽限天数. 0(也可以不写.)表示密码过期后立即失效, -1则代表密码永远不会失效.<br><br>字段8: 账号失效时间, 要用时间戳表示.<br><br>字段9: 保留字段. <br></p>
+<p><strong style="color:red;">组信息文件/etc/group 和 组影子文件/etc/gshadow</strong><br><br>组信息文件解释如下:<br><br>字段1: 组名.<br><br>字段2: 组密码标志.<br><br>字段3: GID, 组管理员用户名.<br><br>字段4: 组中附加用户.<br></p>
+<p>组影子文件解释如下:<br><br>跟组信息文件一样的.<br></p>
 
       
     </div>
@@ -152,7 +156,7 @@ root:x:0:0:root:/root:/bin/b">
 
   
     <section id="comment">
-    <!--   <h1 class="title">留言</h1> -->
+    <!--   <h1 class="title">Comments</h1> -->
     
     
         <!-- 多说评论框 start -->
@@ -182,22 +186,22 @@ root:x:0:0:root:/root:/bin/b">
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
-<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
     <input type="hidden" name="wd" value="site:yoursite.com"> -->
-     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
   </form>
 </div> 
 
   
 <div class="widget tag">
-  <h3 class="title" id="categories">分类</h3>
+  <h3 class="title" id="categories">Categories</h3>
      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
 </div>
  
 
 
   <div class="widget tag">
-  <h3 class="title">日历云</h3>
+  <h3 class="title">Calendar</h3>
   <div id="calendar"></div>
 </div>
 
@@ -207,7 +211,7 @@ root:x:0:0:root:/root:/bin/b">
 
   
 <div class="widget tagcloud">
-  <h3 class="title">标签云</h3>
+  <h3 class="title">Tag Cloud</h3>
   <div class="entry">
     <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
   </div>
