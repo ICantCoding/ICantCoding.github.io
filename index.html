@@ -82,6 +82,46 @@
     <header>
         <div class="icon"></div>
         
+        <time datetime="2016-12-23T13:53:20.000Z"><a href="/2016/12/23/Linux-Shell基础/">2016-12-23</a></time>
+        
+  
+    <h1 class="title"><a href="/2016/12/23/Linux-Shell基础/">Linux Shell基础</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>Shell是一个命令行解释器, 它为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序。用于可以用Shell来启动, 挂起, 停止甚至是编写一些程序. Shell是一个功能相当强大的编程语言, 易编写, 易调试, 灵活性较强. Shell是解释执行的脚本语言. Shell可以直接调用Linux系统命令.<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2016/12/23/Linux-Shell基础/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+        <div class="alignright">
+          <a href="/2016/12/23/Linux-Shell基础/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
         <time datetime="2016-12-18T15:01:37.000Z"><a href="/2016/12/18/Linux用户和用户组管理/">2016-12-18</a></time>
         
   
@@ -94,7 +134,7 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#用户配置文件"><span class="toc-text">用户配置文件</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#用户配置文件"><span class="toc-text">用户配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#用户管理命令"><span class="toc-text">用户管理命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#用户组管理命令"><span class="toc-text">用户组管理命令</span></a></li></ol>
     </div>
 
         <a id="more"></a>
@@ -109,6 +149,21 @@
 <p>字段1: 用户名<br><br>字段2: 加密密码, 加密算法升级为SHA512散列加密算法. 如果密码位是 “!!” 或 “*” 代表没有密码, 不能登录.<br><br>字段3: 密码最后一次修改日期, 使用1970年1月1日作为标准时间, 每过一天时间戳加1.<br><br>字段4: 两次修改密码的间隔, 如果为10, 表示离上一次修改密码, 下次修改密码需要10天之后.<br><br>字段5: 密码有效期, 如果为9999就表示要9999天后失效.<br><br>字段6: 密码修改到期前的警告天数.<br><br>字段7: 密码过期后的宽限天数. 0(也可以不写.)表示密码过期后立即失效, -1则代表密码永远不会失效.<br><br>字段8: 账号失效时间, 要用时间戳表示.<br><br>字段9: 保留字段. <br></p>
 <p><strong style="color:red;">组信息文件/etc/group 和 组影子文件/etc/gshadow</strong><br><br>组信息文件解释如下:<br><br>字段1: 组名.<br><br>字段2: 组密码标志.<br><br>字段3: GID, 组管理员用户名.<br><br>字段4: 组中附加用户.<br></p>
 <p>组影子文件解释如下:<br><br>跟组信息文件一样的.<br></p>
+<p><strong style="color:red;">用户管理相关文件</strong><br><br>1.用户的家目录<br><br>普通用户: /home/用户名/, 所有者和所属组都是此用户, 权限是700<br><br>超级用户: /root/, 权限是550<br></p>
+<p>2.用户的邮箱<br><br>/var/spool/mail/用户名/ 每一个用户都在这个目录下有一个邮箱.<br></p>
+<p>3.用户模板目录<br><br>/etc/skel/ 模板目录, 是指在这个目录下, 如果创建有文件, 那么以后给linux操作系统添加新用户的时候, 会自动在/home/用户的用户的家目录下拷贝出模板目录中的文件. </p>
+<h5 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h5><p><strong style="color:red;">用户添加命令 useradd [选项] 用户名</strong><br><br>选项 -u 手工指定UID<br><br>选项 -d 手工指定家目录<br><br>选项 -c 手工指定用户的说明<br><br>选项 -g 手工指定用户的初始组<br><br>选项 -G 指定用户的附加组<br><br>选项 -s 手工指定用户登录shell(命令解释器), 默认是/bin/bash<br><br>举例: useradd -u 666 -G root,bin -c “test user” -d /tianshanshan -s /bin/bash tianshanshan<br><br><strong style="color:red;">用户默认值文件 /etc/default/useradd</strong><br><br>GROUP=100<br><br>HOME=/home<br><br>INACTIVE=-1<br><br>EXPIRE=<br><br>SHEEL=/bin/bash<br><br>SKEL=/etc/skel<br><br>CREATE_MAIL_SPOOL=yes<br></p>
+<p><strong style="color:red;">用户默认值文件 /etc/login.defs</strong><br><br>PASS_MAX_DAYS 99999 #密码有效期<br><br>PASS_MIN_DAYS 0 #密码修改间隔<br><br>PASS_MIN_LEN 5 #密码最小5位<br><br>PASS_WARN_AGE 7 #密码到期警告<br><br>UID_MIN 500 #最小UID<br><br>UID_MAX 60000 #最大UID<br><br>ENCRYPT_METHOD SHA512 #加密模式<br></p>
+<p><strong style="color:red;">修改用户密码 passwd [选项] 用户名</strong><br><br>注意: 只有超级用户才能在 passwd 后加用户名来更改该用户名的密码, 而其他用户只能修改自己的密码(此时修改自己的密码只需要passwd, 不能加用户名.)<br><br>选项 -S 查询用户密码的密码状态. 仅超级用户能用.<br><br>选项 -l 用于锁定用户(该用户此后不可登录.). 其实是在shadow文件中密码部分加了一个”!!”<br><br>选项 -u 用于解锁用户(该用户此后就可以登录了).<br><br>选项 –stdin 用于将参数设置为密码, 比如 echo “123” | passwd –stdin lamp.<br></p>
+<p><strong style="color:red;">修改用户信息 usermode [选项] 用户名</strong><br><br>选项 -u 修改用户的UID<br><br>选项 -c 修改用户的说明信息<br><br>选项 -G 修改用户的附加组<br><br>选项 -L 临时锁定用户Lock<br><br>选项 -U 解锁用户锁定Unlock<br></p>
+<p><strong style="color:red;">修改用户密码状态 chage [选项] 用户名</strong><br><br>选项 -l #列出用户的详细密码状态 .<br><br>选项 -d 日期 #修密码最后一次更改日期.<br><br>选项 -m 天数 #两次密码修改间隔.<br><br>选项 -M 天数 #密码有效期.<br><br>选项 -W 天数 #密码过期前警告天数.<br><br>选项 -I 天数 #密码过后宽限天数.<br><br>选项 -E 日期 #账号失效时间.<br></p>
+<p><strong style="color:red;">删除用户 userdel [-r] 用户名</strong><br><br>选项 -r 删除用户的同时删除用户家目录.<br></p>
+<p><strong style="color:red;">查看用户ID id 用户名</strong><br></p>
+<p><strong style="color:red;">用户身份切换 su [选项] 用户名</strong><br><br>选项 - #切换成其他用户的同时, 连带用户的环境变量一起切换.<br><br>选项 -c 命令 #仅执行一次命令, 而不切换用户身份. 举例: su - root -c “useradd user3”<br><br>注意: 从超级用户切换到其他用户不需要密码, 而用其他用户切换到其他用户(包括超级用户)是需要密码的.<br><br>用<strong style="color:red;">env</strong>查看一下当前用户的环境变量.<br></p>
+<h5 id="用户组管理命令"><a href="#用户组管理命令" class="headerlink" title="用户组管理命令"></a>用户组管理命令</h5><p><strong style="color:red;">groupadd [选项] 组名</strong><br><br>选项 -g #指定GID. <br></p>
+<p><strong style="color:red;">groupmod [选项] 组名</strong><br><br>选项 -g #设置新GID. <br><br>选项 -n #设置新组名. <br></p>
+<p><strong style="color:red;">groupmod [选项] 组名</strong><br><br>注意: 要想删除组, 必须保证该组中没有初始化用户. 附加用户都没有关系.</p>
+<p><strong style="color:red;">为组添加/删除用户 gpasswd [选项] 用户名 组名</strong><br><br>选项 -a #将用户添加到组中. <br><br>选项 -d #用用户从组中删除. <br><br>注意: gpasswd 操纵的都是附加用户.</p>
 
       
     </div>
@@ -448,46 +503,6 @@
 
 
 
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-11-22T14:47:13.000Z"><a href="/2016/11/22/TCP-IP（07网络通信协议-一/">2016-11-22</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/11/22/TCP-IP（07网络通信协议-一/">TCP/IP（07网络通信协议)(一)</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>废话不多少, 我们开始激情的TCP/IP底层技术学习吧！！！<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/11/22/TCP-IP（07网络通信协议-一/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/11/22/TCP-IP（07网络通信协议-一/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
  
 <nav id="pagination">
   
@@ -509,7 +524,7 @@
   
 <div class="widget tag">
   <h3 class="title" id="categories">Categories</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
 </div>
  
 
@@ -527,7 +542,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
+    <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
   </div>
 </div>
 
@@ -535,7 +550,7 @@
   
   <div class="widget tag">
     <h3 class="title">归档</h3>
-	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
   </div>
 
 </aside>

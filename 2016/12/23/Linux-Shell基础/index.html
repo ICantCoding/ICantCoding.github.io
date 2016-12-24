@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux Shell基础 | ShanGe 的 Coding 漫漫路</title>
+  <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="Shell是一个命令行解释器, 它为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序。用于可以用Shell来启动, 挂起, 停止甚至是编写一些程序. Shell是一个功能相当强大的编程语言, 易编写, 易调试, 灵活性较强. Shell是解释执行的脚本语言. Shell可以直接调用Linux系统命令.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Linux Shell基础"/>
+  <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="ShanGe 的 Coding 漫漫路" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">ShanGe 的 Coding 漫漫路</a></h1>
+		    <h2><a href="/">要做的只是静下心来,大步向前,然后泰然的接受一切,冷静的处理一切！</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/categories/collection"><i class="fa fa-pencil"></i>文集</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		    		  <a href="/me"><i class="fa fa-user"></i>关于我</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
+		    
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+  
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-12-23T13:53:20.000Z"><a href="/2016/12/23/Linux-Shell基础/">2016-12-23</a></time>
+        
+  
+    <h1 class="title">Linux Shell基础</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Shell语法类型分类"><span class="toc-text">Shell语法类型分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Shell脚本执行方式"><span class="toc-text">Shell脚本执行方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#第一个脚本"><span class="toc-text">第一个脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Bash历史命令与补全"><span class="toc-text">Bash历史命令与补全</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Bash-别名和快捷键"><span class="toc-text">Bash 别名和快捷键</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Bash-输入输出重定向"><span class="toc-text">Bash 输入输出重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">标准输入输出设备</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">输出重定向</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">输入重定向</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">多命令顺序执行</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-text">管道符 | </span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Bash-通配符和其他特殊符号"><span class="toc-text">Bash 通配符和其他特殊符号</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Shell-变量"><span class="toc-text">Shell 变量</span></a></li></ol>
+    </div>
+
+        <p>Shell是一个命令行解释器, 它为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序。用于可以用Shell来启动, 挂起, 停止甚至是编写一些程序. Shell是一个功能相当强大的编程语言, 易编写, 易调试, 灵活性较强. Shell是解释执行的脚本语言. Shell可以直接调用Linux系统命令.<br><a id="more"></a></p>
+<h5 id="Shell语法类型分类"><a href="#Shell语法类型分类" class="headerlink" title="Shell语法类型分类"></a>Shell语法类型分类</h5><p>Bourne Shell<br><br>包括sh, ksh, bash, psh, zsh<br><br>C Shell<br><br>包括csh, tcsh<br><br>注意: 我们可以通过 vim /etc/shells 来查看系统支持哪些shell. 如果需要系统使用其他的shell, 只需在命令行中输入其他shell名字即可-比如 # sh .</p>
+<h5 id="Shell脚本执行方式"><a href="#Shell脚本执行方式" class="headerlink" title="Shell脚本执行方式"></a>Shell脚本执行方式</h5><p>1.echo 输出带颜色的字符串<br><br><strong style="color:red;">echo -e “\e[1;31m abcd \e[0m”</strong><br><br>30m=黑色, 31m=红色, 32m=绿色, 33m=黄色, 34m=蓝色, 35m=洋红, 36m=青色, 37m=白色<br></p>
+<h5 id="第一个脚本"><a href="#第一个脚本" class="headerlink" title="第一个脚本"></a>第一个脚本</h5><p>vi hello.sh</p>
+<p><pre></pre></p>
+<pre><code>#!/bin/Bash  #标称, 以下写的程序是shell脚本
+#The first program #注释
+#Author: Shanshan (E-mail:shsh@xx.com)
+
+echo &quot;Mr. Tian , This is my first shell program.&quot;
+</code></pre><p><br><strong style="color:red;">脚本执行</strong><br><br>1.给脚本赋予执行权限, 直接运行<br><br>chmod 755 hello.sh<br><br>./hello.sh #使用相对路径<br><br>/tmp/Tshell/hello.sh #使用绝对路径<br><br>2.通过Bash调用执行脚本<br><br>bash hello.sh<br><br><strong style="color:red;">注意: dos2unix 文件名 #让dos文件转换成unix文件, windows中回车^M$而linux回车是$.</strong><br></p>
+<h5 id="Bash历史命令与补全"><a href="#Bash历史命令与补全" class="headerlink" title="Bash历史命令与补全"></a>Bash历史命令与补全</h5><p><strong style="color:red;">历史命令 history [选项] [历史命令保存文件] </strong><br><br>选项 -c 清空历史命令<br><br>选项 -w 把缓存中的历史命令写入历史命令保存文件~/.bash_history<br><br>注意: 历史命令默认会保存1000条, 可以在环境变量配置文件/etc/profile中进行修改. HISTSIZE=1000, 使用<span style="color:red;">上, 下箭头</span>调用以前的历史命令. 使用 <span style="color:red;">!n</span> 重复执行第n条历史命令. 使用 <span style="color:red;">!!</span> 重复执行上一条命令. 使用 <span style="color:red;">!字串</span> 重复执行最后uyitiao以该字符串开头的命令.<br></p>
+<h5 id="Bash-别名和快捷键"><a href="#Bash-别名和快捷键" class="headerlink" title="Bash 别名和快捷键"></a>Bash 别名和快捷键</h5><p><strong style="color:red;">设定别名 alias 别名=’原命令’</strong><br><br><strong style="color:red;">查询命令别名 alias</strong><br><br><strong style="color:red;">删除命令别名 unalias 别名</strong><br><br>注意1: 命令行产生的别名都是临时生效的, 如果想让别名永久生效, 必须将别名设置写入 /root/.bashrc文件中.<br>注意2: 命令执行时顺序.<br><br>1.第一顺位执行用绝对路径或相对路径执行的命令. <br><br>2.第二顺位执行别名. <br><br>3.第三顺位执行Bash的内部命令. <br><br>4.第四顺位执行按照$PATH环境变量定义的目录查找顺序找到的第一个命令. <br></p>
+<p><strong style="color:red;">Bash常用快捷键</strong><br><br>1.ctrl + A 把光标移动到命令开头. <br><br>2.ctrl + E 把光标移动到命令结尾. <br><br>3.ctrl + C 强制终止当前的命令. <br><br>4.ctrl + L 清屏, 相当于clear命令. <br><br>5.ctrl + U 删除或剪切光标之前的内容. <br><br>6.ctrl + K 删除或剪切光标之后的内容. <br><br>7.ctrl + Y 粘贴ctrl+u或ctrl+k剪切的内容. <br><br>8.ctrl + R 在历史命令中搜索, 按下ctrl + R之后, 就会出现搜索界面, 只要输入搜索内容, 就会从历史命令中搜索.<br><br>9.ctrl + D 退出当前终端. <br><br>10.ctrl + Z 暂停, 并放入后台.<br><br>11.ctrl + S 暂停屏幕输出. <br><br>12.ctrl + Q 恢复屏幕输出. <br> </p>
+<h5 id="Bash-输入输出重定向"><a href="#Bash-输入输出重定向" class="headerlink" title="Bash 输入输出重定向"></a>Bash 输入输出重定向</h5><p></p><h6>标准输入输出设备</h6><p></p>
+<table><br>    <tr><br>        <td>设备</td><br>        <td>设备文件名</td><br>        <td>文件描述符</td><br>        <td>类型</td><br>    </tr><br>    <tr><br>        <td>键盘</td><br>        <td>/dev/stdin</td><br>        <td>0</td><br>        <td>标准输入</td><br>    </tr><br>    <tr><br>        <td>显示器</td><br>        <td>/dev/stdout</td><br>        <td>1</td><br>        <td>标准输出</td><br>    </tr><br>    <tr><br>        <td>显示器</td><br>        <td>/dev/stderr</td><br>        <td>2</td><br>        <td>标准错误输出</td><br>    </tr><br></table><br><h6>输出重定向</h6><br><table><br>    <tr><br>        <td>类型</td><br>        <td>符号</td><br>        <td>作用</td><br>    </tr><br>    <tr><br>        <td rowspan="2"><br>            标准输出重定向<br>        </td><br>        <td><br>            命令 &gt; 文件<br>        </td><br>        <td><br>            以覆盖的方式, 把命令的正确输出输出到指定的文件或设备当中.<br>        </td><br>    </tr><br>    <tr><br>        <td>命令 &gt;&gt; 文件</td><br>        <td>以追加的方式, 把命令的正确输出输出到指定的文件或设备当中.</td><br>    </tr><br>    <tr><br>        <td rowspan="2"><br>            标准错误输出重定向<br>        </td><br>        <td><br>            错误命令 2&gt; 文件<br>        </td><br>        <td><br>            以覆盖的方式, 把命令的错误输出输出到指定的文件或设备当中.<br>        </td><br>    </tr><br>    <tr><br>        <td>错误命令 2&gt;&gt; 文件</td><br>        <td>以追加的方式, 把命令的错误输出输出到指定的文件或设备当中.</td><br>    </tr><br>    <tr><br>        <td rowspan="5"><br>            正确输出和错误输出同时保存<br>        </td><br>        <td><br>            命令 &gt; 文件 2&gt;&amp;1<br>        </td><br>        <td><br>            以覆盖的方式, 把正确输出和错误输出都保存到同一个文件当中.<br>        </td><br>    </tr><br>    <tr><br>        <td><br>            命令 &gt;&gt; 文件 2&gt;&amp;1<br>        </td><br>        <td><br>            以追加的方式, 把正确输出和错误输出都保存到同一个文件当中.<br>        </td><br>    </tr><br>    <tr><br>        <td><br>            命令 &amp;&gt; 文件<br>        </td><br>        <td><br>            以覆盖的方式, 把正确输出和错误输出都保存到同一个文件当中.<br>        </td><br>    </tr><br>    <tr><br>        <td>命令 &amp;&gt;&gt; 文件</td><br>        <td>以追加的方式, 把正确输出和错误输出都保存到同一个文件当中.</td><br>    </tr><br>    <tr><br>        <td><br>            命令 &gt;&gt; 文件1 2&gt;&gt;文件2<br>        </td><br>        <td><br>            把正确的输出追加到文件1中, 把错误的输出追加到文件2中.<br>        </td><br>    </tr><br></table><br>注意: ls &amp;&gt;/dev/null 这句就相当于将输出扔到垃圾桶, 这种输出没有意义!<br><br><h6>输入重定向</h6><br><strong style="color:red;">wc [选项] [文件名]</strong><br><br>选项 -c 统计字节数<br><br>选项 -w 统计单词数<br><br>选项 -l 统计行数<br><br><br>wc &lt; test.txt<br><br>##### 多命令顺序执行与管道符<br><h6>多命令顺序执行</h6><br><table><br>    <tr><br>        <td>多命令执行符</td><br>        <td>格式</td><br>        <td>作用</td><br>    </tr><br>    <tr><br>        <td>:</td><br>        <td>命令1 : 命令2</td><br>        <td>多个命令顺序执行, 命令之间没有任何逻辑联系.</td><br>    </tr><br>    <tr><br>        <td>&amp;&amp;</td><br>        <td>命令1 &amp;&amp; 命令2</td><br>        <td>逻辑与, 当命令1正确执行, 则命令2才会执行. 当命令1执行不正确, 则命令2不会执行.</td><br>    </tr><br>    <tr><br>        <td>||</td><br>        <td>命令1 || 命令2</td><br>        <td>逻辑或, 当命令1执行不正确, 则命令2才会执行. 当命令1正确执行, 则命令2不会执行.</td><br>    </tr><br></table>
+
+<p></p><h6>管道符 | </h6><br><strong style="color:red;">命令1 | 命令2</strong><br><br>命令1的正确输出作为命令2的操作对象, 注意命令1必须要有正确的输出才行.<br><br><strong style="color:red;"></strong><br><br><strong style="color:red;"></strong><br><br><strong style="color:red;"></strong><br><br><strong style="color:red;"></strong><br><p></p>
+<h5 id="Bash-通配符和其他特殊符号"><a href="#Bash-通配符和其他特殊符号" class="headerlink" title="Bash 通配符和其他特殊符号"></a>Bash 通配符和其他特殊符号</h5><table><br>    <tr><br>        <td>？</td><br>        <td>匹配一个任意字符</td><br>    </tr><br>    <tr><br>        <td>*</td><br>        <td>匹配0个或任意多个任意字符, 也就是可以匹配任何内容.</td><br>    </tr><br>    <tr><br>        <td>[]</td><br>        <td>匹配中括号中任意一个字符. 例如:[abc]代表一定匹配一个字符, 或者是a, 或者是b, 或者是c</td><br>    </tr><br>    <tr><br>        <td>[-]</td><br>        <td>匹配中括号中任意一个字符, -代表一个范围. 例如:[a-z]代表匹配一个小写字母.</td><br>    </tr><br>    <tr><br>        <td>[^]</td><br>        <td>逻辑非, 表示匹配不是中括号内的一个字符. 例如:[^0-9]代表匹配一个不是数字的字符.</td><br>    </tr><br></table>
+
+<p>一些特殊的符号’’, “”, ``, $(), #, $, \ 要去理解下, 很简单.<br></p>
+<h5 id="Shell-变量"><a href="#Shell-变量" class="headerlink" title="Shell 变量"></a>Shell 变量</h5><p>1.变量的默认类型都是字符串类型, 如果要进行数值运算, 则必须指定变量类型为数值型.<br><br>2.变量是用=连接, =左右两侧不能有空格.<br><br>3.环境变量名建议大写, 便于区分.<br><br>4.set 命令查看系统所有变量. <br><br>5.unset name 删除一个变量. <br><br>6.env 专门用来查看环境变量的命令. <br><br><strong style="color:red;">用户自定义变量</strong><br><br>name=”shen chao” <br><br>echo $name  <br><br>aa=123  <br><br>echo $aa  <br><br>bb=456  <br><br>echo $bb  <br><br>cc=”$aa”456789 #叠加方式1  <br><br>cc=$(aa)213123 #叠加方式2  <br></p>
+<p><strong style="color:red;">环境变量, 自定义环境变量和系统环境变量两种.</strong><br><br>这种变量中主要保存的是和系统操作环境相关的数据.<br><br>用户自定义变量只在当前的Shell中生效, 而环境变量会在当前Shell和这个Shell的所有子Shell当中生效. 如果把环境变量写入相应的配置文件中, 那么这个环境变量就会在所有的Shell中生效.<br><br>设置环境变量: <strong style="color:red;">export 变量名=变量值</strong> #export表示申明该变量为一个全局变量, 让Shell, 子Shell都认识到这个export.<br><br>name=sc <br><br>export name #export也将用户自定义变量name编程环境变量. <br><br><strong style="color:red;">两个常用的系统环境变量:PATH,PS1 </strong><br><br>PATH是系统查找命令的路径. 我们通常修改PATH, 为PATH添加上我们想要的路径时, 就采用叠加方法来修改PATH的值 PATH=”$PATH”:/root/sh ,但是这种方法下次开机的时候添加的路径失效.<br><br>PS1用于修改系统提示符号, 比如我们常见的[root@localhost ~]# .<br><br>\d: 显示日期, 格式为”星期 月 日” <br><br>\h: 显示简写主机名, 如默认主机名 localhost <br><br>\t: 显示24小时制时间, HH:MM:SS <br><br>\T: 显示12小时制时间, HH:MM:SS <br><br>\A: 显示24小时制时间, HH:MM <br><br>\u: 显示当前用户名 <br><br>\w: 显示当前所在目录的完整名称 <br><br>\W: 显示当前所在目录的最后一个目录 <br><br>#: 执行的第几个命令 <br><br>\$: 提示符. 如果是root用户会显示提示符为 # , 如果是普通用户会显示提示符为 $. <br><br>举例设置PS1: PS!=’[\u@\h \t \w]\$’ <br><br>这样的修改也是临时的, 如果不要临时的, 我们必须将这些配置写入对应的文件.</p>
+<p><strong style="color:red;">位置参数变量</strong><br><br>这种变量主要是用来向脚本当中传递参数或数据的, 变量名不能自定义, 变量作用是固定的.<br></p>
+<p><strong style="color:red;">预定义变量</strong><br><br>这种变量是Bash中已经定义好的变量, 变量名不能自定义, 变量的作用也是固定的.<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Shell/">Shell</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/Shell基础/">Shell基础</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
+</div>
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+  
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
+  
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/12/23/Linux-Shell基础/" data-title="Linux Shell基础" data-url="http://yoursite.com/2016/12/23/Linux-Shell基础/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
+      <aside id="sidebar" class="alignright">
+   <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
+    <input type="hidden" name="wd" value="site:yoursite.com"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
+  </form>
+</div> 
+
+  
+<div class="widget tag">
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+</div>
+ 
+
+
+  <div class="widget tag">
+  <h3 class="title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+
+  
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
+  </div>
+</div>
+
+
+  
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+  </div>
+
+</aside>
+      <div class="clearfix"></div>
+    </div>
+  
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2016 Tian Shanshan
+    
+  </div>
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  
+  <div class="visit">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </div>
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('zh-CN',{single:undefined, root:'calendar'});
+    
+    });
+  </script>
+
+
+<!-- 『不蒜子』计数服务 -->
+<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- wumii关联推荐 -->
+<script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
+
+<!-- 百度推荐 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div>
+
+<!-- 站内搜索-Swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','sC-iNFrvTTNtiXEVNwo1','2.0.0');
+</script>
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
