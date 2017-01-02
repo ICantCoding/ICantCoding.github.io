@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ios中的各种事件 | ShanGe 的 Coding 漫漫路</title>
+  <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="ios的精彩, 一定少不了ios中的事件机制. 我们有必要来研究一下ios的事件. ios中事件分三种(1)触摸事件、(2)运动事件、(3)远程控制事件.我们会逐一讨论并理解.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ios中的各种事件"/>
+  <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="ShanGe 的 Coding 漫漫路" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">ShanGe 的 Coding 漫漫路</a></h1>
+		    <h2><a href="/">要做的只是静下心来,大步向前,然后泰然的接受一切,冷静的处理一切！</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/categories/collection"><i class="fa fa-pencil"></i>文集</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		    		  <a href="/me"><i class="fa fa-user"></i>关于我</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
+		    
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+  
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-12-29T13:46:00.000Z"><a href="/2016/12/29/ios中的各种事件/">2016-12-29</a></time>
+        
+  
+    <h1 class="title">ios中的各种事件</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#UIResponder"><span class="toc-text">UIResponder</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#UIResponder的-nextResponder-属性"><span class="toc-text">UIResponder的 nextResponder 属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UIResponder的触摸事件"><span class="toc-text">UIResponder的触摸事件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UIResponder的深压方法-ios9之后用于iphone6以后"><span class="toc-text">UIResponder的深压方法(ios9之后用于iphone6以后)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UIResponder的运动事件"><span class="toc-text">UIResponder的运动事件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UIResponder的远程控制事件"><span class="toc-text">UIResponder的远程控制事件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#事件处理机制-寻找事件触发者-触摸对象"><span class="toc-text">事件处理机制-寻找事件触发者(触摸对象)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#响应者链"><span class="toc-text">响应者链</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#手势识别"><span class="toc-text">手势识别</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UIGestureRecognizer"><span class="toc-text">UIGestureRecognizer</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+        <p>ios的精彩, 一定少不了ios中的事件机制. 我们有必要来研究一下ios的事件. ios中事件分三种(1)触摸事件、(2)运动事件、(3)远程控制事件.<br>我们会逐一讨论并理解.<br><a id="more"></a></p>
+<h3 id="UIResponder"><a href="#UIResponder" class="headerlink" title="UIResponder"></a>UIResponder</h3><p>只要涉及到与用户的交互操作, 事件响应, 那么一定跟 <strong style="color:red;">UIResponder</strong> 这个类有关系. 因为这个类本来就是用来响应用户交互的类. 在开发中最常用的UIView, UIViewController, UIApplication都继承自UIResponder, 所以这三个类都具有响应用户操作的能力.<br></p>
+<h5 id="UIResponder的-nextResponder-属性"><a href="#UIResponder的-nextResponder-属性" class="headerlink" title="UIResponder的 nextResponder 属性"></a>UIResponder的 nextResponder 属性</h5><p>UIResponder的nextResponder属性, 表示上当前的UIResponder的父级UIResponder, 这样可以做到从子视图寻找到父级及以上的UIResponder类对象, 从而更容易简单的实现事件和数据,逻辑上的相关功能.<br></p>
+<p><pre></pre></p>
+<ul>
+<li><p>(void)viewDidLoad {</p>
+<p>  [super viewDidLoad];<br>  self.view.backgroundColor = [UIColor whiteColor];</p>
+<p>  UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(100, 350, 100, 30)];<br>  [button setTitle:@”点我” forState:UIControlStateNormal];<br>  button.backgroundColor = [UIColor redColor];<br>  [button addTarget:self action:@selector(tapButton:) forControlEvents:UIControlEventTouchUpInside];<br>  [self.view addSubview:button];<br>}</p>
+</li>
+<li><p>(void)tapButton:(UIButton*)button{</p>
+<p>  //这样就可以拿到button的父级元素, 从而针对父级或父级以上的元素做操作.<br>  UIView<em> view = (UIView</em>)button.nextResponder;<br>  view.backgroundColor = [UIColor greenColor];<br>}<br></p>
+<h5 id="UIResponder的触摸事件"><a href="#UIResponder的触摸事件" class="headerlink" title="UIResponder的触摸事件"></a>UIResponder的触摸事件</h5><p>touches开头的方法是触摸事件相关的方法</p>
+<table><br>  <tr><br>      <td>触摸事件</td><br>      <td>说明</td><br>  </tr><br>  <tr><br>      <td>- (void)touchesBegan:(NSSet <em>)touches withEvent:(UIEvent </em>)event;</td><br>      <td>一根或多根手指开始触摸屏幕时执行</td><br>  </tr><br>  <tr><br>      <td>- (void)touchesMoved:(NSSet <em>)touches withEvent:(UIEvent </em>)event;</td><br>      <td>一根或多根手指在屏幕上移动时执行，注意此方法在移动过程中会重复调用</td><br>  </tr><br>  <tr><br>      <td>- (void)touchesEnded:(NSSet <em>)touches withEvent:(UIEvent </em>)event;</td><br>      <td>一根或多根手指触摸结束离开屏幕时执行</td><br>  </tr><br>  <tr><br>      <td>- (void)touchesCancelled:(NSSet <em>)touches withEvent:(UIEvent </em>)event;</td><br>      <td>触摸意外取消时执行(例如正在触摸时打入电话)</td><br>  </tr><br></table>
+
+
+</li>
+</ul>
+<h5 id="UIResponder的深压方法-ios9之后用于iphone6以后"><a href="#UIResponder的深压方法-ios9之后用于iphone6以后" class="headerlink" title="UIResponder的深压方法(ios9之后用于iphone6以后)"></a>UIResponder的深压方法(ios9之后用于iphone6以后)</h5><p>presses开头的方法，是iOS9加入的给iPhone6s等支持Deep Press功能的设备使用的相关方法<br></p>
+<table><br>    <tr><br>        <td>事件</td><br>        <td>说明</td><br>    </tr><br></table>
+
+<h5 id="UIResponder的运动事件"><a href="#UIResponder的运动事件" class="headerlink" title="UIResponder的运动事件"></a>UIResponder的运动事件</h5><p>motion开头的则是给设备的陀螺仪和加速传感器使用的方法，用于获取晃动等事件<br></p>
+<table><br>    <tr><br>        <td>事件</td><br>        <td>说明</td><br>    </tr><br></table>
+
+<h5 id="UIResponder的远程控制事件"><a href="#UIResponder的远程控制事件" class="headerlink" title="UIResponder的远程控制事件"></a>UIResponder的远程控制事件</h5><table><br>    <tr><br>        <td>远程控制事件</td><br>        <td>说明</td><br>    </tr><br>    <tr><br>        <td>- (void)remoteControlReceivedWithEvent:(UIEvent *)event NS_AVAILABLE_IOS(4_0);</td><br>        <td>接收到远程控制消息时执行</td><br>    </tr><br></table>
+
+<h5 id="事件处理机制-寻找事件触发者-触摸对象"><a href="#事件处理机制-寻找事件触发者-触摸对象" class="headerlink" title="事件处理机制-寻找事件触发者(触摸对象)"></a>事件处理机制-寻找事件触发者(触摸对象)</h5><p>想要搞清楚事件处理机制, 必须要先搞清楚<span style="color:red;">hitTest:withEvent:</span>方法 和 <span style="color:red;">pointInside:withEvent:</span> 方法.<br><br><strong style="color:red;">hitTest:withEvent:方法:</strong><br><br>这个方法是UIView的一个方法, 用来查找合适的事件触发视图.通常我们称这个触发视图为”hit-test view”<br><br><figure class="highlight plain"><figcaption><span>-c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (nullable UIView *)hitTest:(CGPoint)point withEvent:(nullable UIEvent *)event;   // recursively calls -pointInside:withEvent:. point is in the receiver&apos;s coordinate system</div></pre></td></tr></table></figure><br><strong style="color:red;">pointInside: withEvent:方法:</strong><br><br>这个方法也是UIView的方法, 表示判断触摸点是否在UIView的Bounds里边, 如果这个方法返回NO, 那么会让hitTest: withEvent:方法返回nil , 如果这个方法返回YES, 那么会让hitTest: withEvent:方法返回一个非空对象(之前我理解是返回当前视图, 后来我发现可能理解错了, 返回一个非空对象更好).<br><figure class="highlight plain"><figcaption><span>-c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event;   // default returns YES if point is in bounds</div></pre></td></tr></table></figure><br><strong style="color:red;">事件处理机制如下:</strong><br></p>
+<ol>
+<li>在顶级视图(KeyWindow的视图)上调用pointInside:withEvent:方法判断触摸点是否在当前顶级视图上, 判断的方法是使用pointInside:withEvent:方法, 当然, 既然是触摸了, 那么触摸点肯定是在当前顶级视图上的, 除非开发者自己修改了hitTest:withEvent:方法, 让该方法返回了nil. 再或者是我们针对keywindow 重载了pointInside: withEvent:方法, 使其返回NO, 则触摸应用的触摸效果则会消失. 后来我再仔细研究了一下, 顶级视图重写hitTest:withEvent:方法不管是返回nil, 还是返回self, 都不让再分发hitTest:withEvent事件到它的子视图了.<br></li>
+<li>如果在顶级视图(keywindow)中, hitTest:withEvent:返回了非空对象, 那么keyWindow会向顶级视图的所有子视图发送hitTest:withEvent:消息, 遍历所有子视图的顺序是从subViews数组的末尾向前遍历(从界面最上方开始向下遍历).<br></li>
+<li>当然如果传递hitTest:withEvent的途中, 发现有一个子视图的pointInside:withEvent:方法返回YES, 那么会继续发送hitTest:withEvent:方法到这个视图的子视图上, 遍历的顺序依旧是安装subViews的末尾向前遍历(也就是后addSubview的视图,先判断). 如果当前的视图没有子视图, hitTest:withEvent:就返回当前视图作为事件触发者.<br><br><strong style="color:red;">注意事项:</strong><br><br>1). 上边那个复杂的过程, 我们其实主要使用pointInside:withEvent消息就可以用来改变事件触发者了.<br><br>2). 视图中, 如果视图的hidden=YES, userInteractionEnabled=NO, alpha小于0.1都会被忽略, 这些视图不会成为事件触发者.<br><br>3). 及时我们找到了事件触发者, 这个触摸对象也并不一定就是事件的响应者.<br><br>4). 如果所有subView遍历结束仍然没有返回非空对象, 则hitTest:withEvent:返回顶级视图(keywindow). <br><br>5). 以上的分析是需求我们的事件触发者, 下边来讲讲, 谁来做出对触摸事件的响应.<br></li>
+</ol>
+<h5 id="响应者链"><a href="#响应者链" class="headerlink" title="响应者链"></a>响应者链</h5><p>在ios程序中, 无论是最上边的UIWindow, 还是最前边的UIView, UIButton等等, 他们的摆放是有前后关系的, 一个控件可以放到另一个控件上面或下面. 那么用户点击某个控件时是触发上面的控件还是下面的控件啦？这种先后关系构成了一个链条, 这个链条就叫做“响应者链”.<br><br><img src="/images/响应者链.png" width="500" height="500"><br><br>当一个事件发生后, 首先看事件触发者能不能处理这个事件, 如果这个事件触发者不能处理这个事件, 就把这个事件传递给上级视图, 依次类推, 传递的途中可能会传递到viewController视图控制器的根视图View中,如果该根视图View不能处理, 就把事件传递到viewController来处理, 依次类推, 最后可能会交给window来处理, 如果window处理不了, 就交给application来处理, 如果application也没有办法处理就丢弃这个事件.<br><br><strong style="color:red;">注意: 能够处理事件的对象, 肯定是继承了UIResponder的对象. 其中不能处理事件有几个条件.</strong><br><br>1). userInteractionEnabled = NO<br>2). hidden = YES<br>3). alpha = 0~0.1<br>4). 没有实现开始触摸方法, 即没有实现touchesBegan: withEbent:方法.</p>
+<h6 id="手势识别"><a href="#手势识别" class="headerlink" title="手势识别"></a>手势识别</h6><p>其实ios中的各种手势类，都是有触摸事件结合算法实现的.<br><br>ios中的手势有UITapGestureRecognizer, UIPinchGestureRecognizer, UIPanGestureRecognizer, UISwipeGestureRecognizer, UILongPressGestureRecognizer等手势. 这些手势都是继承与UIGestureRecognizer, UIGestureRecognizer这个类本身是不能使用的.<br></p>
+<h5 id="UIGestureRecognizer"><a href="#UIGestureRecognizer" class="headerlink" title="UIGestureRecognizer"></a>UIGestureRecognizer</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIGestureRecognizerState</span>) &#123;</div><div class="line">    <span class="built_in">UIGestureRecognizerStatePossible</span>,<span class="comment">//尚未识别何种手势</span></div><div class="line">   	<span class="built_in">UIGestureRecognizerStateBegan</span>,<span class="comment">//手势开始     </span></div><div class="line">    <span class="built_in">UIGestureRecognizerStateChanged</span>,<span class="comment">//手势状态发生改变   </span></div><div class="line">    <span class="built_in">UIGestureRecognizerStateEnded</span>,<span class="comment">//手势完成     </span></div><div class="line">    <span class="built_in">UIGestureRecognizerStateCancelled</span>,<span class="comment">//手势取消,恢复到默认状态 		  	</span></div><div class="line">    <span class="built_in">UIGestureRecognizerStateFailed</span>,<span class="comment">//手势识别失败,恢复到默认状态</span></div><div class="line">    <span class="built_in">UIGestureRecognizerStateRecognized</span> = <span class="built_in">UIGestureRecognizerStateEnded</span> </div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//手势状态</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">UIGestureRecognizerState</span> state;</div><div class="line"></div><div class="line"><span class="comment">//手势是否可用</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">getter</span>=isEnabled) <span class="built_in">BOOL</span> enabled;</div><div class="line"></div><div class="line"><span class="comment">//触发手势的视图</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">UIView</span>* view;</div><div class="line"></div><div class="line"><span class="comment">//默认为NO, 如果为YES, 那么成功识别则不执行触摸开始事件, 失败则执行触摸开始事件. 如果为NO, 则不管成功与否都执行触摸开始事件.</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> delaysTouchesBegan;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> delaysTouchesEnded;</div><div class="line"></div><div class="line"><span class="comment">//指定一个手势需要另一个手势执行失败才会执行</span></div><div class="line">- (<span class="keyword">void</span>)requireGestureRecognizerToFail:(<span class="built_in">UIGestureRecognizer</span>*)otherGestureRecognizer;</div><div class="line"></div><div class="line"><span class="comment">//UIGestureRecognizerDelegate协议代理方法</span></div><div class="line"><span class="comment">//默认返回NO, 一个控件的手势识别后是否阻断手势识别继续向下传播, 如果为YES, 响应者链上层对象触发手势识别后, 如果下层对象也添加了手势并成功识别也会继续执行, 如果为NO, 上层对象识别后则不再继续传播.</span></div><div class="line">- (<span class="built_in">BOOL</span>)gestureRecognizer:(<span class="built_in">UIGestureRecognizer</span>*)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(<span class="built_in">UIGestureRecognizer</span>*)otherGestureRecognizer;</div><div class="line"></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/ios/">ios</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/ios中的各种事件/">ios中的各种事件</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
+</div>
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+  
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
+  
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/12/29/ios中的各种事件/" data-title="ios中的各种事件" data-url="http://yoursite.com/2016/12/29/ios中的各种事件/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
+      <aside id="sidebar" class="alignright">
+   <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
+    <input type="hidden" name="wd" value="site:yoursite.com"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
+  </form>
+</div> 
+
+  
+<div class="widget tag">
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+</div>
+ 
+
+
+  <div class="widget tag">
+  <h3 class="title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+
+  
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
+  </div>
+</div>
+
+
+  
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+  </div>
+
+</aside>
+      <div class="clearfix"></div>
+    </div>
+  
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2017 Tian Shanshan
+    
+  </div>
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  
+  <div class="visit">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </div>
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('zh-CN',{single:undefined, root:'calendar'});
+    
+    });
+  </script>
+
+
+<!-- 『不蒜子』计数服务 -->
+<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- wumii关联推荐 -->
+<script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
+
+<!-- 百度推荐 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div>
+
+<!-- 站内搜索-Swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','sC-iNFrvTTNtiXEVNwo1','2.0.0');
+</script>
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

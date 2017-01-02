@@ -64,9 +64,9 @@
 		</div>
 		<div id="sub-nav" class="alignright">
 		    
-		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
 		    
-		      <a href="/customization"><i class="fa fa-question-circle"></i>留言</a>
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
 		    
 		</div>
 	</div>
@@ -76,6 +76,129 @@
   
     <div id="content" class="inner">
       <div id="main-col" class="alignleft"><div id="wrapper">
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-02T04:31:02.000Z"><a href="/2017/01/02/ios中的UITouch类/">2017-01-02</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/02/ios中的UITouch类/">ios中的UITouch类</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        <p>说说UITouch的简单常用属性:<br><br><figure class="highlight plain"><figcaption><span>-c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;touch所在的窗口视图控制器的名字---&gt;%@&quot;,((ViewController*)touch.window.rootViewController).viewControllerName);</div><div class="line">NSLog(@&quot;touch所在的视图控制器的名字---&gt;%@&quot;,((ViewController*)touch.view.nextResponder).viewControllerName);</div><div class="line">NSLog(@&quot;短时间内点击的次数---%lu&quot;,(unsigned long)touch.tapCount);</div><div class="line">NSLog(@&quot;触摸产生或变化的时间戳---&gt;%f&quot;,touch.timestamp);</div><div class="line">UITouchPhase touchPhase  = (UITouchPhase)touch.phase;</div><div class="line">switch(touchPhase)&#123;</div><div class="line">	case UITouchPhaseBegan:</div><div class="line">   		NSLog(@&quot;UITouchPhaseBegan...&quot;);</div><div class="line">      	break;</div><div class="line">   	case UITouchPhaseMoved:</div><div class="line">		NSLog(@&quot;UITouchPhaseMoved...&quot;);</div><div class="line">		break;</div><div class="line">	case UITouchPhaseStationary:</div><div class="line">		NSLog(@&quot;UITouchPhaseStationary...&quot;);</div><div class="line">		break;</div><div class="line">	case UITouchPhaseEnded:</div><div class="line">		NSLog(@&quot;UITouchPhaseEnded...&quot;);</div><div class="line">		break;</div><div class="line">	case UITouchPhaseCancelled:</div><div class="line">		NSLog(@&quot;UITouchPhaseCancelled...&quot;);</div><div class="line">		break;</div><div class="line">	default:</div><div class="line">		break;</div><div class="line">&#125;</div><div class="line">//取得当前位置</div><div class="line">CGPoint current=[touch locationInView:self.view];</div><div class="line">//取得前一个位置</div><div class="line">CGPoint previous=[touch previousLocationInView:self.view];</div><div class="line">注意如果传递的view为nil， 则将以窗口为view来获取到触摸点的坐标位置.</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/02/ios中的UITouch类/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-02T04:29:30.000Z"><a href="/2017/01/02/ios中的NSSet类/">2017-01-02</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/02/ios中的NSSet类/">ios中的NSSet类</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/02/ios中的NSSet类/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-12-29T13:46:00.000Z"><a href="/2016/12/29/ios中的各种事件/">2016-12-29</a></time>
+        
+  
+    <h1 class="title"><a href="/2016/12/29/ios中的各种事件/">ios中的各种事件</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>ios的精彩, 一定少不了ios中的事件机制. 我们有必要来研究一下ios的事件. ios中事件分三种(1)触摸事件、(2)运动事件、(3)远程控制事件.<br>我们会逐一讨论并理解.<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2016/12/29/ios中的各种事件/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+        <div class="alignright">
+          <a href="/2016/12/29/ios中的各种事件/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
     <article class="post">
   
   <div class="post-content">
@@ -383,131 +506,11 @@
 
 
 
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-07T13:54:06.000Z"><a href="/2016/12/07/Linux权限管理命令/">2016-12-07</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/07/Linux权限管理命令/">Linux权限管理命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>文件都是具有权限的, 系统管理中, 合理的给用户分配权限是相当重要的话题! 在linux系统中只有两种角色可以更改文件的权限！1.root 2.文件的所有者. 在linux系统中只有一种角色可以更改文件的拥有者! 1.root.<br>下边我们来学习linux下, 如何管理文件权限.<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/07/Linux权限管理命令/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/07/Linux权限管理命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-06T14:48:49.000Z"><a href="/2016/12/06/Linux-系统目录分析/">2016-12-06</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/06/Linux-系统目录分析/">Linux-系统目录分析</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>今天来了解记录下, Linux系统各目录的作用<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/06/Linux-系统目录分析/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/06/Linux-系统目录分析/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-06T12:49:10.000Z"><a href="/2016/12/06/Linux-常用命令/">2016-12-06</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/06/Linux-常用命令/">Linux 文件目录操作常用命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>Linux 常用命令！那是必须掌握的技能呀！不多说！一起来看看吧！<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/06/Linux-常用命令/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/06/Linux-常用命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
  
 <nav id="pagination">
   
   
-    <a href="/page/2/" class="alignright next">下一页</a>
+    <a href="/page/2/" class="alignright next">Next</a>
   
   <div class="clearfix"></div>
 </nav>
@@ -515,22 +518,22 @@
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
-<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
     <input type="hidden" name="wd" value="site:yoursite.com"> -->
-     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
   </form>
 </div> 
 
   
 <div class="widget tag">
-  <h3 class="title" id="categories">分类</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
 </div>
  
 
 
   <div class="widget tag">
-  <h3 class="title">日历云</h3>
+  <h3 class="title">Calendar</h3>
   <div id="calendar"></div>
 </div>
 
@@ -540,9 +543,9 @@
 
   
 <div class="widget tagcloud">
-  <h3 class="title">标签云</h3>
+  <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
+    <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
   </div>
 </div>
 
@@ -550,7 +553,7 @@
   
   <div class="widget tag">
     <h3 class="title">归档</h3>
-	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
   </div>
 
 </aside>
@@ -560,7 +563,7 @@
   <footer id="footer"><div class="footer-content inner">
   <div class="alignleft">
   
-    &copy; 2016 Tian Shanshan
+    &copy; 2017 Tian Shanshan
     
   </div>
   <div class="alignright">
