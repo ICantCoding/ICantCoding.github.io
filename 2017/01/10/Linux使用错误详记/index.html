@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>NSTimer | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux使用错误详记 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="使用ssh访问服务器, 登录出现”Permission denied, please try agin”的问题?2017-1-10答: 如果使用ssh远程登录服务器的过程中, 用户名和密码没有错误的话, 很有可能是再Linux服务器在ssh的相关配置中, 没有指定允许root用户通过ssh远程登录。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux使用错误详记"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +77,97 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-10T14:49:46.000Z"><a href="/2017/01/10/Linux使用错误详记/">2017-01-10</a></time>
+        
+  
+    <h1 class="title">Linux使用错误详记</h1>
+  
 
-<h2 class="archive-title fa-folder">NSTimer</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-10-31T13:54:41.000Z"><a href="/2016/10/31/NSTimer释放/">2016-10-31</a></time>
-          
-            <h1 class="title"><a href="/2016/10/31/NSTimer释放/">NSTimer释放</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/objective-c/">objective-c</a>, <a href="/tags/NSTimer/">NSTimer</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用ssh访问服务器-登录出现”Permission-denied-please-try-agin”的问题"><span class="toc-text">使用ssh访问服务器, 登录出现”Permission denied, please try agin”的问题?</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="使用ssh访问服务器-登录出现”Permission-denied-please-try-agin”的问题"><a href="#使用ssh访问服务器-登录出现”Permission-denied-please-try-agin”的问题" class="headerlink" title="使用ssh访问服务器, 登录出现”Permission denied, please try agin”的问题?"></a>使用ssh访问服务器, 登录出现”Permission denied, please try agin”的问题?</h5><p>2017-1-10<br><br>答: 如果使用ssh远程登录服务器的过程中, 用户名和密码没有错误的话, 很有可能是再Linux服务器在ssh的相关配置中, 没有指定允许root用户通过ssh远程登录。解决办法是: 修改/etc/ssh/sshd_config文件中的配置项, “PermitRootLogin”的值修改为yes, yes表示允许root通过ssh远程登录访问服务器. 配置完成后重新启动ssh服务, service ssh restart.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Linux/">Linux</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/Linux使用错误详记/">Linux使用错误详记</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/10/Linux使用错误详记/" data-title="Linux使用错误详记" data-url="http://yoursite.com/2017/01/10/Linux使用错误详记/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
