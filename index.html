@@ -137,13 +137,14 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#环境变量配置文件简介"><span class="toc-text">环境变量配置文件简介</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#环境变量配置文件简介"><span class="toc-text">环境变量配置文件简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#其他配置文件"><span class="toc-text">其他配置文件</span></a></li></ol></li></ol>
     </div>
 
         <a id="more"></a>
 <h5 id="环境变量配置文件简介"><a href="#环境变量配置文件简介" class="headerlink" title="环境变量配置文件简介"></a>环境变量配置文件简介</h5><p>在介绍环境变量配置文件之前, 我们下来介绍 <strong style="color:red;">source</strong>这个命令.<br><br><strong style="color:red;">source 配置文件</strong><br><br><strong style="color:red;">. 配置文件</strong><br><br>在linux系统中, 我们如果修改了配置文件, 那么只有下次开机重启之后, 配置文件才会生效. 为了避免开启重启的麻烦, 我们使用source 或 . (注意.之后有一个空格)来是配置文件强制生效.<br></p>
 <p>环境变量配置文件中主要是定义对系统的操作环境生效的系统默认环境变量, 比如PATH, HISTSIZE, PS1, HOSTNAME等等默认环境变量. 只有在环境变量配置文件中写入的环境变量才是永久有效的. 如果只是按照我们在命令行中使用<strong style="color:red;">export 环境变量名=环境变量值</strong>来设置环境变量, 只会本次开机有效, 而不会永久有效.<br></p>
-<p>在linux系统中, 我们常用的环境变量配置文件有五个:<br><br><span style="color:red;">/etc/profile</span><br><br><span style="color:red;">/etc/profile.d/*.sh 代表/etc/profile.d目录下所有的.sh文件</span><br><br><span style="color:red;">~/.bash_profile</span><br><br><span style="color:red;">~/.bashrc</span><br><br><span style="color:red;">/etc/bashrc</span><br><br>我们来简单的介绍一下这五个文件:<br><br>1./etc目录下的文件, 是所有用户都可以读取到的环境变量配置文件.<br><br>2.~/(家目录)下的文件, 是指登录用户才能读取到的环境变量配置文件, 其他登录用户是读取不到的.<br></p>
+<p>在linux系统中, 我们常用的环境变量配置文件有五个:<br><br><span style="color:red;">/etc/profile</span><br><br><span style="color:red;">/etc/profile.d/*.sh 代表/etc/profile.d目录下所有的.sh文件</span><br><br><span style="color:red;">~/.bash_profile</span><br><br><span style="color:red;">~/.bashrc</span><br><br><span style="color:red;">/etc/bashrc</span><br><br>我们来简单的介绍一下这五个文件:<br><br>1./etc目录下的文件, 是所有用户都可以读取到的环境变量配置文件.<br><br>2.~/(家目录)下的文件, 是指登录用户才能读取到的环境变量配置文件, 其他登录用户是读取不到的.<br><br><img src="/images/环境变量配置文件读取顺序.png" width="400" height="400"><br></p>
+<h6 id="其他配置文件"><a href="#其他配置文件" class="headerlink" title="其他配置文件"></a>其他配置文件</h6><p>1.注销时生效的环境变量配置文件,<strong style="color:red;">~/.bash_logout</strong><br><br>2.历史命令记录的配置文件, <strong style="color:red;">~/.bash_history</strong><br><br>3.本地终端欢迎信息配置文件, <strong style="color:red;">/etc/issue</strong><br><br><img src="/images/本地终端欢迎配置文件转义符.png" width="400" height="400"><br><br>4.远程终端欢迎信息配置文件, <strong style="color:red;">/etc/issue.net</strong><br><br>注意:<br><br>1).抓获一符在/ect/issue.net文件中不能使用, 使用了也没有任何含义.<br><br>2).是否显示此欢迎信息, 由ssh的配置文件/etc/ssh/sshd_config决定, 加入”Banner /etc/issue.net”行才能显示, 并记得重新启动SSH服务.(service sshd start).<br><br>5.登录后欢迎信息配置文件, <strong style="color:red;">/etc/motd</strong><br></p>
 
       
     </div>
