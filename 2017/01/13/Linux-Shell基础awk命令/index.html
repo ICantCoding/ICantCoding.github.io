@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Runtime | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux-Shell基础awk命令 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="awk命令简单编程awk ‘条件1{动作1} 条件2{动作2} …’ 文件名条件: 一般使用关系表达式作为条件.动作: 一般有格式化输出, 流程控制语句.注意: awk默认使用的分割符号是tab(换行符号)和” “(空格).举例分析:awk ‘{printf $2 “\t” $6 “\n” }’ s">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux-Shell基础awk命令"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +77,100 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-13T13:47:12.000Z"><a href="/2017/01/13/Linux-Shell基础awk命令/">2017-01-13</a></time>
+        
+  
+    <h1 class="title">Linux-Shell基础awk命令</h1>
+  
 
-<h2 class="archive-title fa-tag">Runtime</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-11-21T06:09:39.000Z"><a href="/2016/11/21/Objective-c中的Runtime机制/">2016-11-21</a></time>
-          
-            <h1 class="title"><a href="/2016/11/21/Objective-c中的Runtime机制/">Objective-c中的Runtime机制</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Runtime/">Runtime</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#awk命令简单编程"><span class="toc-text">awk命令简单编程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#awk命令的工作方式"><span class="toc-text">awk命令的工作方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#awk命令中的BEGIN"><span class="toc-text">awk命令中的BEGIN</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#awk命令中的END"><span class="toc-text">awk命令中的END</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="awk命令简单编程"><a href="#awk命令简单编程" class="headerlink" title="awk命令简单编程"></a>awk命令简单编程</h5><p><strong style="color:red;">awk ‘条件1{动作1} 条件2{动作2} …’ 文件名</strong><br><br>条件: 一般使用关系表达式作为条件.<br><br>动作: 一般有格式化输出, 流程控制语句.<br><br>注意: awk默认使用的分割符号是tab(换行符号)和” “(空格).<br><br>举例分析:<br>awk ‘{printf $2 “\t” $6 “\n” }’ student.txt <br><br>其中$1,$2,$3…这些表示第几列, $0表示全部列.<br><br>df -h | grep sda1 | awk ‘{print $5}’ | cut -d “%” -f 1 <br><br>注意: print和printf是awk中的, print默认最后带一个换行符, printf默认最后不带换行符号.<br></p>
+<h5 id="awk命令的工作方式"><a href="#awk命令的工作方式" class="headerlink" title="awk命令的工作方式"></a>awk命令的工作方式</h5><p>awk命令执行是先去读取目标中的一行,然后再去执行条件和动作. <br></p>
+<h5 id="awk命令中的BEGIN"><a href="#awk命令中的BEGIN" class="headerlink" title="awk命令中的BEGIN"></a>awk命令中的BEGIN</h5><p>awk ‘BEGIN{printf “This is a transcript\n”}{printf $2 “\t” %6 “\n”}’ student.txt <br><br>BEGIN是一个条件, 指读取行之前执行该条件里边的动作语句.<br><br>结合awk的执行步骤, 有时候, 我们要在awk读取目标前,就执行一句动作, 那我们就可以在这个动作前加上BEGIN这个条件.<br><br>举例:<br>cat /etc/passwd | grep /bin/bash | awk ‘BEGIN{FS=”:”}{print $1 “\t” $3}’ <br><br>其中FS是awk的变量, 表示修改awk的分割符位: <br></p>
+<h5 id="awk命令中的END"><a href="#awk命令中的END" class="headerlink" title="awk命令中的END"></a>awk命令中的END</h5><p>END也是一个条件, 指读取玩目标之后执行一个动作. <br><br>awk ‘END{print “read over!”}{print $1 “\t” $2}’ <br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Shell/">Shell</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/Linux-Shell基础awk命令/">Linux-Shell基础awk命令</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/13/Linux-Shell基础awk命令/" data-title="Linux-Shell基础awk命令" data-url="http://yoursite.com/2017/01/13/Linux-Shell基础awk命令/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
