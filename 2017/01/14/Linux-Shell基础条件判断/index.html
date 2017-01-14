@@ -3,13 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Linux-Shell基础sed命令 | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux-Shell基础条件判断 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="两种判断格式test -e /root/install.log [ -e /root/install.log ] 一定要注意, [之后,]之前一定要有空格, 不然语法会出错误.可以用echo $? 来查看上一条语句是否正确.
+按照文件类型进行判断-b 文件  #判断文件是否存在, 并且是否为块设备文">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux-Shell基础条件判断"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +78,103 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-14T10:18:13.000Z"><a href="/2017/01/14/Linux-Shell基础条件判断/">2017-01-14</a></time>
+        
+  
+    <h1 class="title">Linux-Shell基础条件判断</h1>
+  
 
-<h2 class="archive-title fa-tag">Linux-Shell基础sed命令</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-14T08:13:14.000Z"><a href="/2017/01/14/Linux-Shell基础sed命令/">2017-01-14</a></time>
-          
-            <h1 class="title"><a href="/2017/01/14/Linux-Shell基础sed命令/">Linux-Shell基础sed命令</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Linux-Shell基础sed命令/">Linux-Shell基础sed命令</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#两种判断格式"><span class="toc-text">两种判断格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#按照文件类型进行判断"><span class="toc-text">按照文件类型进行判断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#按照文件权限进行判断"><span class="toc-text">按照文件权限进行判断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#两个文件之间进行比较"><span class="toc-text">两个文件之间进行比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#两个整数之间比较"><span class="toc-text">两个整数之间比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#字符串的判断"><span class="toc-text">字符串的判断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#多重条件判断"><span class="toc-text">多重条件判断</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="两种判断格式"><a href="#两种判断格式" class="headerlink" title="两种判断格式"></a>两种判断格式</h5><p>test -e /root/install.log <br><br>[ -e /root/install.log ] 一定要注意, [之后,]之前一定要有空格, 不然语法会出错误.<br><br>可以用echo $? 来查看上一条语句是否正确.<br></p>
+<h5 id="按照文件类型进行判断"><a href="#按照文件类型进行判断" class="headerlink" title="按照文件类型进行判断"></a>按照文件类型进行判断</h5><p>-b 文件  #判断文件是否存在, 并且是否为块设备文件(是块设备文件为真).<br><br>-c 文件  #判断文件是否存在, 并且是否为字符设备文件(是字符设备文件为真). <br><br>-d 文件  #判断文件是否存在, 并且是否为目录文件(是目录为真).<br><br>-e 文件  #判断文件是否存在(存在为真).<br><br>-f 文件  #判断文件是否存在, 并且是否为普通文件.<br><br>-L 文件  #判断文件是否存在, 并且是否为符号链接文件.(是符号链接文件为真).<br><br>-p 文件  #判断文件是否存在, 并且是否为管道文件.(是管道文件为真).<br><br>-s 文件  #判断文件是否存在, 并且是否为非空.(非空为真).<br><br>-S 文件  #判断该文件是否存在, 并且是否为套接字文件.(是套接字文件为真).<br><br>举例:<br><br>[ -d /root ] &amp;&amp; echo “yes” || echo “no” <br></p>
+<h5 id="按照文件权限进行判断"><a href="#按照文件权限进行判断" class="headerlink" title="按照文件权限进行判断"></a>按照文件权限进行判断</h5><p>-r 文件  #判断该文件是否存在, 并且是否该文件拥有读权限(有读权限为真, 不管是user, group, other谁有读权限, 都算真) <br><br>-w 文件  #判断该文件是否存在, 并且是否该文件拥有写权限(同上).<br><br>-x 文件  #判断该文件是否存在, 并且是否该文件拥有执行权限(同上).<br><br>-u 文件  #判断该文件是否存在, 并且是否该文件拥有SUID权限.<br><br>-g 文件  #判断该文件是否存在, 并且是否该文件拥有SGID权限.<br><br>-k 文件  #判断该文件是否存在, 并且是否该文件拥有SBit权限.<br><br>举例:<br><br>[ -w /root/student.txt] &amp;&amp; echo yes || echo no <br></p>
+<h5 id="两个文件之间进行比较"><a href="#两个文件之间进行比较" class="headerlink" title="两个文件之间进行比较"></a>两个文件之间进行比较</h5><p>文件1 -nt 文件2   #判断文件1的修改时间是否比文件2的新, (如果新则为真) <br><br>文件1 -ot 文件2   #判断文件1的修改时间是否比文件2的旧, (如果旧则为真) <br><br>文件1 -ef 文件2   #判断文件1是否和文件2的node号一致, 可以理解为两个文件是否为同一个文件。这个判断用于判断硬链接是很好的方法.<br><br>回顾一下: 查看文件inode的方法为 ll -i <br><br>举例:<br><br>ln /root/student.txt /tmp/stu.txt  #这里为/root/student.txt创建一个硬链接.<br><br>[ /root/student.txt -ef /tmp/stu.txt ] &amp;&amp; echo “yes” || echo “no” <br></p>
+<h5 id="两个整数之间比较"><a href="#两个整数之间比较" class="headerlink" title="两个整数之间比较"></a>两个整数之间比较</h5><p>整数1 -eq 整数2   #判断整数1是否和整数2相等.(相等为真).<br><br>整数1 -ne 整数2   #判断整数1是否和整数2不相等.(不相等为真).<br><br>整数1 -gt 整数2   #判断整数1是否大于整数2.(大于为真).<br><br>整数1 -lt 整数2   #判断整数1是否小于整数2.(小于为真).<br><br>整数1 -ge 整数2   #判断整数1是否大于等于整数2.(大于等于为真).<br><br>整数1 -le 整数2   #判断整数1是否小于等于整数2.(小于等于为真). <br><br>举例:<br><br>[ 23 -gt 22 ] &amp;&amp; echo yes || echo no <br></p>
+<h5 id="字符串的判断"><a href="#字符串的判断" class="headerlink" title="字符串的判断"></a>字符串的判断</h5><p>-z 字符串  #判断字符串是否为空(为空返回真).<br><br>-n 字符串  #判断字符串是否为空(非空返回真). <br><br>字符串1 == 字符串2  #判断字符串1是否和字符串2相等. <br><br>字符串1 != 字符串2  #判断字符串1是否和字符串2不相等. <br><br>举例1:<br><br>aa=10<br><br>bb=20<br><br>[ “$aa” == “$bb” ] &amp;&amp; echo yes || echo no <br><br>举例2:<br><br>name=tianshanshan<br>[ -z “$name” ] &amp;&amp; echo yes || echo no <br></p>
+<h5 id="多重条件判断"><a href="#多重条件判断" class="headerlink" title="多重条件判断"></a>多重条件判断</h5><p>判断1 -a 判断2   #逻辑与, 判断1和判断2都成立, 最终的结果才为真. <br><br>判断1 -o 判断2   #逻辑或, 判断1和判断2有一个成立, 最终的结果就为真. <br><br>! 判断           #逻辑非, 使原始的判断取反.<br><br>举例:<br><br>aa=24 <br><br>[ -n “$aa” -a “$aa” -gt 23 ] &amp;&amp; echo yes || echo no <br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Shell/">Shell</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/Linux-Shell基础条件判断/">Linux-Shell基础条件判断</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/14/Linux-Shell基础条件判断/" data-title="Linux-Shell基础条件判断" data-url="http://yoursite.com/2017/01/14/Linux-Shell基础条件判断/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
