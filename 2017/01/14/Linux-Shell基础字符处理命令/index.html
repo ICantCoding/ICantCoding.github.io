@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ios | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux-Shell基础字符处理命令 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="字符处理命令排序命令sortsort [选项] 文件名选项:-f    #忽略大小写.-n    #以数值型进行排序, 默认使用字符串型排序.-r    #反向排序.-t    #指定分隔符, 默认的分割符是制表符.-k n[,m] #按照指定的字段范围排序. 从第n字段开始, m字段结束.举例:s">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux-Shell基础字符处理命令"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,112 +77,98 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-14T09:53:11.000Z"><a href="/2017/01/14/Linux-Shell基础字符处理命令/">2017-01-14</a></time>
+        
+  
+    <h1 class="title">Linux-Shell基础字符处理命令</h1>
+  
 
-<h2 class="archive-title fa-folder">ios</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-09T10:02:13.000Z"><a href="/2017/01/09/ios中的NSData类/">2017-01-09</a></time>
-          
-            <h1 class="title"><a href="/2017/01/09/ios中的NSData类/">ios中的NSData类</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/ios中的NSData类/">ios中的NSData类</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#字符处理命令"><span class="toc-text">字符处理命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#排序命令sort"><span class="toc-text">排序命令sort</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#统计命令wc"><span class="toc-text">统计命令wc</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="字符处理命令"><a href="#字符处理命令" class="headerlink" title="字符处理命令"></a>字符处理命令</h5><h5 id="排序命令sort"><a href="#排序命令sort" class="headerlink" title="排序命令sort"></a>排序命令sort</h5><p><strong style="color:red;">sort [选项] 文件名</strong><br><br>选项:<br><br>-f    #忽略大小写.<br><br>-n    #以数值型进行排序, 默认使用字符串型排序.<br><br>-r    #反向排序.<br><br>-t    #指定分隔符, 默认的分割符是制表符.<br><br>-k n[,m] #按照指定的字段范围排序. 从第n字段开始, m字段结束.<br><br>举例:<br><br>sort -n -t “:” -k 3,3 /etc/passwd <br></p>
+<h5 id="统计命令wc"><a href="#统计命令wc" class="headerlink" title="统计命令wc"></a>统计命令wc</h5><p><strong style="color:red;">wc [选项] 文件名</strong><br><br>选项:<br><br>-l    #只统计行数.<br><br>-w    #只统计单词书.<br><br>-m    #只统计字符数.<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Shell/">Shell</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-03T02:06:24.000Z"><a href="/2017/01/03/ios开发中常用小代码/">2017-01-03</a></time>
-          
-            <h1 class="title"><a href="/2017/01/03/ios开发中常用小代码/">ios开发中常用小代码</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
+        
   <div class="tags">
-    <a href="/tags/ios开发常用小代码/">ios开发常用小代码</a>
+    <a href="/tags/Linux-Shell基础字符处理命令/">Linux-Shell基础字符处理命令</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-02T04:31:02.000Z"><a href="/2017/01/02/ios中的UITouch类/">2017-01-02</a></time>
-          
-            <h1 class="title"><a href="/2017/01/02/ios中的UITouch类/">ios中的UITouch类</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/ios中的UITouch类/">ios中的UITouch类</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-02T04:29:30.000Z"><a href="/2017/01/02/ios中的NSSet类/">2017-01-02</a></time>
-          
-            <h1 class="title"><a href="/2017/01/02/ios中的NSSet类/">ios中的NSSet类</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/ios中的NSSet类/">ios中的NSSet类</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-12-29T13:46:00.000Z"><a href="/2016/12/29/ios中的各种事件/">2016-12-29</a></time>
-          
-            <h1 class="title"><a href="/2016/12/29/ios中的各种事件/">ios中的各种事件</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/ios中的各种事件/">ios中的各种事件</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-    
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/14/Linux-Shell基础字符处理命令/" data-title="Linux-Shell基础字符处理命令" data-url="http://yoursite.com/2017/01/14/Linux-Shell基础字符处理命令/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
