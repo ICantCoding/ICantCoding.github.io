@@ -3,13 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>hexo | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux-Shell基础sed命令 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="sed命令sed是一种几乎包括在所有UNIX平台(包括Linux)的轻量级流编辑器. sed主要是用来将数据进行选取, 替换, 删除, 新增的命令.
+sed [选项] ‘[动作]’ 文件名选项:-n : 一般sed命令会把所有数据都输出到屏幕, 如果加入此选择, 则只会把进过sed命令处理的行输出到">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux-Shell基础sed命令"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +78,98 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-14T08:13:14.000Z"><a href="/2017/01/14/Linux-Shell基础sed命令/">2017-01-14</a></time>
+        
+  
+    <h1 class="title">Linux-Shell基础sed命令</h1>
+  
 
-<h2 class="archive-title fa-folder">hexo</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-10-27T09:09:45.000Z"><a href="/2016/10/27/hexo markdown简单的使用/">2016-10-27</a></time>
-          
-            <h1 class="title"><a href="/2016/10/27/hexo markdown简单的使用/">hexo markdown简单的使用</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/hexo/">hexo</a>, <a href="/tags/markdown/">markdown</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#sed命令"><span class="toc-text">sed命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sed-选项-‘-动作-’-文件名"><span class="toc-text">sed [选项] ‘[动作]’ 文件名</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h5><p>sed是一种几乎包括在所有UNIX平台(包括Linux)的轻量级流编辑器. sed主要是用来将数据进行选取, 替换, 删除, 新增的命令.<br></p>
+<h5 id="sed-选项-‘-动作-’-文件名"><a href="#sed-选项-‘-动作-’-文件名" class="headerlink" title="sed [选项] ‘[动作]’ 文件名"></a>sed [选项] ‘[动作]’ 文件名</h5><p>选项:<br><br>-n : 一般sed命令会把所有数据都输出到屏幕, 如果加入此选择, 则只会把进过sed命令处理的行输出到屏幕.<br><br>-e : 允许对输入数据应用多条sed命令编辑器. <strong style="color:red;">sed -e ‘s/Liming//g;s/Gao//g’ student.txt, 同时把Liming和Gao替换为空.</strong><br><br>-i : 用sed的修改结果直接修改读取数据的文件, 而不是由屏幕输出.<br><br>动作: <br><br>a : 追加, 在当前行后添加一行或多行, 添加多行时. 除最后一行外, 每行末尾需要用”\”代表数据未完结. <strong style="color:red;">sed ‘2a hello world’ student.txt</strong><br><br>c : 行替换, 用c后面的字符串替换原数据行, 替换多行时, 除最后一行外, 每行末尾需用”\”代表数据未完结. <strong style="color:red">sed ‘2c No Such Person’ student.txt</strong><b r=""><br>i : 插入, 在当前行钱插入一行或多行. 插入多行时, 除最后一行外, 每行末尾需要用”\”代表数据未完结. <strong style="color:red;">sed ‘2i hello world \ <br><br>world!’ student.txt</strong><br><br>d : 删除, 删除指定的行. <strong style="color:red;">sed ‘2,3d’ student.txt</strong><br><br>p : 打印, 输出指定的行. <strong style="color:red;">sed -n ‘2p’ student.txt</strong><br><br>s : 字串替换, 用一个字符串替换另一个字符串. 格式为”行范围s/旧字符串/新字符串/g”. <strong style="color:red;">sed ‘4s/99/55/g’ student.txt</strong><br></b></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Shell/">Shell</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/Linux-Shell基础sed命令/">Linux-Shell基础sed命令</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/14/Linux-Shell基础sed命令/" data-title="Linux-Shell基础sed命令" data-url="http://yoursite.com/2017/01/14/Linux-Shell基础sed命令/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
