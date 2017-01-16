@@ -3,15 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ios中的NSData类 | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux-Shell基础if语句 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
   
-  <meta name="description" content="数据类, NSData是一个将数据保存为二进制的类, 这个类相当重要, 我们需要认真的理解和使用它!">
+  <meta name="description" content="if 结合测试语句使用单分支if条件语句123if [ 条件判断是 ];then	程序内容fi
+1234if [ 条件判断式 ] 	then		程序fi
+注意:
+
+if语句使用fi结尾, 和一般语音使用大括号结尾不同.
+[ 条件判断式 ]就是使用test命令来判断, 所以中括号和条件判断式之间必须有">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="ios中的NSData类"/>
+  <meta property="og:title" content="Linux-Shell基础if语句"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -83,10 +88,10 @@
     <header>
         <div class="icon"></div>
         
-        <time datetime="2017-01-09T10:02:13.000Z"><a href="/2017/01/09/ios中的NSData类/">2017-01-09</a></time>
+        <time datetime="2017-01-16T13:05:07.000Z"><a href="/2017/01/16/Linux-Shell基础if语句/">2017-01-16</a></time>
         
   
-    <h1 class="title">ios中的NSData类</h1>
+    <h1 class="title">Linux-Shell基础if语句</h1>
   
 
     </header>
@@ -95,11 +100,20 @@
       
         
     <div id="toc">
-        
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#if-结合测试语句使用"><span class="toc-text">if 结合测试语句使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#单分支if条件语句"><span class="toc-text">单分支if条件语句</span></a></li></ol>
     </div>
 
-        <p>数据类, NSData是一个将数据保存为二进制的类, 这个类相当重要, 我们需要认真的理解和使用它!<br><a id="more"></a></p>
-<p>##### </p>
+        <a id="more"></a>
+<h5 id="if-结合测试语句使用"><a href="#if-结合测试语句使用" class="headerlink" title="if 结合测试语句使用"></a>if 结合测试语句使用</h5><h5 id="单分支if条件语句"><a href="#单分支if条件语句" class="headerlink" title="单分支if条件语句"></a>单分支if条件语句</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if [ 条件判断是 ];then</div><div class="line">	程序内容</div><div class="line">fi</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if [ 条件判断式 ] </div><div class="line">	then</div><div class="line">		程序</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>注意:<br></p>
+<ol>
+<li>if语句使用fi结尾, 和一般语音使用大括号结尾不同.<br></li>
+<li>[ 条件判断式 ]就是使用test命令来判断, 所以中括号和条件判断式之间必须有空格.<br></li>
+<li>then 后面跟符合条件之后执行的程序, 可以放在[]之后, 用;分割. 也可以换行写入,这个时候就不需要;了.<br><br>举例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">rate=$(df -h | grep &quot;dev/sda3&quot; | awk &apos;&#123;print $5&#125;&apos; | cut -d &quot;%&quot; -f 1)</div><div class="line">if [ $rate -ge 80 ]</div><div class="line">	then</div><div class="line">		echo &quot;Warning! /dev/sda3 is full!!!&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">sourceDirectory=/etc</div><div class="line">destination=/tmp/iftest</div><div class="line">date=$(date +%y%m%d)</div><div class="line">size=$(du -sh $sourceDirectory)</div><div class="line">if [ -d $destination ]</div><div class="line">	then</div><div class="line">		echo &quot;开始压缩，复制...1&quot;</div><div class="line">		echo &quot;Date : $date!&quot; &gt; $destination/etcinfo.txt</div><div class="line">		echo &quot;Data size : $size&quot; &gt;&gt; $destination/etcinfo.txt</div><div class="line">		cd $destination</div><div class="line">		tar -zcvf etc-copy-$date.tar.gz $sourceDirectory</div><div class="line">	else</div><div class="line">		echo &quot;开始压缩，复制...2&quot;</div><div class="line">		mkdir $destination</div><div class="line">		echo &quot;Date : $date!&quot; &gt; $destination/etcinfo.txt</div><div class="line">		echo &quot;Data size : $size&quot; &gt;&gt; $destination/etcinfo.txt</div><div class="line">		cd $destination</div><div class="line">		tar -zcvf etc$date.tar.gz $sourceDirectory</div><div class="line">fi</div></pre></td></tr></table></figure>
+</li>
+</ol>
 
       
     </div>
@@ -108,12 +122,12 @@
         
   
   <div class="categories">
-    <a href="/categories/ios/">ios</a>
+    <a href="/categories/Shell/">Shell</a>
   </div>
 
         
   <div class="tags">
-    <a href="/tags/ios中的NSData类/">ios中的NSData类</a>
+    <a href="/tags/Linux-Shell基础if语句/">Linux-Shell基础if语句</a>
   </div>
 
         <div class = "counter">
@@ -145,7 +159,7 @@
     
     
         <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key="2017/01/09/ios中的NSData类/" data-title="ios中的NSData类" data-url="http://yoursite.com/2017/01/09/ios中的NSData类/"></div>
+        <div class="ds-thread" data-thread-key="2017/01/16/Linux-Shell基础if语句/" data-title="Linux-Shell基础if语句" data-url="http://yoursite.com/2017/01/16/Linux-Shell基础if语句/"></div>
         <!-- 多说评论框 end -->
         <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
         <script type="text/javascript">
