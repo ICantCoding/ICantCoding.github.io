@@ -64,9 +64,9 @@
 		</div>
 		<div id="sub-nav" class="alignright">
 		    
-		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
 		    
-		      <a href="/customization"><i class="fa fa-question-circle"></i>留言</a>
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
 		    
 		</div>
 	</div>
@@ -76,6 +76,50 @@
   
     <div id="content" class="inner">
       <div id="main-col" class="alignleft"><div id="wrapper">
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-17T13:59:35.000Z"><a href="/2017/01/17/Linux-Shell基础case语句/">2017-01-17</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/17/Linux-Shell基础case语句/">Linux-Shell基础case语句</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#case-语句"><span class="toc-text">case 语句</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="case-语句"><a href="#case-语句" class="headerlink" title="case 语句"></a>case 语句</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">case $变量名 in</div><div class="line">	&quot;值1&quot;)</div><div class="line">		如果变量的值等于值1，则执行程序1</div><div class="line">		;;</div><div class="line">	&quot;值2&quot;)</div><div class="line">		如果变量的值等于值2, 则执行程序2</div><div class="line">		;;</div><div class="line">	&quot;值3&quot;)</div><div class="line">		如果变量的值等于值3, 则执行程序3</div><div class="line">		;;</div><div class="line">	......</div><div class="line">	*)</div><div class="line">		如果变量的值都不是以上的值, 则执行此程序</div><div class="line">		;;</div><div class="line">esac</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">read -p &quot;Please choose yes/no: &quot; -t 30 cho</div><div class="line">case $cho in</div><div class="line">	&quot;yes&quot;)</div><div class="line">		echo &quot;Your choose is yes!&quot;</div><div class="line">		;;</div><div class="line">	&quot;no&quot;)</div><div class="line">		echo &quot;Your choose is no!&quot;</div><div class="line">		;;</div><div class="line">	*)</div><div class="line">		echo &quot;Your choose is error!&quot;</div><div class="line">		;;</div><div class="line">esac</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/17/Linux-Shell基础case语句/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
     <article class="post">
   
   <div class="post-content">
@@ -497,54 +541,11 @@
 
 
 
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-01-10T14:49:46.000Z"><a href="/2017/01/10/Linux使用错误详记/">2017-01-10</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/01/10/Linux使用错误详记/">Linux使用错误详记</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用ssh访问服务器-登录出现”Permission-denied-please-try-agin”的问题"><span class="toc-text">使用ssh访问服务器, 登录出现”Permission denied, please try agin”的问题?</span></a></li></ol>
-    </div>
-
-        <a id="more"></a>
-<h5 id="使用ssh访问服务器-登录出现”Permission-denied-please-try-agin”的问题"><a href="#使用ssh访问服务器-登录出现”Permission-denied-please-try-agin”的问题" class="headerlink" title="使用ssh访问服务器, 登录出现”Permission denied, please try agin”的问题?"></a>使用ssh访问服务器, 登录出现”Permission denied, please try agin”的问题?</h5><p>2017-1-10<br><br>答: 如果使用ssh远程登录服务器的过程中, 用户名和密码没有错误的话, 很有可能是再Linux服务器在ssh的相关配置中, 没有指定允许root用户通过ssh远程登录。解决办法是: 修改/etc/ssh/sshd_config文件中的配置项, “PermitRootLogin”的值修改为yes, yes表示允许root通过ssh远程登录访问服务器. 配置完成后重新启动ssh服务, service ssh restart.</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        <div class="alignright">
-          <a href="/2017/01/10/Linux使用错误详记/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
  
 <nav id="pagination">
   
   
-    <a href="/page/2/" class="alignright next">下一页</a>
+    <a href="/page/2/" class="alignright next">Next</a>
   
   <div class="clearfix"></div>
 </nav>
@@ -552,22 +553,22 @@
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
-<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
     <input type="hidden" name="wd" value="site:yoursite.com"> -->
-     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
   </form>
 </div> 
 
   
 <div class="widget tag">
-  <h3 class="title" id="categories">分类</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
 </div>
  
 
 
   <div class="widget tag">
-  <h3 class="title">日历云</h3>
+  <h3 class="title">Calendar</h3>
   <div id="calendar"></div>
 </div>
 
@@ -577,9 +578,9 @@
 
   
 <div class="widget tagcloud">
-  <h3 class="title">标签云</h3>
+  <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
+    <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a>
   </div>
 </div>
 
@@ -587,7 +588,7 @@
   
   <div class="widget tag">
     <h3 class="title">归档</h3>
-	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
   </div>
 
 </aside>

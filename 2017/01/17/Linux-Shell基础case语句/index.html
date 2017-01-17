@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Linux 常用命令 | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux-Shell基础case语句 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="case 语句123456789101112131415case $变量名 in	&amp;quot;值1&amp;quot;)		如果变量的值等于值1，则执行程序1		;;	&amp;quot;值2&amp;quot;)		如果变量的值等于值2, 则执行程序2		;;	&amp;quot;值3&amp;quot;)		如果变量的值等于值3, 则">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux-Shell基础case语句"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +77,98 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-17T13:59:35.000Z"><a href="/2017/01/17/Linux-Shell基础case语句/">2017-01-17</a></time>
+        
+  
+    <h1 class="title">Linux-Shell基础case语句</h1>
+  
 
-<h2 class="archive-title fa-tag">Linux 常用命令</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-12-06T12:49:10.000Z"><a href="/2016/12/06/Linux-常用命令/">2016-12-06</a></time>
-          
-            <h1 class="title"><a href="/2016/12/06/Linux-常用命令/">Linux 文件目录操作常用命令</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Linux-常用命令/">Linux 常用命令</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#case-语句"><span class="toc-text">case 语句</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="case-语句"><a href="#case-语句" class="headerlink" title="case 语句"></a>case 语句</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">case $变量名 in</div><div class="line">	&quot;值1&quot;)</div><div class="line">		如果变量的值等于值1，则执行程序1</div><div class="line">		;;</div><div class="line">	&quot;值2&quot;)</div><div class="line">		如果变量的值等于值2, 则执行程序2</div><div class="line">		;;</div><div class="line">	&quot;值3&quot;)</div><div class="line">		如果变量的值等于值3, 则执行程序3</div><div class="line">		;;</div><div class="line">	......</div><div class="line">	*)</div><div class="line">		如果变量的值都不是以上的值, 则执行此程序</div><div class="line">		;;</div><div class="line">esac</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">read -p &quot;Please choose yes/no: &quot; -t 30 cho</div><div class="line">case $cho in</div><div class="line">	&quot;yes&quot;)</div><div class="line">		echo &quot;Your choose is yes!&quot;</div><div class="line">		;;</div><div class="line">	&quot;no&quot;)</div><div class="line">		echo &quot;Your choose is no!&quot;</div><div class="line">		;;</div><div class="line">	*)</div><div class="line">		echo &quot;Your choose is error!&quot;</div><div class="line">		;;</div><div class="line">esac</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Shell/">Shell</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/Linux-Shell基础case语句/">Linux-Shell基础case语句</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/17/Linux-Shell基础case语句/" data-title="Linux-Shell基础case语句" data-url="http://yoursite.com/2017/01/17/Linux-Shell基础case语句/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
