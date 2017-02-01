@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>C程序编译, 链接过程 | ShanGe 的 Coding 漫漫路</title>
+  <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="这里简单的介绍一下程序编译, 链接这个过程.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="C程序编译, 链接过程"/>
+  <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="ShanGe 的 Coding 漫漫路" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">ShanGe 的 Coding 漫漫路</a></h1>
+		    <h2><a href="/">要做的只是静下心来,大步向前,然后泰然的接受一切,冷静的处理一切！</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/categories/collection"><i class="fa fa-pencil"></i>文集</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		    		  <a href="/me"><i class="fa fa-user"></i>关于我</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
+		    
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+  
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-30T11:42:53.000Z"><a href="/2017/01/30/程序编译-链接过程/">2017-01-30</a></time>
+        
+  
+    <h1 class="title">C程序编译, 链接过程</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编译过程"><span class="toc-text">编译过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#汇编"><span class="toc-text">汇编</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#静态库和动态库"><span class="toc-text">静态库和动态库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#链接过程"><span class="toc-text">链接过程</span></a></li></ol>
+    </div>
+
+        <p>这里简单的介绍一下程序编译, 链接这个过程.<br><a id="more"></a></p>
+<h5 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h5><p>C语言的编译链接过程要把我们编写的一个C程序(源代码)转换成可以在硬件上运行的程序(可执行代码), 需要进行编译和链接. 编译就是把文本形式的源代码翻译为机器语言形式的目标文件的过程. 链接是把目标文件, 操作系统的启动代码和用到的库文件进行组织形成可加载, 可执行代码的过程.<br><br><img class="../images/C语言编译链接过程.png 200 150"><br><br>1.预处理器: 将.c文件转化成.i文件.<br><br>2.编译器: 将.c/.h文件转换成.s文件.<br><br>3.汇编器: 将.s文件转化成.o文件.<br><br>4.链接器: 将.o文件转化成可执行文件.<br><br>5.加载器: 将可执行程序加载到内存并进行执行.<br></p>
+<h5 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h5><p>编译过程又可以分为两个阶段: 编译和汇编.<br><br>编译是指编译器读取源程序(字符流), 对之进行词法和语法的分析, 将高级语言指令转换为功能等效的汇编代码.<br><br>源文件的编译分为两个主要阶段:<br><br>第一个阶段是预处理阶段, 在正式的编译阶段之前进行. 预处理阶段将根据已放置在文件中的预处理指令来修改源文件的内容. 包括宏定义指令, 条件编译指令, 头文件包含指令, 特殊符号.<br><br>头文件的目的主要是为了使某些定义可以供多个不同的C源程序使用, 这涉及到头文件的定位即搜索路径问题.头文件搜索规则如下:<br><br>1.所有header file的搜索会从-I开始.<br><br>2.然后找环境变量C_INCLUDE_PATH, CPLUS_INCLUDE_PATH, OBJC_INCLUDE_PATH指定的路径.<br><br>3.再找默认目录(/usr/include, /usr/local/include, /usr/lib/gcc-lib/i386-linux/….).<br><br>第二个阶段, 编译,优化阶段, 编译程序所要做的工作就是通过词法分析和语法分析, 在确定所有的指令都符合语法规则之后, 将其翻译成等价的中间代码表示或汇编代码.<br></p>
+<h5 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h5><p>汇编实际上指汇编器(as)把汇编语言代码翻译成目标机器指令的过程. 目标文件中所存放的也就是与源程序等效的目标的机器语言代码. 目标文件由段组成. 通常一个目标文件中至少两个段:代码段, 数据段.<br><br>汇编生成的目标文件又分为三种:<br><br>1.可重定位(Relocatable)文件, 由编译器和汇编器生成, 可以与其他可重定位目标文件合并创建一个可执行或共享的目标文件.<br><br>2.共享(Shared)目标文件: 一类特殊的可重定位目标文件, 可以在链接(静态共享库)时加入目标文件或加载时或运行时(动态共享库)被动态的加载到内存并执行.<br><br>3.可执行(executable)文件: 由链接器生成, 可以直接通过加载器加载到内存中充当进程执行的文件.<br></p>
+<h5 id="静态库和动态库"><a href="#静态库和动态库" class="headerlink" title="静态库和动态库"></a>静态库和动态库</h5><h5 id="链接过程"><a href="#链接过程" class="headerlink" title="链接过程"></a>链接过程</h5><p>链接器主要是将有关的目标文件彼此相连接生成可加载, 可执行的目标文件. 链接器的核心工作就是符号表解析和重定位.<br><br>链接的时机:<br><br>1.编译时, 就是源代码被编译成机器代码时(静态链接器负责).<br><br>2.加载时, 就是程序被加载到内存时(加载器负责).<br><br>3.运行时, 有应用程序来实施(动态连机器负责).<br><br>链接的作用:<br><br>1.使得分离编译成为可能.<br><br>2.动态绑定,使定义, 实现可以分离开来.<br><br>静态库搜索路径(由静态链接器负责).<br><br>动态库搜索路径(由动态链接器负责).<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/程序底部原理/">程序底部原理</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/C程序编译-链接过程/">C程序编译, 链接过程</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
+</div>
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+  
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
+  
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/30/程序编译-链接过程/" data-title="C程序编译, 链接过程" data-url="http://yoursite.com/2017/01/30/程序编译-链接过程/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
+      <aside id="sidebar" class="alignright">
+   <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
+    <input type="hidden" name="wd" value="site:yoursite.com"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
+  </form>
+</div> 
+
+  
+<div class="widget tag">
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket编程/">Socket编程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+</div>
+ 
+
+
+  <div class="widget tag">
+  <h3 class="title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+
+  
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/QT开发记录/" style="font-size: 10px;">QT开发记录</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
+  </div>
+</div>
+
+
+  
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">27</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+  </div>
+
+</aside>
+      <div class="clearfix"></div>
+    </div>
+  
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2017 Tian Shanshan
+    
+  </div>
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  
+  <div class="visit">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </div>
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('zh-CN',{single:undefined, root:'calendar'});
+    
+    });
+  </script>
+
+
+<!-- 『不蒜子』计数服务 -->
+<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- wumii关联推荐 -->
+<script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
+
+<!-- 百度推荐 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div>
+
+<!-- 站内搜索-Swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','sC-iNFrvTTNtiXEVNwo1','2.0.0');
+</script>
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
