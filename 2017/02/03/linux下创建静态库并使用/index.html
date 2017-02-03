@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/2 | ShanGe 的 Coding 漫漫路</title>
+  <title>linux下创建静态库并使用 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="创建静态库, 来达到在多个项目中重用代码. 下边来讲讲linux下如何创建静态库.">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="linux下创建静态库并使用"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,55 +77,99 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-02-03T11:06:49.000Z"><a href="/2017/02/03/linux下创建静态库并使用/">2017-02-03</a></time>
+        
+  
+    <h1 class="title">linux下创建静态库并使用</h1>
+  
 
-<h2 class="archive-title fa-calendar">2017/2</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-02-03T11:06:49.000Z"><a href="/2017/02/03/linux下创建静态库并使用/">2017-02-03</a></time>
-          
-            <h1 class="title"><a href="/2017/02/03/linux下创建静态库并使用/">linux下创建静态库并使用</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#遇见的问题"><span class="toc-text">遇见的问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#引伸的问题"><span class="toc-text">引伸的问题</span></a></li></ol>
+    </div>
+
+        <p>创建静态库, 来达到在多个项目中重用代码. 下边来讲讲linux下如何创建静态库.<br><a id="more"></a><br>1.静态库是一些目标文件(.obj)的集合体而已.<br><br>2.静态库的后缀名一般是.a, 但是奇葩的是windows这个怪胎是.lib. 很尴尬呀！<br><br>3.linux下可以使用ar命令来创建一个静态库文件.<br></p>
+<p>如何建立一个简单的静态库(复杂的我也从来没有做过, 还是很希望能够懂的, 但是时间消耗可能会比较大)的步骤, 我简单的写在下边:<br><br>1.先创建一个.h文件, 命名为tss_add.h, 内部代码如下:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#include <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="keyword">int</span> add(<span class="keyword">int</span> x, <span class="keyword">int</span> y);</div></pre></td></tr></table></figure><br>2.创建一个.c文件, 命名为tss_add.c, 用来实现.h函数代码, 内容如下:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#include <span class="meta-string">"tss_add.h"</span></span></div><div class="line"><span class="keyword">int</span> add(<span class="keyword">int</span> x, <span class="keyword">int</span> y)&#123;</div><div class="line">	<span class="keyword">return</span> x + y;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>3.然后数据命令编译:<br><br>gcc -c tss_add.c  #这条命令让tss_add.c编译, 汇编成为tss_add.o目标文件<br><br>ar cr libtss_add.a tss_add.o #这条命令让生成的tss_add.o目标文件再生成libtss_add.a静态库.<br><br>4.使用生成的libtss_add.a静态库, 创建main.c文件, 内容如下:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#include <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#include <span class="meta-string">"tss_add.h"</span></span></div><div class="line"><span class="keyword">int</span> main()&#123;</div><div class="line">	printf(<span class="string">"return a value %d\n"</span>, add(<span class="number">10</span>,<span class="number">10</span>));</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>再对 main.c文件 执行如下命令:<br><br>gcc -c main.c #根据main.c文件生成main.o目标文件.<br><br>gcc -o main main.o -L. -ltss_add #链接上tss_add.a静态库, 然后生成可执行文件main. 注意:静态库的路径要对, 因为我们这里生成的静态库文件跟main.o在同一个目录下, 所以没有添加详细路径. -L. 后边一定要跟一个., 然后-lxxx, 这个xxx就是静态库文件名字,并且不需要跟静态库的后缀名.<br><br>5.执行./main , 就可以看到结果了.</p>
+<h5 id="遇见的问题"><a href="#遇见的问题" class="headerlink" title="遇见的问题"></a>遇见的问题</h5><p>我当时做的时候, 将生成的静态库导入到项目中, 无法使用, 一直报这个静态库 Symbol(s) undefined X86_64的错误?<br><br>答: 因为是这个静态库是在C++项目中使用的, 起初我制作静态库的时候, 声明c函数的时候没有在c函数前边添加extern “C” 来表示这个静态库中的函数要用c编译方式来编译. 后来加上就可以使用了.<br></p>
+<h5 id="引伸的问题"><a href="#引伸的问题" class="headerlink" title="引伸的问题"></a>引伸的问题</h5><p>引伸的问题我会抽空另写文章来学习并介绍.<br><br>1.gcc 这个工具的作用, 与使用详情.<br><br>2.那种大型,包含很多目标文件的静态库是如何制作的.<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/程序底部原理/">程序底部原理</a>
+  </div>
+
+        
   <div class="tags">
     <a href="/tags/linux下创建静态库并使用/">linux下创建静态库并使用</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-02-01T15:14:22.000Z"><a href="/2017/02/01/MySQL-初涉及/">2017-02-01</a></time>
-          
-            <h1 class="title"><a href="/2017/02/01/MySQL-初涉及/">MySQL 初涉及</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/MySQL-初涉/">MySQL 初涉</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-    
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/02/03/linux下创建静态库并使用/" data-title="linux下创建静态库并使用" data-url="http://yoursite.com/2017/02/03/linux下创建静态库并使用/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
