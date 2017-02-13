@@ -82,6 +82,57 @@
     <header>
         <div class="icon"></div>
         
+        <time datetime="2017-01-29T02:41:12.000Z"><a href="/2017/01/29/使用socket-函数创建套接字/">2017-01-29</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/29/使用socket-函数创建套接字/">使用socket()函数创建套接字</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#在Linux下创建socket"><span class="toc-text">在Linux下创建socket</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用bind-函数"><span class="toc-text">使用bind()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#将套接字与IP地址127-0-0-1-端口1234绑定"><span class="toc-text">将套接字与IP地址127.0.0.1, 端口1234绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#connect-函数"><span class="toc-text">connect()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#listen-函数"><span class="toc-text">listen()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#accept-函数"><span class="toc-text">accept()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Linux下数据的接收和发送"><span class="toc-text">Linux下数据的接收和发送</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#windows下数据的接收和发送"><span class="toc-text">windows下数据的接收和发送</span></a></li></ol>
+    </div>
+
+        <p>在Linux中, 一切都是文件, 除了文本文件, 源文件, 二进制文件等, 一个硬件设备也可以被映射为一个虚拟的文件, 称为设备文件. stdin 称为标准输入文件, 它对应的硬件设备一般是键盘, stdout称为标准输出文件, 它对应的硬件设备一般是显示器 。对于所有的文件, 都可以使用read()函数读取数据, 使用write()函数写入数据.<br><br>“一切都是文件”的思想极大地简化了程序员的理解和操作, 使得对硬件设备的处理就像普通文件一样。所有Linux中创建的文件都有一个int类型的编号, 称为文件描述符(File Descriptor). 使用文件时, 只要知道文件描述符就可以了. stdin的描述符为0, stdout的描述符为1.<br><br>在 Linux中, socket也被认为是文件的一种, 和普通文件的操作没有区别, 所以在网络数据传输过程中自然可以使用与文件I/O相关的函数, 可以认为, 两台计算机之间的通信, 实际上是两个socket文件的相互读写.<br></p>
+<h5 id="在Linux下创建socket"><a href="#在Linux下创建socket" class="headerlink" title="在Linux下创建socket"></a>在Linux下创建socket</h5><p>在linux下使用<sys socket.h="">头文件中socket()函数来创建套接字, 原型为:<br><br>int socket(int af, int type, int protocol);<br><br>1)af参数为地址族(Address Family), 也就是IP地址类型, 常用的有AF_INET和AF_INET6。AF_INET表示ipv4地址, 例如127.0.0.1 , AF_INET6表示IPv6地址, 例如:1030:C9B4:FF!@:48AA:1A2B <br><br>2)type参数为数据传输方式, 常用的有SOCK_STREAM, SOCK_DGRAM.<br>3)protocol参数表示传输协议, 常用的有IPPROTO_TCP, IPPROTO_UDP, 分别表示TCP传输协议和UDP传输协议.<br><br>4)一般情况下有了af和type两个参数就可以创建套接字了, 操作系统会自动推演出协议类型, 除非遇到这样的情况：有两种不同的协议支持同一种地址类型和数据传输类型。如果我们不指明使用哪种协议，操作系统是没有办法自动推演的<br><br>5)如果af参数的值为AF_INET, 如果使用SOCK_STREAM传输数据, 那么满足这两个条件的协议只有TCP. 这种套接字称为TCP套接字.<br><br>int tcp_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);<br>6)如果af参数的值为AF_INET, 使用SOCK_DGRAM传输方式, 那么满足这两个条件的协议只是UDP, 这样的套接字称为UDP套接字.<br><br>int udp_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);<br>7)以上5，6点可以自动推算， 简易写法如下:<br><br>创建TCP套接字: int tcp_socket = socket(AF_INET, SOCK_STREAM, 0);<br><br>创建UDP套接字: int udp_socket = socket(AF_INET, SOCK_DGRAM, 0);<br></sys></p>
+<h5 id="使用bind-函数"><a href="#使用bind-函数" class="headerlink" title="使用bind()函数"></a>使用bind()函数</h5><p>socket()函数用来创建套接字, 确定套接字的各种属性, 然后服务器端口要用bind()函数将套接字与特定的IP地址和端口绑定起来, 只有这样, 流经该IP地址和端口的数据才能交给套接字处理.<br><br>bind()函数原型如下两种:<br>1) int bind(int sock, struct sockaddr<em> addr, socklen_t addrlen); #linux中<br><br>2) int bind(SOCKET sock, const struct sockaddr </em>addr, int addrlen); #windows中<br><br>sock为socket文件描述符, addr为sockaddr结构体变量的指针, addrlen为addr变量的大小, 可由sizeof()计算得出.<br></p>
+<h5 id="将套接字与IP地址127-0-0-1-端口1234绑定"><a href="#将套接字与IP地址127-0-0-1-端口1234绑定" class="headerlink" title="将套接字与IP地址127.0.0.1, 端口1234绑定"></a>将套接字与IP地址127.0.0.1, 端口1234绑定</h5><p>int serv_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);<br><br>struct sockaddr_in serv_addr;<br><br>memset(&amp;serv_addr, 0, sizeof(serv_addr));<br><br>serv_addr.sin_family = AF_INET;<br><br>serv_addr.sin_addr.s_addr = inet_addr(“127.0.0.1”);<br><br>serv_addr.sin_port = htons(1234);<br><br>bind(serv_sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));<br><br>这里我们使用了sockaddr_in结构体, 然后再强制转换为sockaddr类型.<br></p>
+<h5 id="connect-函数"><a href="#connect-函数" class="headerlink" title="connect()函数"></a>connect()函数</h5><p>connect()函数用来简历连接, 它的原型为:<br><br>1) int connect(int sock, struct sockaddr<em> serv_addr, socklen_t addrlen);//linux<br>2) int connect(SOCKET sock, const struct sockaddr</em> serv_addr, int addrlen);//windows</p>
+<h5 id="listen-函数"><a href="#listen-函数" class="headerlink" title="listen()函数"></a>listen()函数</h5><p>对于服务器端程序, 使用bind()绑定套接字后, 还需要使用listen()函数让套接字进入被动监听状态, 再调用accept()函数, 就可以随时响应客户端的请求了.<br><br>listen()函数可以让套接字进入被动监听的状态, 它的原型为:<br><br>1)int listen(int sock, int backlog);//Linux<br><br>2)int listen(SOCKET sock, int backlog);//Windows<br><br>sock为需要进入监听状态的套接字, backlog为请求队列的最大长度.<br><br>所谓被动监听是指当没有客户端请求时, 套接字处于“睡眠”状态, 只有当接收到客户端请求时, 套接字才会被“唤醒”来响应请求.<br><br>请求队列:<br><br>当套接字正在处理客户端请求时, 如果有新的请求进来, 套接字是没法处理的, 只能把它放进缓冲区, 待当前请求处理完毕后, 再从缓冲区中读取出来处理. 如果不断有新的请求进来, 它们就按照先后顺序在缓冲区中排队, 直到缓冲区满, 这个缓冲区就称为请求队列(Request Queue).<br><br>缓冲区的长度(能存放多少个客户端请求)可以通过listen()函数的backlog参数指定, 但究竟为多少并没有什么标准, 可以根据你的需求来定, 并发量小的话可以是10或者20. 如果将backlog的值设置为SOMAXCONN, 就由系统来决定请求队列长度, 这个值一般比较大, 可能是几百, 或者更多.<br><br>当请求队列满时, 就不再接收新的请求, 对于Linux, 客户端会收到ECONNREFUSED错误, 对于Windows, 客户端会收到WSAECONNREFUSED错误.<br><br>注意: listen()只是让套接字处于监听状态, 并没有接收请求. 接收请求需要使用accept()函数.<br></p>
+<h5 id="accept-函数"><a href="#accept-函数" class="headerlink" title="accept()函数"></a>accept()函数</h5><p>当套接字处于监听状态时, 可以通过accept()函数来接收客户端请求, 它的原型为:<br><br>1) int accept(int sock, struct sockaddr <em>addr, socklen_t</em> addrlen);//Linux <br><br>2) SOCKET accept(SOCKET sock, struct sockaddr <em>addr, int </em>addrlen);//Windows <br><br>accept()返回一个新的套接字来和客户端通信, addr保存了客户端的IP地址和端口号, 而sock是服务器端的套接字, 大家注意区分 。 后面和客户端通信时, 要使用这个新生成的套接字, 而不是原来服务器端的套接字.<br><br>注意:listen()只是让套接字进入监听状态, 并没有真正接收客户端请求, listen()后面的代码会继续执行, 直到遇到accept(). accept()会阻塞程序执行(后面代码不能执行) , 直到有新的请求到来.<br></p>
+<h5 id="Linux下数据的接收和发送"><a href="#Linux下数据的接收和发送" class="headerlink" title="Linux下数据的接收和发送"></a>Linux下数据的接收和发送</h5><p>Linux下不区分套接字文件和普通文件, 使用write()可以向套接字中写入数据, 使用read()可以从套接字中读取数据.<br><br>两台计算机之间的通信相当于两个套接字之间的通信, 在服务器端用write()向套接字写入数据, 客户端就能收到, 然后再使用read()从套接字中读取出来, 就完成了一次通信.<br><br>write()的原型为:<br><br>ssize_t write(int fd, const void *buf, size_t nbytes);<br><br>fd为要写入的文件的描述符, buf为要写入的数据的缓冲区地址, nbytes为要写入的数据的字节数.<br><br>write()函数会将缓冲区buf中的nbytes个字节写入文件fd，成功则返回写入的字节数, 失败则返回-1。</p>
+<p>read()的原型为:<br><br>ssize_t read(int fd, void* buf, size_t nbytes);<br><br>fd为要读取的文件的描述符, buf为要接收数据的缓冲区地址, nbytes为要读取的数据的字节数.<br><br>read()函数会从fd文件中读取nbytes个字节并保存到缓冲区buf, 成功则返回读取到的字节数,(但遇到文件结尾则返回0)， 失败则返回-1。<br></p>
+<h5 id="windows下数据的接收和发送"><a href="#windows下数据的接收和发送" class="headerlink" title="windows下数据的接收和发送"></a>windows下数据的接收和发送</h5><p>int send(SOCKET sock, const char<em> buf, int len, int flags);<br><br>int recv(SOCKET sock, char</em> buf, int len, int flags);<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/29/使用socket-函数创建套接字/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
         <time datetime="2017-01-28T16:02:48.000Z"><a href="/2017/01/29/Windows下的socket程序/">2017-01-29</a></time>
         
   
@@ -480,50 +531,6 @@
 
 
 
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-01-14T08:13:14.000Z"><a href="/2017/01/14/Linux-Shell基础sed命令/">2017-01-14</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/01/14/Linux-Shell基础sed命令/">Linux-Shell基础sed命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#sed命令"><span class="toc-text">sed命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sed-选项-‘-动作-’-文件名"><span class="toc-text">sed [选项] ‘[动作]’ 文件名</span></a></li></ol>
-    </div>
-
-        <a id="more"></a>
-<h5 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h5><p>sed是一种几乎包括在所有UNIX平台(包括Linux)的轻量级流编辑器. sed主要是用来将数据进行选取, 替换, 删除, 新增的命令.<br></p>
-<h5 id="sed-选项-‘-动作-’-文件名"><a href="#sed-选项-‘-动作-’-文件名" class="headerlink" title="sed [选项] ‘[动作]’ 文件名"></a>sed [选项] ‘[动作]’ 文件名</h5><p>选项:<br><br>-n : 一般sed命令会把所有数据都输出到屏幕, 如果加入此选择, 则只会把进过sed命令处理的行输出到屏幕.<br><br>-e : 允许对输入数据应用多条sed命令编辑器. <strong style="color:red;">sed -e ‘s/Liming//g;s/Gao//g’ student.txt, 同时把Liming和Gao替换为空.</strong><br><br>-i : 用sed的修改结果直接修改读取数据的文件, 而不是由屏幕输出.<br><br>动作: <br><br>a : 追加, 在当前行后添加一行或多行, 添加多行时. 除最后一行外, 每行末尾需要用”\”代表数据未完结. <strong style="color:red;">sed ‘2a hello world’ student.txt</strong><br><br>c : 行替换, 用c后面的字符串替换原数据行, 替换多行时, 除最后一行外, 每行末尾需用”\”代表数据未完结. <strong style="color:red">sed ‘2c No Such Person’ student.txt</strong><b r=""><br>i : 插入, 在当前行钱插入一行或多行. 插入多行时, 除最后一行外, 每行末尾需要用”\”代表数据未完结. <strong style="color:red;">sed ‘2i hello world \ <br><br>world!’ student.txt</strong><br><br>d : 删除, 删除指定的行. <strong style="color:red;">sed ‘2,3d’ student.txt</strong><br><br>p : 打印, 输出指定的行. <strong style="color:red;">sed -n ‘2p’ student.txt</strong><br><br>s : 字串替换, 用一个字符串替换另一个字符串. 格式为”行范围s/旧字符串/新字符串/g”. <strong style="color:red;">sed ‘4s/99/55/g’ student.txt</strong><br></b></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        <div class="alignright">
-          <a href="/2017/01/14/Linux-Shell基础sed命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
  
 <nav id="pagination">
   
@@ -547,7 +554,7 @@
   
 <div class="widget tag">
   <h3 class="title" id="categories">Categories</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
 </div>
  
 
@@ -565,7 +572,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
+    <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
   </div>
 </div>
 
@@ -573,7 +580,7 @@
   
   <div class="widget tag">
     <h3 class="title">归档</h3>
-	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
   </div>
 
 </aside>

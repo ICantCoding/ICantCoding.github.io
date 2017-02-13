@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>objective-c | ShanGe 的 Coding 漫漫路</title>
+  <title>MySQL数据表操作 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="打开数据库USE 数据库名称;
+显示当前用户打开的数据库SELECT DATABASE();
+创建数据表CREATE TABLE [IF NOT EXISTS] table_name (column_name data_type,…)举例:12345CREATE TABLE tb(	username">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="MySQL数据表操作"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,55 +79,109 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-02-13T13:18:55.000Z"><a href="/2017/02/13/MySQL数据表操作/">2017-02-13</a></time>
+        
+  
+    <h1 class="title">MySQL数据表操作</h1>
+  
 
-<h2 class="archive-title fa-tag">objective-c</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-10-31T13:54:41.000Z"><a href="/2016/10/31/NSTimer释放/">2016-10-31</a></time>
-          
-            <h1 class="title"><a href="/2016/10/31/NSTimer释放/">NSTimer释放</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/objective-c/">objective-c</a>, <a href="/tags/NSTimer/">NSTimer</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#打开数据库"><span class="toc-text">打开数据库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#显示当前用户打开的数据库"><span class="toc-text">显示当前用户打开的数据库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建数据表"><span class="toc-text">创建数据表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看数据库中的数据表"><span class="toc-text">查看数据库中的数据表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看数据表结构"><span class="toc-text">查看数据表结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#记录的插入"><span class="toc-text">记录的插入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#记录的查询"><span class="toc-text">记录的查询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL空值-NULL-与非空值-NOT-NULL"><span class="toc-text">MySQL空值(NULL)与非空值(NOT NULL)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL的自动编号-AUTO-INCREMENT"><span class="toc-text">MySQL的自动编号(AUTO_INCREMENT)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL主键约束-PRIMARY-KEY"><span class="toc-text">MySQL主键约束(PRIMARY KEY)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL唯一约束-UNIQUE-KEY"><span class="toc-text">MySQL唯一约束(UNIQUE KEY)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MySQL默认约束-DEFAULT"><span class="toc-text">MySQL默认约束(DEFAULT)</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="打开数据库"><a href="#打开数据库" class="headerlink" title="打开数据库"></a>打开数据库</h5><p><strong style="color:red;">USE 数据库名称;<strong></strong></strong></p>
+<h5 id="显示当前用户打开的数据库"><a href="#显示当前用户打开的数据库" class="headerlink" title="显示当前用户打开的数据库"></a>显示当前用户打开的数据库</h5><p><strong style="color:red;">SELECT DATABASE();</strong></p>
+<h5 id="创建数据表"><a href="#创建数据表" class="headerlink" title="创建数据表"></a>创建数据表</h5><p><strong style="color:red;">CREATE TABLE [IF NOT EXISTS] table_name (column_name data_type,…)</strong><br>举例:<br><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tb(</div><div class="line">	username <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</div><div class="line">	age TINYINT <span class="keyword">UNSIGNED</span>,</div><div class="line">	salary <span class="built_in">FLOAT</span>(<span class="number">7</span>,<span class="number">2</span>) <span class="keyword">UNSIGNED</span></div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h5 id="查看数据库中的数据表"><a href="#查看数据库中的数据表" class="headerlink" title="查看数据库中的数据表"></a>查看数据库中的数据表</h5><p><strong style="color:red;">SHOW TABLES [FROM db_name] [LIKE ‘pattern’ | WHERE expr];</strong></p>
+<h5 id="查看数据表结构"><a href="#查看数据表结构" class="headerlink" title="查看数据表结构"></a>查看数据表结构</h5><p><strong style="color:red;">SHOW COLUMNS FROM tb_name;</strong></p>
+<h5 id="记录的插入"><a href="#记录的插入" class="headerlink" title="记录的插入"></a>记录的插入</h5><p><strong style="color:red;">INSERT [INTO] tb_name [(col_name,…)] VALUES(val,…);</strong><br><br>举例:<br><br>INSERT INTO tb VALUES(‘TOM’,25,7843.25);<br><br>INSERT INTO tb (username,salary) VALUES(‘John’,4500.33);<br></p>
+<h5 id="记录的查询"><a href="#记录的查询" class="headerlink" title="记录的查询"></a>记录的查询</h5><p><strong style="color:red;">SELECT * FROM tb;</strong></p>
+<h5 id="MySQL空值-NULL-与非空值-NOT-NULL"><a href="#MySQL空值-NULL-与非空值-NOT-NULL" class="headerlink" title="MySQL空值(NULL)与非空值(NOT NULL)"></a>MySQL空值(NULL)与非空值(NOT NULL)</h5><p><strong style="color:red;">NULL, 字段值可以为空.</strong><br><br><strong style="color:red;">NOT NULL, 字段值禁止为空.</strong><br><br>举例:<br><br>CREATE TABLE IF NOT EXISTS tb (username VARCHAR(20) NOT NULL, age TINYINT);<br><br>INSERT INTO tb (NULL,20);#会报错,username不能为空.<br></p>
+<h5 id="MySQL的自动编号-AUTO-INCREMENT"><a href="#MySQL的自动编号-AUTO-INCREMENT" class="headerlink" title="MySQL的自动编号(AUTO_INCREMENT)"></a>MySQL的自动编号(AUTO_INCREMENT)</h5><p>自动编号, 且必须与主键组合使用.<br><br>默认情况下, 起始值为1, 每次的增量为1.<br></p>
+<h5 id="MySQL主键约束-PRIMARY-KEY"><a href="#MySQL主键约束-PRIMARY-KEY" class="headerlink" title="MySQL主键约束(PRIMARY KEY)"></a>MySQL主键约束(PRIMARY KEY)</h5><p>1.一张数据表中只能存在一个主键.<br><br>2.主键保证记录的唯一性.<br><br>3.主键自动为NOT NULL.<br></p>
+<h5 id="MySQL唯一约束-UNIQUE-KEY"><a href="#MySQL唯一约束-UNIQUE-KEY" class="headerlink" title="MySQL唯一约束(UNIQUE KEY)"></a>MySQL唯一约束(UNIQUE KEY)</h5><p>1.唯一约束可以保证记录的唯一性.<br><br>2.唯一约束的字段可以为空值(NULL).<br><br>3.每张数据表可以存在多个唯一约束.<br></p>
+<h5 id="MySQL默认约束-DEFAULT"><a href="#MySQL默认约束-DEFAULT" class="headerlink" title="MySQL默认约束(DEFAULT)"></a>MySQL默认约束(DEFAULT)</h5><p>1.当插入记录时,如果灭有明确为字段赋值,则自动赋予默认值.<br></p>
+<p>##### </p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/MySQL/">MySQL</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-10-30T10:51:31.000Z"><a href="/2016/10/30/RunLoop使用/">2016-10-30</a></time>
-          
-            <h1 class="title"><a href="/2016/10/30/RunLoop使用/">OS X/iOS中的RunLoop机制与使用</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
+        
   <div class="tags">
-    <a href="/tags/objective-c/">objective-c</a>, <a href="/tags/Runloop/">Runloop</a>
+    <a href="/tags/object-Object/">[object Object]</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/02/13/MySQL数据表操作/" data-title="MySQL数据表操作" data-url="http://yoursite.com/2017/02/13/MySQL数据表操作/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
