@@ -3,13 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/1 | ShanGe 的 Coding 漫漫路</title>
+  <title>MySQL约束以及修改数据表 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="约束1.约束保证数据的完整性和一致性.2.约束分为表级约束和列级约束.3.约束类型包括:NOT NULL, PRIMARY KEY, UNIQUE KEY, DEFAULT, FOREIGN KEY.
+外键约束(FOREIGN KEY)保持数据一致性,完整性.实现一对一或一对多关系.1.父表和子表必">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="MySQL约束以及修改数据表"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,209 +78,106 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-02-14T13:08:47.000Z"><a href="/2017/02/14/MySQL约束以及修改数据表/">2017-02-14</a></time>
+        
+  
+    <h1 class="title">MySQL约束以及修改数据表</h1>
+  
 
-<h2 class="archive-title fa-calendar">2017/1</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-30T13:08:40.000Z"><a href="/2017/01/30/静态链接库和动态链接库/">2017-01-30</a></time>
-          
-            <h1 class="title"><a href="/2017/01/30/静态链接库和动态链接库/">静态链接库和动态链接库</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/静态链接库和动态链接库/">静态链接库和动态链接库</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#约束"><span class="toc-text">约束</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#外键约束-FOREIGN-KEY"><span class="toc-text">外键约束(FOREIGN KEY)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#外键约束的参照操作"><span class="toc-text">外键约束的参照操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#表级约束与列级约束"><span class="toc-text">表级约束与列级约束</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改数据表-添加列"><span class="toc-text">修改数据表-添加列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改数据表-删除列"><span class="toc-text">修改数据表-删除列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改数据表-添加约束"><span class="toc-text">修改数据表-添加约束</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改数据表-删除约束"><span class="toc-text">修改数据表-删除约束</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改数据表-修改列定义"><span class="toc-text">修改数据表-修改列定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改数据表-数据表更名"><span class="toc-text">修改数据表-数据表更名</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h5><p>1.约束保证数据的完整性和一致性.<br><br>2.约束分为表级约束和列级约束.<br><br>3.约束类型包括:NOT NULL, PRIMARY KEY, UNIQUE KEY, DEFAULT, FOREIGN KEY.<br></p>
+<h5 id="外键约束-FOREIGN-KEY"><a href="#外键约束-FOREIGN-KEY" class="headerlink" title="外键约束(FOREIGN KEY)"></a>外键约束(FOREIGN KEY)</h5><p>保持数据一致性,完整性.<br><br>实现一对一或一对多关系.<br><br>1.父表和子表必须使用相同的存储引擎,而且禁止使用临时表.<br><br>2.数据表的存储引擎只能为InnoDB. 在my.ini配置文件中, 修改default-storage-engine=INNODB<br><br>3.外键列和参照列必须具有相似的数据类型.其中数字的长度或是否有符号位必须相同;而字符的长度则可以不同.<br><br>3.外键列和参照列必须创建索引.如果外键列不存在索引的话MySQL将自动创建索引.<br><br>举例:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//父表,子表参照的表称为父表.</div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> provinces(</div><div class="line">	<span class="keyword">id</span> <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</div><div class="line">	pname <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span></div><div class="line">);</div><div class="line">//子表,有外键的表称为子表. 其中pid就是外键列, id就是参照列.</div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">users</span>(</div><div class="line">	<span class="keyword">id</span> <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</div><div class="line">	username <span class="built_in">VARCHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">	pid <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span>,</div><div class="line">	FOREIGN <span class="keyword">KEY</span> (pid) <span class="keyword">REFERENCES</span> provinces (<span class="keyword">id</span>)</div><div class="line">);</div></pre></td></tr></table></figure><br><strong style="color:red;">SHOW INDEXES FROM users\G;</strong>查看表的索引列.<br></p>
+<h5 id="外键约束的参照操作"><a href="#外键约束的参照操作" class="headerlink" title="外键约束的参照操作"></a>外键约束的参照操作</h5><p>1.CASCADE : 当父表删除或更新,则自动删除或更新子表中匹配的行.<br><br>2.SET NULL : 当父表删除或更新行,则设置子表中的外键列为NULL.如果使用该选项,必须保证子表列没有指定NOT NULL.<br><br>3.RESTRICT : 拒绝对父表的删除或更新操作.<br><br>4.NO ACTION : 标准SQL的关键字,在MySQL中与RESTRICT相同.<br><br>举例:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> users1(</div><div class="line">	<span class="keyword">id</span> <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</div><div class="line">	username <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">	pid <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span>,</div><div class="line">	FOREIGN <span class="keyword">KEY</span> (pid) <span class="keyword">REFERENCES</span> provinces (<span class="keyword">id</span>) <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h5 id="表级约束与列级约束"><a href="#表级约束与列级约束" class="headerlink" title="表级约束与列级约束"></a>表级约束与列级约束</h5><p>对一个数据列建立的约束,称为列级约束.<br><br>对多个数据列建立的约束,称为表级约束.<br><br>列级约束既可以在列定义时声明,也可以在列定义后声明.<br><br>表级约束只能在列定义后声明.<br></p>
+<h5 id="修改数据表-添加列"><a href="#修改数据表-添加列" class="headerlink" title="修改数据表-添加列"></a>修改数据表-添加列</h5><p><strong style="color:red;">ALTER TABLE tb_name ADD [COLUMN] col_name column_definition [FIRST | AFTER col_name];添加单列.</strong><br><br>举例:<br><br>ALTER TABLE users1 ADD age TINYINT UNSIGNED NOT NULL DEFAULT 10;<br><br><strong style="color:red;">ALTER TABLE tb_name ADD [COLUMN] (col_name1 column_definition,…);添加多列.</strong><br></p>
+<h5 id="修改数据表-删除列"><a href="#修改数据表-删除列" class="headerlink" title="修改数据表-删除列"></a>修改数据表-删除列</h5><p><strong style="color:red;">ALTER TABLE tb_name DROP [COLUMN] col_name;删除单列.</strong><br><br><strong style="color:red;">ALTER TABLE tb_name DROP [COLUMN] col_name, DROP [COLUMN] col_name2;删除多列.</strong><br></p>
+<h5 id="修改数据表-添加约束"><a href="#修改数据表-添加约束" class="headerlink" title="修改数据表-添加约束"></a>修改数据表-添加约束</h5><p><strong style="color:red;">ALTER TABLE tb_name ADD [CONSTRAINT [symbol]] PRIMARY KEY [index_type] (index_col_name, …); 添加主键约束</strong><br><br>ALTER TABLE users2 ADD CONSTRAINT PK_users2_id PRIMARY KEY(id);<br><br><strong style="color:red;">ALTER TABLE tb_name ADD [CONSTRAINT [symbol]] UNIQUE [INDEX|KEY] [index_name] [index_type] (index_col_name,…);添加唯一约束.</strong><br><br>ALTER TABLE users2 ADD UNIQUE (username);<br><br><strong style="color:red;">ALTER TABLE tb_name ADD [CONSTRAINT [symbol]] FOREIGN KEY [index_name] (index_col_name,…) REFERENCE reference_tb_name (index_col_name);添加外键约束.</strong><br><br>ALTER TABLE users2 ADD FOREIGN KEY (pid) REFERENCES provinces (id);<br><br><strong style="color:red;">ALTER TABLE tb_name ALTER [COLUMN] col_name {SET DEFAULT literal | DROP DEFAULT};添加/删除默认约束.</strong><br><br>ALTER TABLE users2 ALTER age SET DEFAULT 15;<br><br>ALTER TABLE users2 ALTER age DROP DEFAULT;<br></p>
+<h5 id="修改数据表-删除约束"><a href="#修改数据表-删除约束" class="headerlink" title="修改数据表-删除约束"></a>修改数据表-删除约束</h5><p><strong style="color:red;">ALTER TABLE tb_name DROP PRIMARY KEY;删除主键约束.</strong><br><br><strong style="color:red;">ALTER TABLE tb_name DROP {INDEX|KEY} index_name;删除唯一约束.</strong><br><br><strong style="color:red;">ALTER TABLE tb_name DROP FOREIGN KEY fk_symbol;删除外键约束.</strong><br></p>
+<h5 id="修改数据表-修改列定义"><a href="#修改数据表-修改列定义" class="headerlink" title="修改数据表-修改列定义"></a>修改数据表-修改列定义</h5><p><strong style="color:red;">ALTER TABLE tb_name MODIFY [COLUMN] col_name column_definition [FIRST|AFTER col_name];修改列定义.</strong><br><br><strong style="color:red;">ALTER TABLE tb_name CHANGE [COLUMN] old_col_name new_col_name column_definition [FIRST|AFTER col_name];修改列名称.</strong><br></p>
+<h5 id="修改数据表-数据表更名"><a href="#修改数据表-数据表更名" class="headerlink" title="修改数据表-数据表更名"></a>修改数据表-数据表更名</h5><p><strong style="color:red;">ALTER TABLE tb_name RENAME [TO|AS] new_tb_name;</strong><br><br><strong style="color:red;">RENAME TABLE old_tb_name TO new_tb_name [,old_tb_name2 TO new_tb_name2]…</strong><br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/MySQL/">MySQL</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-30T11:42:53.000Z"><a href="/2017/01/30/程序编译-链接过程/">2017-01-30</a></time>
-          
-            <h1 class="title"><a href="/2017/01/30/程序编译-链接过程/">C程序编译, 链接过程</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
+        
   <div class="tags">
-    <a href="/tags/C程序编译-链接过程/">C程序编译, 链接过程</a>
+    <a href="/tags/MySQL约束以及修改数据表/">MySQL约束以及修改数据表</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-30T04:08:23.000Z"><a href="/2017/01/30/socket的tcp粘包问题以及数据的无边界性/">2017-01-30</a></time>
-          
-            <h1 class="title"><a href="/2017/01/30/socket的tcp粘包问题以及数据的无边界性/">socket的tcp粘包问题以及数据的无边界性</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/socket的tcp粘包问题以及数据的无边界性/">socket的tcp粘包问题以及数据的无边界性</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-30T03:22:17.000Z"><a href="/2017/01/30/socket缓冲区以及阻塞模式/">2017-01-30</a></time>
-          
-            <h1 class="title"><a href="/2017/01/30/socket缓冲区以及阻塞模式/">socket缓冲区以及阻塞模式</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/socket缓冲区以及阻塞模式/">socket缓冲区以及阻塞模式</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-29T02:41:12.000Z"><a href="/2017/01/29/使用socket-函数创建套接字/">2017-01-29</a></time>
-          
-            <h1 class="title"><a href="/2017/01/29/使用socket-函数创建套接字/">使用socket()函数创建套接字</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/使用socket-函数创建套接字/">使用socket()函数创建套接字</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-28T16:02:48.000Z"><a href="/2017/01/29/Windows下的socket程序/">2017-01-29</a></time>
-          
-            <h1 class="title"><a href="/2017/01/29/Windows下的socket程序/">Windows下的socket程序</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Windows下的socket程序/">Windows下的socket程序</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-28T12:26:52.000Z"><a href="/2017/01/28/Linux下socket程序演示/">2017-01-28</a></time>
-          
-            <h1 class="title"><a href="/2017/01/28/Linux下socket程序演示/">Linux下socket程序演示</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Linux下socket程序演示/">Linux下socket程序演示</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-28T11:54:42.000Z"><a href="/2017/01/28/Socket编程简介/">2017-01-28</a></time>
-          
-            <h1 class="title"><a href="/2017/01/28/Socket编程简介/">Socket编程简介</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Socket简介/">Socket简介</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-18T14:35:47.000Z"><a href="/2017/01/18/Linux-Shell基础while和until语句/">2017-01-18</a></time>
-          
-            <h1 class="title"><a href="/2017/01/18/Linux-Shell基础while和until语句/">Linux-Shell基础while和until语句</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Linux-Shell基础while和until语句/">Linux-Shell基础while和until语句</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-18T14:15:49.000Z"><a href="/2017/01/18/Linux-Shell基础for循环语句/">2017-01-18</a></time>
-          
-            <h1 class="title"><a href="/2017/01/18/Linux-Shell基础for循环语句/">Linux-Shell基础for循环语句</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Linux-Shell基础for循环语句/">Linux-Shell基础for循环语句</a>
-  </div>
-
-        </div>
-      </div>
-    </article>
-    
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-    <a href="/archives/2017/01/page/2/" class="alignright next">Next</a>
-  
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/02/14/MySQL约束以及修改数据表/" data-title="MySQL约束以及修改数据表" data-url="http://yoursite.com/2017/02/14/MySQL约束以及修改数据表/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
