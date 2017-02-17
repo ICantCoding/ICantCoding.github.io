@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>策略模式 | ShanGe 的 Coding 漫漫路</title>
+  <title>MySQL操作数据表中的记录 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="INSERT 插入记录INSERT [INTO] tb_name [(col_name,…)] {VALUES|VALUE} ({expr | DEFAULT},…),(…),…INSERT [INTO] tb_name SET col_name={expr|DEFAULT},…INSERT [IN">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="MySQL操作数据表中的记录"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +77,99 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-02-16T15:21:41.000Z"><a href="/2017/02/16/MySQL操作数据表中的记录/">2017-02-16</a></time>
+        
+  
+    <h1 class="title">MySQL操作数据表中的记录</h1>
+  
 
-<h2 class="archive-title fa-tag">策略模式</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2016-10-29T15:40:01.000Z"><a href="/2016/10/29/design-mode-Strategy/">2016-10-29</a></time>
-          
-            <h1 class="title"><a href="/2016/10/29/design-mode-Strategy/">策略模式</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/策略模式/">策略模式</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#INSERT-插入记录"><span class="toc-text">INSERT 插入记录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UPDATE-单表更新记录"><span class="toc-text">UPDATE 单表更新记录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DELETE-单表删除记录"><span class="toc-text">DELETE 单表删除记录</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="INSERT-插入记录"><a href="#INSERT-插入记录" class="headerlink" title="INSERT 插入记录"></a>INSERT 插入记录</h5><p><strong style="color:red;">INSERT [INTO] tb_name [(col_name,…)] {VALUES|VALUE} ({expr | DEFAULT},…),(…),…</strong><br><br><strong style="color:red;">INSERT [INTO] tb_name SET col_name={expr|DEFAULT},…</strong><br><br><strong style="color:red;">INSERT [INTO] tb_name [(col_name,…)] SELECT … </strong><br></p>
+<h5 id="UPDATE-单表更新记录"><a href="#UPDATE-单表更新记录" class="headerlink" title="UPDATE 单表更新记录"></a>UPDATE 单表更新记录</h5><p><strong style="color:red;">UPDATE [LOW_PRIORITY][IGNORE] table_reference SET col_name1={expr|DEFAULT}[,col_name2={expr|DEFAULT}]…[WHERE where_condition]</strong><br></p>
+<h5 id="DELETE-单表删除记录"><a href="#DELETE-单表删除记录" class="headerlink" title="DELETE 单表删除记录"></a>DELETE 单表删除记录</h5><p><strong style="color:red;">DELETE FROM tb_name [WHERE where_condition]</strong><br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/MySQL/">MySQL</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/MySQL操作数据表中的记录/">MySQL操作数据表中的记录</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/02/16/MySQL操作数据表中的记录/" data-title="MySQL操作数据表中的记录" data-url="http://yoursite.com/2017/02/16/MySQL操作数据表中的记录/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
