@@ -95,7 +95,7 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#svn服务器的配置"><span class="toc-text">svn服务器的配置</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#svn服务器的配置"><span class="toc-text">svn服务器的配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#搭建一个自己的svn服务器"><span class="toc-text">搭建一个自己的svn服务器</span></a></li></ol>
     </div>
 
         <p>svn, 我们一般把它用于代码文件的管理, 开发中的迭代使用. 简单的介绍一下, 希望自己能够熟练使用.<br><a id="more"></a></p>
@@ -107,6 +107,8 @@
 <li>启动svn服务器.<br></li>
 <li>关闭svn服务器, kill -9 svn服务对应的进程号. <br></li>
 </ol>
+<h5 id="搭建一个自己的svn服务器"><a href="#搭建一个自己的svn服务器" class="headerlink" title="搭建一个自己的svn服务器"></a>搭建一个自己的svn服务器</h5><p><strong style="color:red;">svnadmin create self+projects </strong> #创建自己的svn仓库.<br><br><strong style="color:red;">修改这个self+projects仓库的svn配置文件. </strong><br><br><strong style="color:red;">svnserve -d -r self+projects </strong> #启动这个仓库的svn服务.<br><br><strong style="color:red;">svn import project1/ svn://localhost/self+projects/ –username=tss –password=123456 -m “this is a svn test…” </strong> #我们向我们的仓库导入项目, 注意:项目文件是放在project1这个目录下的, 提交到svn仓库的是project1下的所有文件, 而不是project1这个文件. project1/project1 这样的项目目录.(这里是自己注意发现的, 自己感觉是这样的.)<br><br><strong style="color:red;">svn list svn://localhost/self+projects/ &gt;</strong> #这个时候可以查看我们仓库下文件列表.<br><br><strong style="color:red;">svn checkout svn://localhost/self+projects/project1 </strong> #从svn仓库中导出我们要的project1项目.<br><br><strong style="color:red;">svn update </strong> #从服务器更新本地的项目文件.<br><br><strong style="color:red;">svn commit -m “update to svn respose…”</strong> #把本地修改的文件提交到svn仓库中. <br></p>
+<p>##### </p>
 
       
     </div>
