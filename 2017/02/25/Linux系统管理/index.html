@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux系统管理 | ShanGe 的 Coding 漫漫路</title>
+  <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="进程管理的作用1.判断服务器健康状态.2.查看系统中所有进程.3.杀死进程.
+查看系统中所有进程ps aux #查看系统中所有进程, 使用BSD(Unix)操作系统格式.a #表示查看前台所有进程.x #表示查看后台所有进程.u #显示进程是由哪一个用户产生的.ps -le #查看系统中所有进程, ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Linux系统管理"/>
+  <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="ShanGe 的 Coding 漫漫路" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">ShanGe 的 Coding 漫漫路</a></h1>
+		    <h2><a href="/">要做的只是静下心来,大步向前,然后泰然的接受一切,冷静的处理一切！</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/categories/collection"><i class="fa fa-pencil"></i>文集</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		    		  <a href="/me"><i class="fa fa-user"></i>关于我</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
+		    
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+  
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-02-25T14:29:03.000Z"><a href="/2017/02/25/Linux系统管理/">2017-02-25</a></time>
+        
+  
+    <h1 class="title">Linux系统管理</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#进程管理的作用"><span class="toc-text">进程管理的作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看系统中所有进程"><span class="toc-text">查看系统中所有进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看系统健康状态"><span class="toc-text">查看系统健康状态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看进程树"><span class="toc-text">查看进程树</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#终止进程"><span class="toc-text">终止进程</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="进程管理的作用"><a href="#进程管理的作用" class="headerlink" title="进程管理的作用"></a>进程管理的作用</h5><p>1.判断服务器健康状态.<br><br>2.查看系统中所有进程.<br><br>3.杀死进程.<br></p>
+<h5 id="查看系统中所有进程"><a href="#查看系统中所有进程" class="headerlink" title="查看系统中所有进程"></a>查看系统中所有进程</h5><p><strong style="color:red;">ps aux</strong> #查看系统中所有进程, 使用BSD(Unix)操作系统格式.<br><br>a #表示查看前台所有进程.<br><br>x #表示查看后台所有进程.<br><br>u #显示进程是由哪一个用户产生的.<br><br><strong style="color:red;">ps -le</strong> #查看系统中所有进程, 使用Linux标准命令格式.<br><br>l #表示显示更过详细信息.<br><br>e #表示显示所有进程.<br><br>输出详解:<br><br>USER #该进程是由哪一个用户产生的.<br><br>PID  #该进程的进程号.<br><br>%CPU #该进程占用cpu的多少.<br><br>%MEM #该进程占用内存的多少.<br><br>VSZ  #该进程占用虚拟内存的大小, 单位是KB. <br><br>RSS  #该进程占用实际物理内存的大小, 单位是KB. <br><br>TTY  #该进程是在哪一个终端中运行的. 其中tty1-tty7代表本地控制台终端, tty1-tty6是本地的字符界面终端, tty7是图形终端. pts/0-255代表虚拟终端. ?表示这个进程不是由终端调用的, 而是内核执行的.<br><br>STAT #该进程的状态. 常见的状态有: R运行, S睡眠, T停止状态, s包含子进程, +位于后台.<br><br>START #该进程的启动时间.<br><br>TIME #该进程占用CPU的运算时间, 注意不是系统时间.<br><br>COMMAND #产生此进程的命令名.<br></p>
+<h5 id="查看系统健康状态"><a href="#查看系统健康状态" class="headerlink" title="查看系统健康状态"></a>查看系统健康状态</h5><p><strong style="color:red;">top [选项]</strong> #查看系统健康状态.<br><br>-d 秒数 #指定top命令每隔几秒更新. 默认是3秒.<br><br>在top命令的交互模式当中可以执行的命令:<br><br>?或h #显示交互模式的帮助.<br><br>P #以CPU使用率排序, 默认就是此项.<br><br>M #以内存的使用率排序. <br><br>N #以PID排序.<br><br>q #退出top. <br></p>
+<p>top命令重要信息详解:<br></p>
+<p><hr><br>top - 03:08:32 up 1 day, 3:26, 2 users, load average: 0.00, 0.00, 0.00 <br><br>03:03:32 #表示系统当前时间, 不一定准. <br><br>up 1 day, 13:32#表示系统的运行时间, 本机已经运行1天13小时32分钟. <br><br>2 users #表示当前登录了两个用户. <br><br>load average: 0.00, 0.00, 0.00 #表示系统在之前1分钟, 5分钟, 15分钟的平均负载. 一般认为小于1时, 负载较小. 如果大于1, 系统已经超出负荷. <br></p>
+<p><hr><br>Tasks: 101 total, 1 running, 100 sleeping, 0 stopped, 0 zombie <br><br>101 total #表示当前一共有101个进程. <br><br>1 running #表示当前有一个进程在运行. <br><br>100 sleeping #表示当前有100个进程休眠状态. <br><br>0 stopped #表示当前有0个进程停止. <br><br>0 zombie #表示当前有0个进程是僵尸进程. <br></p>
+<p><hr><br>Cpu(s): 0.3%us, 0.0%sy, 0.0%ni, 99.7%id, 0.0%wa, 0.0%hi, 0.0%si, 0.0%st <br><br>0.3%us #用户模式占用的cpu百分比.<br><br>0.1%sy #系统模式占用的cpu百分比.<br><br>0.0%ni #改变过优先级的用户进程占用的cpu百分比.<br><br>99.7%id #空闲cpu的cpu百分比.<br><br>0.1%wa #等待输入/输出的进程的占用cpu百分比.<br><br>0.0%hi #硬中断请求服务占用的cpu百分比.<br><br>0.1%si #软中断请求服务占用的cpu百分比.<br><br>0.0%st #st(Steal time) 虚拟时间百分比, 就是当有虚拟机时, 虚拟cpu等待实际cpu的时间百分比.<br></p>
+<p><hr><br>Mem: 1030796k total(物理内存总大小), 709840k used(已经用了多少), 320956k free(还剩多少物理内存), 70528k buffers(有多少物理内存是在做缓冲) <br></p>
+<p><hr><br>交换分区的信息:<br><br>Swap: 524280k total(交换分区(虚拟内存)的总大小), 0k used(已经使用的交互分区的大小), 524280k free(空闲交换分区的大小), 409280k cached(作为缓冲的交互分区的大小) <br></p>
+<h5 id="查看进程树"><a href="#查看进程树" class="headerlink" title="查看进程树"></a>查看进程树</h5><p><strong style="color:red;">pstree [选项]</strong><br><br>-p #显示进程的PID <br><br>-u #显示进程的所属用户 <br></p>
+<h5 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h5><p><strong style="color:red;">kill -l</strong> #查看可用的进程信号<br><br>常用信号:<br><br>1 SIGHUP #该信号让进程立即关闭, 然后重新读取配置文件之后重启.<br><br>2 SIGINT #程序终止信号, 用于终止前台进程. 相当于输出ctrl+c快捷键.<br><br>8 SIGFPE #在发生致命的算术运算错误时发生, 不仅包括浮点运算错误, 还包括溢出及除数为0等其它所有的算术的错误.<br><br>9 SIGKILL #用来立即结束程序的运行, 本信号不能被阻塞, 处理和忽略. 一般用于强制终止进程.<br><br>14 SIGALRM #时钟定时信号, 计算的是实际的时间或时钟时间. alarm函数使用该信号.<br><br>15 SIGTERM #正常结束进程的信号, kill命令的默认信号. 有时如果进程已经发生问题, 这个信号是无法正常终止进程的, 我们才会尝试SIGKILL信号,  也就是信号9. <br><br>18 SIGCONT #该信号可以让暂停的进程恢复执行, 本信号不能被阻断.<br><br>19 SIGSTOP #该信号可以暂停前台进程, 相当于输入ctrl+z快捷键. 本信号不能被阻断.<br></p>
+<p><strong style="color:red;">kill -1 pid </strong> #重启进程 <br><br><strong style="color:red;">kill -9 pid </strong> #强制杀死进程 <br></p>
+<p><strong style="color:red;">killall [选项][信号] 进程名 </strong> #按照进程名杀死进程.<br><br>-i #交互式, 询问是否要杀死某个进程.<br><br>-I #忽略进程名的大小写.<br></p>
+<p><strong style="color:red;">pkill [选项][信号] 进程名 </strong> #按照进程名终止进程.<br><br>-t 终端号 #按照终端号踢出用户. <br><br>举例:<br><br><strong style="color:red;">w </strong> #使用w命令查询本机已经登录的用户. <br><br><strong style="color:red;">pkill -t -9 pts/1 </strong> #强制杀死从pts/1虚拟终端登录的进程 <br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Linux/">Linux</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/Linux系统管理/">Linux系统管理</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
+</div>
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+  
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
+  
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/02/25/Linux系统管理/" data-title="Linux系统管理" data-url="http://yoursite.com/2017/02/25/Linux系统管理/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
+      <aside id="sidebar" class="alignright">
+   <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
+    <input type="hidden" name="wd" value="site:yoursite.com"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
+  </form>
+</div> 
+
+  
+<div class="widget tag">
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发工具的使用/">开发工具的使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+</div>
+ 
+
+
+  <div class="widget tag">
+  <h3 class="title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+
+  
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux实用又感觉奇葩的命令/" style="font-size: 10px;">Linux实用又感觉奇葩的命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的服务管理/" style="font-size: 10px;">Linux的服务管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/Linux系统管理/" style="font-size: 10px;">Linux系统管理</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL使用准则记录/" style="font-size: 10px;">MySQL使用准则记录</a> <a href="/tags/MySQL子查询与连接/" style="font-size: 10px;">MySQL子查询与连接</a> <a href="/tags/MySQL操作数据表中的记录/" style="font-size: 10px;">MySQL操作数据表中的记录</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/MySQL约束以及修改数据表/" style="font-size: 10px;">MySQL约束以及修改数据表</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/开发助手SVN介绍/" style="font-size: 10px;">开发助手SVN介绍</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/编程中的字符集说明/" style="font-size: 10px;">编程中的字符集说明</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
+  </div>
+</div>
+
+
+  
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+  </div>
+
+</aside>
+      <div class="clearfix"></div>
+    </div>
+  
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2017 Tian Shanshan
+    
+  </div>
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  
+  <div class="visit">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </div>
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('zh-CN',{single:undefined, root:'calendar'});
+    
+    });
+  </script>
+
+
+<!-- 『不蒜子』计数服务 -->
+<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- wumii关联推荐 -->
+<script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
+
+<!-- 百度推荐 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div>
+
+<!-- 站内搜索-Swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','sC-iNFrvTTNtiXEVNwo1','2.0.0');
+</script>
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
