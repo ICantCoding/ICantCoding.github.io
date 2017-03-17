@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Qt中文乱码问题 | ShanGe 的 Coding 漫漫路</title>
+  <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="自己在用Qt做项目开发的时候, 时常遇见乱码的问题, 今天翻阅资料来解决分析下这个问题!">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Qt中文乱码问题"/>
+  <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="ShanGe 的 Coding 漫漫路" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">ShanGe 的 Coding 漫漫路</a></h1>
+		    <h2><a href="/">要做的只是静下心来,大步向前,然后泰然的接受一切,冷静的处理一切！</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/categories/collection"><i class="fa fa-pencil"></i>文集</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		    		  <a href="/me"><i class="fa fa-user"></i>关于我</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
+		    
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+  
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-03-16T06:24:45.000Z"><a href="/2017/03/16/Qt中文乱码问题/">2017-03-16</a></time>
+        
+  
+    <h1 class="title">Qt中文乱码问题</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#中文乱码的分类"><span class="toc-text">中文乱码的分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#为什么会出现这3类编码问题"><span class="toc-text">为什么会出现这3类编码问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#解决办法两种"><span class="toc-text">解决办法两种</span></a></li></ol>
+    </div>
+
+        <p>自己在用Qt做项目开发的时候, 时常遇见乱码的问题, 今天翻阅资料来解决分析下这个问题!<br><a id="more"></a></p>
+<h5 id="中文乱码的分类"><a href="#中文乱码的分类" class="headerlink" title="中文乱码的分类"></a>中文乱码的分类</h5><p>中文乱码一般分为3类:<br></p>
+<ol>
+<li>Qt Creator编辑器打开的项目文件中, 出现中文字符乱码的问题. Qt Creator报出 “Error: Could not decode xxx.cpp with utf-8 encoding. Editing not possible” 不能以utf-8编码方式解码文件的错误. 然后改文件是不可以编辑的.<br></li>
+<li>Qt Creator中显示的汉字正常, 但编译的时候出现”常量中有换行符”等一系列错误.<br></li>
+<li>编译时没有报错, 但是生成的程序运行后, 中文出现乱码.<br></li>
+</ol>
+<h5 id="为什么会出现这3类编码问题"><a href="#为什么会出现这3类编码问题" class="headerlink" title="为什么会出现这3类编码问题"></a>为什么会出现这3类编码问题</h5><p>首先要明白Qt Creator, Visual Studio, Qt应用程序的编码方式:<br><br>Qt Creator的编辑器默认使用UTF-8编码来读取存储文本文件.<br><br>Visual Studio保存文件时默认采用的是本地编码, 对于简体中文的windows操作系统, 这个编码就是GB2312.<br><br>Qt 编写的程序是以utf-8来解码的.<br><br>1.如果Visual Studio建立的项目用Qt Creator打开, 这就意味着把GB2312编码的文件, 用utf-8编码来打开, 这样当然会出现中文乱码的问题.<br><br>msvc编译方式, 这里简单提一下编译方式, Qt编译方式常用的有两种, mingw和msvc. <br><br>msvc在编译时, 会根据源代码文件有无BOM来定义源码字符集. 如果有BOOM, msvc则按照BOM解释来识别编码; 如果文件没有BOM, msvc则使用本地字符集, 对于简体中文的windows操作系统就是GB2312. <br><br>所以如果用Qt Creator创建的项目, 文件中不携带BOM的话, msvc编译的话, 会用GB2312编码方式去解析utf-8编码的文件. 中文部分当然也会乱码.<br><br>2.utf-8编码中文的话, 可能一个中文字符有1~4个字节, 而GB2312编码一个中文字符始终是2个字节. <br><br>msvc把utf-8编码的奇数个字节, 会凑成偶数个字节来解析(因为GB2312编码是2个字节2个字节的识别). 从而导致有时候把编程语句后边的”;”读取跑了, 从而编译器误以为中文字符换行了. 不过, 当以无BOM的UTF-8编码的字符串正好凑够偶数个字节(比如偶数个汉字, 或奇数个汉字加奇数个英文字母), 这个时候编译器通常不会报警, 因为它以为用GB2312便能读出来的是正确的.<br><br>3.不管源文件是何种编码, 只要MSVC能够正确识别, 就可以通过编译. 但msvc的执行字符集默认是本地字符集. 对我们来说, 它生成的可执行文件中的文字是GB2312编码的, 而生成的Qt程序以utf-8编码来识别GB2312编码的文字, 所以采用GB2312编码后再以utf-8编码来读取, 就会乱码.  但是当以无BOM的utf-8编码的字符串正好凑成偶数个字符时, 反而不会出现乱码, 因为编译器用GB2312编码读出来的乱码本省就是utf-8编码的, 现在又用utf-8解读, 自然就正确了, 这纯粹是歪打正着.<br></p>
+<h5 id="解决办法两种"><a href="#解决办法两种" class="headerlink" title="解决办法两种"></a>解决办法两种</h5><p>第一种 采用本地编码字符集: 不推荐这种做法, 因为不利于跨平台开发.<br><br>首先, 所有的文件都必须是GB2312编码保存的.<br><br>然后, Qt Creator设置项目编辑器的默认编码方式改为 GB2312 方式.<br><br>再然后, 在汉字字符串常量上使用QStringLiteral宏或者QString::fromLocal8Bit函数, 将这些汉字字符转换成utf-8的编码, 然后程序运行起来的时候以utf-8来读取, 自然不会乱码.<br><br>注意: 这种方法无法使用tr来做国际化.<br></p>
+<p><hr><br>第二种 采用UTF-8编码字符集: 推荐使用, 方便跨平台, 可以使用tr来国际化.<br><br>首先, 要把项目所有的头文件和源文件都转换成UTF-8+BOM编码保存.<br><br>然后, 如果是msvc编译器的话, 那就是要用到中文字符的头文件和源文件开头加上:<br><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">if</span> _MSC_VER &gt;= 1600</span></div><div class="line"><span class="meta">#<span class="meta-keyword">pragma</span> execution_character_set(<span class="meta-string">"utf-8"</span>)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure><br>这个宏告诉msvc, 执行字符集是UTF-8编码的, 别瞎整成GB2312的! </p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/QT/">QT</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/Qt中文乱码问题/">Qt中文乱码问题</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
+</div>
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+  
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
+  
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/03/16/Qt中文乱码问题/" data-title="Qt中文乱码问题" data-url="http://yoursite.com/2017/03/16/Qt中文乱码问题/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
+      <aside id="sidebar" class="alignright">
+   <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
+    <input type="hidden" name="wd" value="site:yoursite.com"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
+  </form>
+</div> 
+
+  
+<div class="widget tag">
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Opensips/">Opensips</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RabbitMq/">RabbitMq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发工具的使用/">开发工具的使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+</div>
+ 
+
+
+  <div class="widget tag">
+  <h3 class="title">Calendar</h3>
+  <div id="calendar"></div>
+</div>
+
+
+  
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux实用又感觉奇葩的命令/" style="font-size: 10px;">Linux实用又感觉奇葩的命令</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的服务管理/" style="font-size: 10px;">Linux的服务管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/Linux系统管理/" style="font-size: 10px;">Linux系统管理</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL使用准则记录/" style="font-size: 10px;">MySQL使用准则记录</a> <a href="/tags/MySQL子查询与连接/" style="font-size: 10px;">MySQL子查询与连接</a> <a href="/tags/MySQL操作数据表中的记录/" style="font-size: 10px;">MySQL操作数据表中的记录</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/MySQL约束以及修改数据表/" style="font-size: 10px;">MySQL约束以及修改数据表</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Opensips-安装/" style="font-size: 10px;">Opensips 安装</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Qt中文乱码问题/" style="font-size: 10px;">Qt中文乱码问题</a> <a href="/tags/RabbitMq安装/" style="font-size: 10px;">RabbitMq安装</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/开发助手SVN介绍/" style="font-size: 10px;">开发助手SVN介绍</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/编程中的字符集说明/" style="font-size: 10px;">编程中的字符集说明</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
+  </div>
+</div>
+
+
+  
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017年03月</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+  </div>
+
+</aside>
+      <div class="clearfix"></div>
+    </div>
+  
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2017 Tian Shanshan
+    
+  </div>
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  
+  <div class="visit">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </div>
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+  <script src="/js/calendar.js"></script>
+  <script src="/js/languages.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    
+      $('#calendar').aCalendar('zh-CN',{single:undefined, root:'calendar'});
+    
+    });
+  </script>
+
+
+<!-- 『不蒜子』计数服务 -->
+<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- wumii关联推荐 -->
+<script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
+
+<!-- 百度推荐 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div>
+
+<!-- 站内搜索-Swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','sC-iNFrvTTNtiXEVNwo1','2.0.0');
+</script>
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
