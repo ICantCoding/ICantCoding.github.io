@@ -95,7 +95,7 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#opensips的安装"><span class="toc-text">opensips的安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装步骤一-安装epel-release"><span class="toc-text">安装步骤一: 安装epel-release</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装步骤一-找opensips的包"><span class="toc-text">安装步骤一: 找opensips的包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装步骤二-开始安装"><span class="toc-text">安装步骤二: 开始安装</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#opensips的安装"><span class="toc-text">opensips的安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装步骤一-安装epel-release"><span class="toc-text">安装步骤一: 安装epel-release</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装步骤一-找opensips的包"><span class="toc-text">安装步骤一: 找opensips的包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装步骤二-开始安装"><span class="toc-text">安装步骤二: 开始安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Opensips源码安装"><span class="toc-text">Opensips源码安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#源码安装遇见的问题"><span class="toc-text">源码安装遇见的问题</span></a></li></ol>
     </div>
 
         <p>Opensips, 这算是公司通信,调度系统的核心技术了, 我得花时间来研究一下, 技术这个东西, 不常用的话就会忘, 所以还是必须得把学习的东西记录下来. 整个对opensips的学习是基于CentOS 6.5的.<br><a id="more"></a></p>
@@ -112,6 +112,39 @@
 <li>yum install opensips.x86_64 <br></li>
 </ol>
 <p>#####</p>
+<h5 id="Opensips源码安装"><a href="#Opensips源码安装" class="headerlink" title="Opensips源码安装"></a>Opensips源码安装</h5><p>查看源码包中的INSTALL文件, 介绍了如何使用源码包来安装Opensips? <br></p>
+<ol>
+<li><p>CentOS环境搭建:<br><br>yum install gcc <br><br>yum install mysql mysql-server mysql-devel <br><br>yum install flex <br><br>yum install bison <br><br>yum install ncurses <br><br>yum install ncurses-devel <br><br>yum install pcre* #我当时编译的时候一直报错, 就是因为没有安装这个包.<br></p>
+</li>
+<li><p>下载源码包xx.tar,并解压: <br><br>wget 资源路径 <br><br>tar -zxvf 源码包名 <br></p>
+</li>
+<li><p>安装: <br><br>进入安装文件夹, 执行make menuconfig命令, 会进入OpenSIPS Main Configuration Menu界面.<br><br>选择Configure Comile Options(编译选项) <br><br>再选择Configure Excluded Modules(配置排除模块) <br><br>在配置排除模块中选中 dialplan 和 db_mysql <br><br>然后返回, 选中Configure Install Prefix, 用于修改安装路径: /usr/local/opensips <br><br>注意一定要Save Changes保存上边的设置 <br><br>返回到OpenSIPS Main Configuration Menu界面, 选中Compile And Install OpenSIPS <br><br>然后就是默默的根据我们上边配置的文件, 来编译了. <br><br>编译完成后, 执行make(我在执行make的时候无用, 应该是前面编译的时候已经make过了) , 再执行make install(其实也不用make install) , 那么OpenSIPS就算是安装好了.<br></p>
+</li>
+<li><p>配置: <br><br>编译完成后, OpenSIPS的安装目录就在我们设置的目录/usr/local/opensips目录中. <br><br>安装目录又分几个子目录: etc, lib64, sbin, share <br><br>4.1 先在etc目录下找到opensips/opensipsctlrc配置文件, 配置如下:<br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">SIP_DOMAIN=自己服务器的地址    #192.168.122.1</div><div class="line">DBENGINE=MYSQL</div><div class="line">DBHOST=localhost</div><div class="line">DBNAME=opensips</div><div class="line">DBRWUSER=opensips</div><div class="line">DBRWPW=&quot;opensipsrw&quot;</div><div class="line">DBROOTUSER=&quot;root&quot;</div></pre></td></tr></table></figure>
+<p>4.2 接着我们配置opensips.cfg文件 :<br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#添加TCP/UDP监听配置</div><div class="line">listen=udp:192.168.122.1:5060 #服务器地址</div><div class="line"></div><div class="line">#set module path 设置模块路径, 这里一定是绝对路径</div><div class="line">mpath=&quot;/usr/local/opensips/lib64/opensips/modules/&quot;</div><div class="line"></div><div class="line">#URI module</div><div class="line">#添加db_url</div><div class="line">modparam(&quot;uri&quot;, &quot;db_url&quot;, &quot;mysql://opensips:opensipsrw@localhost/opensips&quot;)</div><div class="line">#添加mysql module模块支持</div><div class="line">loadmodule &quot;db_mysql.so&quot;</div><div class="line"></div><div class="line">#UseR LoCation module </div><div class="line">modparam(&quot;usrloc&quot;, &quot;db_url&quot;, &quot;mysql://opensips:opensipsrw@localhost/opensips&quot;)</div></pre></td></tr></table></figure>
+<p>4.3 将源代码中的/packaging/debian/opensips.default 文件拷贝到/etc/default/opensips中去. 并修改文件中的内容:<br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">RUN_OPENSIPS=yes</div><div class="line">USER=opensips</div><div class="line">GROUP=opensips</div><div class="line">S_MEMORY=128</div><div class="line">p_MEMORY=4</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建opensips配置中的数据库(前提是已经安装了mysql) <br><br>因为我们自定义的安装文件, 这个文件路径没有在环境变量$PATH中, 所以我们命令实用opensips的时候, 就必须要带命令的绝对路径了.<br><br>/usr/local/opensips/sbin/opensipsdbctl create <br></p>
+</li>
+</ol>
+<p>6 创建好数据库后, 添加用户 <br><br>/usr/local/opensips/sbin/opensipsctl add 1001 1001 #添加用户1001, 密码1001 , 将1001用户添加到opensips数据库中的subscriber表中.<br></p>
+<p>7 启动opensips <br><br>/usr/local/opensips/sbin/opensipsctl start/restart/stop <br></p>
+<p>8 检查opensips的配置文件语法是否错误: opensips -c <br></p>
+<p>9 使用opensips, 我们相当有必要去配置日志文件. 因为以后任何差错信息, 我们都会到日志文件中去查看. 下边就讲一下如何配置日志文件: <br><br>我们的目标是把日志输出重定向到 /var/log/opensips.log 文件下.<br><br>9.0 vim /usr/local/opensips/etc/opensips/opensips.cfg 中添加 log_facility=LOG_LOCAL0 #这里的LOG_LOCAL0其实是和后边我们在rsyslog.conf设置的local0.<em>是映射的. <br><br>9.1 touch /var/log/opensips.log    .<br><br>9.2 cd /etc/rsyslog.conf .<br><br>9.3 在rsyslog.conf 中添加 local0.</em>    -/var/log/opensips.log    .<br><br>9.4 重启rsyslog   /etc/init.d/rsyslog restart   <br><br>9.5 重启我们的opensips, ./opensipsctl restart   <br><br>9.6 就配置好了. <br></p>
+<h5 id="源码安装遇见的问题"><a href="#源码安装遇见的问题" class="headerlink" title="源码安装遇见的问题"></a>源码安装遇见的问题</h5><ol>
+<li><p>我在执行make的时候, 编译出现了两个文件找不到:<br><br>which: no xsltproc in $PATH <br><br>which: no lynx in $PATH <br><br>答: yum install libxslt 解决了没有xsltproc的问题; yum install lynx 解决了灭有lynx的问题.<br></p>
+</li>
+<li><p>make编译的时候, 出现/usr/lib/ld: cannot find -lEnDecModule 的问题?<br><br>答: <br></p>
+</li>
+<li><p>因为我是在mac的虚拟机安装的CentOS, 虚拟机网络必须选择桥接模式, 好让我们的mac和CentOS能够在同一网段. <br></p>
+</li>
+<li><p>在开启opensips的时候, 我还多次忘记开启msyql服务, 和ssh服务了. <br></p>
+</li>
+<li></li>
+</ol>
 
       
     </div>

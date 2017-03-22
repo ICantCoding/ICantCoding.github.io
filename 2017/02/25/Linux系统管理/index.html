@@ -96,7 +96,7 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#进程管理的作用"><span class="toc-text">进程管理的作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看系统中所有进程"><span class="toc-text">查看系统中所有进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看系统健康状态"><span class="toc-text">查看系统健康状态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看进程树"><span class="toc-text">查看进程树</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#终止进程"><span class="toc-text">终止进程</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#进程管理的作用"><span class="toc-text">进程管理的作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看系统中所有进程"><span class="toc-text">查看系统中所有进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看系统健康状态"><span class="toc-text">查看系统健康状态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查看进程树"><span class="toc-text">查看进程树</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#终止进程"><span class="toc-text">终止进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#系统资源查看"><span class="toc-text">系统资源查看</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#系统定时任务"><span class="toc-text">系统定时任务</span></a></li></ol>
     </div>
 
         <a id="more"></a>
@@ -114,6 +114,18 @@
 <p><strong style="color:red;">kill -1 pid </strong> #重启进程 <br><br><strong style="color:red;">kill -9 pid </strong> #强制杀死进程 <br></p>
 <p><strong style="color:red;">killall [选项][信号] 进程名 </strong> #按照进程名杀死进程.<br><br>-i #交互式, 询问是否要杀死某个进程.<br><br>-I #忽略进程名的大小写.<br></p>
 <p><strong style="color:red;">pkill [选项][信号] 进程名 </strong> #按照进程名终止进程.<br><br>-t 终端号 #按照终端号踢出用户. <br><br>举例:<br><br><strong style="color:red;">w </strong> #使用w命令查询本机已经登录的用户. <br><br><strong style="color:red;">pkill -t -9 pts/1 </strong> #强制杀死从pts/1虚拟终端登录的进程 <br></p>
+<h5 id="系统资源查看"><a href="#系统资源查看" class="headerlink" title="系统资源查看"></a>系统资源查看</h5><p><strong style="color:red;">vmstat [刷新延时 刷新次数]</strong> <br><br>vmstat 1 3 #延迟一秒刷新, 一共刷新三次 <br></p>
+<p><strong style="color:red;">dmesg</strong> #开机时内核检测信息 <br><br>dmesg | grep CPU <br></p>
+<p><strong style="color:red;">free [-b|-k|-m|-g]</strong>#查看内存使用状态<br><br>-b :以字节为单位显示 <br><br>-k :以KB为单位显示, 默认就是以KB为单位显示 <br><br>-m :以MB为单位显示 <br><br>-g :以GB为单位显示 <br></p>
+<p>缓存和缓冲的区别:<br><br>简单来说缓存(cache)是用来加速数据从硬盘中”读取”的, 而缓冲(buffer)是用来加速数据”写入”硬盘的.<br></p>
+<p><strong style="color:red;">cat /proc/cpuinfo</strong>#查看CPU信息 <br></p>
+<p><strong style="color:red;">uptime#显示系统的启动时间和平均负载, 也就是top命令的第一行. w命令也可以看到这个数据.<br></strong></p>
+<p><strong style="color:red;">uname [选项]</strong>#查看系统与内核相关信息<br><br>-a 查看系统所有相关信息 <br><br>-r 查看内核版本 <br><br>-s 查看内核名臣 <br></p>
+<p><strong style="color:red;">file /bin/ls</strong>#可间接的查看当前系统的位数, file 外部命令 <br></p>
+<p><strong style="color:red;">lsb_release -a</strong>#查询当前Linux系统的发行版本.<br></p>
+<p><strong style="color:red;">lsof [选项]</strong>#列出进程调用或打开的文件的信息.<br><br>-c 字符串 #只列出以字符串开头的进程打开的文件 <br><br>-u 用户名 #只列出某个用户的进程打开的文件 <br><br>-p pid    #列出某个PID进程打开的文件 <br></p>
+<h5 id="系统定时任务"><a href="#系统定时任务" class="headerlink" title="系统定时任务"></a>系统定时任务</h5><p>crond服务管理与访问控制: <br><br>service crond restart <br><br>chkconfig crond on <br></p>
+<p><strong style="color:red;">crontab [选项]</strong><br><br>-e 编辑crontab定时任务 <br><br>-l 查询crontab任务 <br><br>-r 删除当前用户所有的crontab任务 <br><br>下边, 我们来用crontab -e命令来编辑一个定时任务:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">* * * * * command </div><div class="line">//第一个*表示: 一个小时当中的第几分钟 0-59</div><div class="line">//第二个*表示: 一天当中的第几个小时 0-23</div><div class="line">//第三个*表示: 一个月当中的第几天 1-31</div><div class="line">//第四个*表示: 一年当中的第几个月 1-12</div><div class="line">//第五个*表示: 一周当中的星期几 0-7(0和7都代表星期日)</div><div class="line">//command表示要执行的任务命令</div><div class="line">45 22 * * * 命令 #在22点45分执行命令</div><div class="line">0 17 * * 1 命令 #每周1的17点0分执行命令</div><div class="line">0 5 1,15 * * 命令 #每个月的1号和15号凌晨5点钟执行命令</div><div class="line">40 4 * * 1-5 命令 #每周一到周五的凌晨4点40分执行命令</div><div class="line">*/10 4 * * * 命令 #每天的凌晨4点, 每隔10分钟执行一次命令</div><div class="line">0 0 1,15 * 1 命令 #每月1号和15号, 每周1的0点0分都会执行命令, 注意: 星期几和几号最好不要同时出现, 因为他们定义的都是天, 非常容易让管理员混乱.</div></pre></td></tr></table></figure></p>
 
       
     </div>
