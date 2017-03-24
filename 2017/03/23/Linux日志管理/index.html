@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Linux-Shell基础sed命令 | ShanGe 的 Coding 漫漫路</title>
+  <title>Linux日志管理 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
+  
+  <meta name="description" content="日志的管理工作…, 开发中查看日志是很重要的一个事情…">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Linux日志管理"/>
   <meta property="og:site_name" content="ShanGe 的 Coding 漫漫路"/>
 
   
@@ -75,36 +77,101 @@
 </header>
   
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-03-23T15:05:04.000Z"><a href="/2017/03/23/Linux日志管理/">2017-03-23</a></time>
+        
+  
+    <h1 class="title">Linux日志管理</h1>
+  
 
-<h2 class="archive-title fa-tag">Linux-Shell基础sed命令</h2>
-<div class="archive">
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-01-14T08:13:14.000Z"><a href="/2017/01/14/Linux-Shell基础sed命令/">2017-01-14</a></time>
-          
-            <h1 class="title"><a href="/2017/01/14/Linux-Shell基础sed命令/">Linux-Shell基础sed命令</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Linux-Shell基础sed命令/">Linux-Shell基础sed命令</a>
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#日志服务"><span class="toc-text">日志服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#rsyslogd的新特点"><span class="toc-text">rsyslogd的新特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#确定日志服务已经启动"><span class="toc-text">确定日志服务已经启动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见日志的作用"><span class="toc-text">常见日志的作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li></ol>
+    </div>
+
+        <p>日志的管理工作…, 开发中查看日志是很重要的一个事情…<br><a id="more"></a></p>
+<h5 id="日志服务"><a href="#日志服务" class="headerlink" title="日志服务"></a>日志服务</h5><p>在CentOS6.x中日志服务已经由rsyslogd取代了原先的syslogd服务. rsyslogd日志服务更加先进, 功能更多. 但是不论该服务的使用, 还是日志文件的格式其实都是和syslogd服务相兼容的, 所以学习起来基本和syslogd服务一致. <br></p>
+<h5 id="rsyslogd的新特点"><a href="#rsyslogd的新特点" class="headerlink" title="rsyslogd的新特点"></a>rsyslogd的新特点</h5><p>基于TCP网络协议传输日志信息 <br><br>更安全的网络传输方式 <br><br>有日志消息的及时分析框架 <br><br>后台数据库 <br><br>配置文件中可以写简单的逻辑判断 <br><br>与syslog配置文件相兼容 <br></p>
+<h5 id="确定日志服务已经启动"><a href="#确定日志服务已经启动" class="headerlink" title="确定日志服务已经启动"></a>确定日志服务已经启动</h5><p>ps aux | grep rsyslogd <br><br>chkconfig –list | grep rsyslog  #是否开机自启动<br></p>
+<h5 id="常见日志的作用"><a href="#常见日志的作用" class="headerlink" title="常见日志的作用"></a>常见日志的作用</h5><p>/var/log/cron #记录了系统定时任务相关的日志<br><br>/var/log/cups #记录打印信息的日志<br><br>/var/log/dmesg #记录了系统在开机时内核自检的信息<br><br>/var/log/btmp #记录错误登录的日志, 这个文件是二进制文件, 不能直接vim查看, 而要使用lastb命令查看 <br><br>/var/log/lastlog #记录系统中所有用户最后一次的登录时间的日志. 这个文件也是二进制文件, 不能用vim打开, 而要用lastlog命令查看 <br><br>/var/log/mailog #记录邮件信息 <br><br>/var/log/message #记录系统重要信息的日志, 这个日志文件中会记录Linux系统的绝大多数重要信息, 如果系统出现问题时, 首先要检查的就应该是这个日志文件. <br><br>/var/log/secure #记录验证和授权方面的信息, 只要涉及账户和密码的程序都会记录. 比如说系统的登录, ssh的登录, su切换用户, sudo授权 , 甚至添加用户和修改用户密码都会记录在这个日志文件中. <br><br>/var/log/wtmp #永久记录所有用户的登录, 注销信息, 同时记录系统的启动, 重启, 关机事件. 同样这个文件也是一个二进制文件, 不能直接vim， 需要用last命令查看. <br><br>/var/log/utmp #记录当前已经登录的用户的信息, 这个文件会随着用户的登录和注销而不断变化, 只记录当前登录用户的信息, 童谣这个文件不能直接vim, 而要使用w, who, users等命令来查看.<br></p>
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>除了系统默认的日志之外, 采用RPM方式安装的系统服务也会默认把日志记录在/var/log目录中(源码包安装的服务日志是在源码包指定目录中). 不过这些日志不是由rsyslogd服务来记录和管理的, 而是各个服务使用自己的日志管理文档来记录自身日志.<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Linux/">Linux</a>
   </div>
 
-        </div>
-      </div>
-    </article>
-    
+        
+  <div class="tags">
+    <a href="/tags/Linux日志管理/">Linux日志管理</a>
+  </div>
+
+        <div class = "counter">
+  <span id="busuanzi_container_page_pv" style="display:none">
+      总访问&nbsp<span id="busuanzi_value_page_pv"></span>&nbsp次
+  </span>
 </div>
-<nav id="pagination">
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
   
+<section id = "relate">
+	
+                <div id="null"></div>
+	
+</section>
+
+
   
-  <div class="clearfix"></div>
-</nav></div></div>
+    <section id="comment">
+    <!--   <h1 class="title">Comments</h1> -->
+    
+    
+        <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/03/23/Linux日志管理/" data-title="Linux日志管理" data-url="http://yoursite.com/2017/03/23/Linux日志管理/"></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+        var duoshuoQuery = {short_name:"lupeng-test"};
+          (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+          </script>
+        <!-- 多说公共JS代码 end -->
+
+      
+    </section>
+
+
+
+
+</div></div>
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
