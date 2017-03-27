@@ -95,7 +95,7 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#日志服务"><span class="toc-text">日志服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#rsyslogd的新特点"><span class="toc-text">rsyslogd的新特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#确定日志服务已经启动"><span class="toc-text">确定日志服务已经启动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见日志的作用"><span class="toc-text">常见日志的作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#日志服务"><span class="toc-text">日志服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#rsyslogd的新特点"><span class="toc-text">rsyslogd的新特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#确定日志服务已经启动"><span class="toc-text">确定日志服务已经启动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见日志的作用"><span class="toc-text">常见日志的作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#rsyslogd日志服务"><span class="toc-text">rsyslogd日志服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#etc-rsyslog-conf配置文件来配置管理日志"><span class="toc-text">/etc/rsyslog.conf配置文件来配置管理日志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#日志轮替-切割-轮换"><span class="toc-text">日志轮替(切割, 轮换)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#日志文件的命名规则"><span class="toc-text">日志文件的命名规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#logrotate配置文件"><span class="toc-text">logrotate配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#logrotate-命令"><span class="toc-text">logrotate 命令</span></a></li></ol>
     </div>
 
         <p>日志的管理工作…, 开发中查看日志是很重要的一个事情…<br><a id="more"></a></p>
@@ -104,6 +104,31 @@
 <h5 id="确定日志服务已经启动"><a href="#确定日志服务已经启动" class="headerlink" title="确定日志服务已经启动"></a>确定日志服务已经启动</h5><p>ps aux | grep rsyslogd <br><br>chkconfig –list | grep rsyslog  #是否开机自启动<br></p>
 <h5 id="常见日志的作用"><a href="#常见日志的作用" class="headerlink" title="常见日志的作用"></a>常见日志的作用</h5><p>/var/log/cron #记录了系统定时任务相关的日志<br><br>/var/log/cups #记录打印信息的日志<br><br>/var/log/dmesg #记录了系统在开机时内核自检的信息<br><br>/var/log/btmp #记录错误登录的日志, 这个文件是二进制文件, 不能直接vim查看, 而要使用lastb命令查看 <br><br>/var/log/lastlog #记录系统中所有用户最后一次的登录时间的日志. 这个文件也是二进制文件, 不能用vim打开, 而要用lastlog命令查看 <br><br>/var/log/mailog #记录邮件信息 <br><br>/var/log/message #记录系统重要信息的日志, 这个日志文件中会记录Linux系统的绝大多数重要信息, 如果系统出现问题时, 首先要检查的就应该是这个日志文件. <br><br>/var/log/secure #记录验证和授权方面的信息, 只要涉及账户和密码的程序都会记录. 比如说系统的登录, ssh的登录, su切换用户, sudo授权 , 甚至添加用户和修改用户密码都会记录在这个日志文件中. <br><br>/var/log/wtmp #永久记录所有用户的登录, 注销信息, 同时记录系统的启动, 重启, 关机事件. 同样这个文件也是一个二进制文件, 不能直接vim， 需要用last命令查看. <br><br>/var/log/utmp #记录当前已经登录的用户的信息, 这个文件会随着用户的登录和注销而不断变化, 只记录当前登录用户的信息, 童谣这个文件不能直接vim, 而要使用w, who, users等命令来查看.<br></p>
 <h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>除了系统默认的日志之外, 采用RPM方式安装的系统服务也会默认把日志记录在/var/log目录中(源码包安装的服务日志是在源码包指定目录中). 不过这些日志不是由rsyslogd服务来记录和管理的, 而是各个服务使用自己的日志管理文档来记录自身日志.<br></p>
+<h5 id="rsyslogd日志服务"><a href="#rsyslogd日志服务" class="headerlink" title="rsyslogd日志服务"></a>rsyslogd日志服务</h5><p>日志文件格式:<br><br>基本日志格式包含以下四列:<br></p>
+<ol>
+<li>事件产生的时间 <br></li>
+<li>发生事件的服务器的主机名 <br></li>
+<li>产生事件的服务名或程序名 <br></li>
+<li>事件的具体信息 <br></li>
+</ol>
+<h5 id="etc-rsyslog-conf配置文件来配置管理日志"><a href="#etc-rsyslog-conf配置文件来配置管理日志" class="headerlink" title="/etc/rsyslog.conf配置文件来配置管理日志"></a>/etc/rsyslog.conf配置文件来配置管理日志</h5><p>authpriv.*                        /var/log/secure #认证相关服务.所有日志等级 记录在/var/log/secure日志文件中. <br><br>服务名称[连接符号]日志等级        日志记录位置 <br><br>服务名称是rsyslog这个服务定义好的, 不是我们能决定的, 也不是linux能决定的.<br><br>常用服务名称:<br><br>auth #安全和认证相关消息(不推荐使用authpriv代替)<br><br>authpriv #安全和认证相关消息(私有的)<br><br>cron #系统定时任务cront和at产生的日志<br><br>daemon #和各个守护进程相关的日志<br><br>ftp #ftp守护进程产生的日志<br><br>kern #内核产生的日志(不是用户进程产生的)<br><br>local0~local7 #为本地使用预留的服务<br><br>lpr #打印产生的日志<br><br>mail #邮件收发信息<br><br>news #与新闻服务器相关的日志<br><br>syslog #由syslogd服务产生的日志信息, 虽然服务名称已经改为rsyslogd, 但是很多配置都还是沿用了syslogd的, 这里并没有修改服务器名.<br><br>user #用户等级类别的日志信息<br><br>uucp #uucp子系统的日志信息, uucp是早期linux系统进行数据传递的协议, 后来也常用在新闻组服务中.<br></p>
+<p>连接符号:<br></p>
+<ul>
+<li>#代表所有日志等级, 比如”authpriv.<em>“代表authpriv认证信息服务产生的日志, 所有日志等级都记录下来.<br><br>. #代表只要比后面的等级高的(包含该等级)日志都记录下来, 比如:”cron.inof”代表cron服务产生的日志, 只要日志等级大于等于info级别, 就记录.<br><br>.= #代表只记录所需等级的日志, 其他等级的都不记录. 比如 “</em>.=emerg”表示任何日志服务产生的日志,只要等级是emerg等级就记录.<br><br>.! #代表不等于, 也就是除了该等级的日志外, 其他等级的日志都记录.<br></li>
+</ul>
+<p>日志等级(下列等级依次增加):<br><br>debug #一般的调试信息说明 <br><br>info #基本的通知信息 <br><br>notice #普通信息, 但是有一定的重要性 <br><br>warning #警告信息, 但是还不会影响到服务或系统的运行 <br><br>err #错误信息, 一般达到err等级的信息以及可以影响到服务或系统的运行了 <br><br>crit #临界状况信息, 比err等级还要严重 <br><br>alert #警告状态信息, 比crit还要严重, 必须立即采取行动 <br><br>emerg #疼痛等级信息, 系统已经无法使用了 <br></p>
+<p>日志记录位置:<br><br>日志文件的绝对路径, 如: /var/log/secure <br><br>系统设备文件, 如: /dev/lp0 <br><br>转发给远程主机, 如: @192.168.0.210:514 <br><br>用户名, 如: root, 用户必须在线, * 表示发送给任何在线用户 <br><br>忽略或丢弃日志, 如: ~ <br></p>
+<h5 id="日志轮替-切割-轮换"><a href="#日志轮替-切割-轮换" class="headerlink" title="日志轮替(切割, 轮换)"></a>日志轮替(切割, 轮换)</h5><p>日志切割 和 日志的轮换 <br></p>
+<h5 id="日志文件的命名规则"><a href="#日志文件的命名规则" class="headerlink" title="日志文件的命名规则"></a>日志文件的命名规则</h5><p>如果配置文件中拥有”dateext”参数, 那么日志会用日期来作为日志文件的后缀, 例如:”secure-20130605”, 这样的话日志文件名不会重叠, 所以也就不需要日志文件的改名, 只需要保存指定的日志个数, 删除多余的日志文件即可.<br><br>如果配置文件中没有配置”dateext”参数, 那么就用后缀,1,2,3等来表示, 跟用日期来表示的概念差不多, 就只是把日期换成数字, 一次演算。。。<br></p>
+<h5 id="logrotate配置文件"><a href="#logrotate配置文件" class="headerlink" title="logrotate配置文件"></a>logrotate配置文件</h5><p>logrotate配置文件在/etc/logrotate.conf中 <br><br>daily #日志的轮替周期是每天 <br><br>weekly #日志的轮替周期是每周 <br><br>monthly #日志的轮替周期是每月 <br><br>rotate 数字 #保留的日志文件的个数, 0指定没有日志 <br><br>compress #日志轮替时, 旧的日志进行压缩 <br><br>create mode owner group #建立新日志, 同时指定新日志的权限与所有者和所属组. create 0600 root utmp <br><br>mail address #当日志轮替时, 输出内容通过邮件发送到指定的邮件地址, 如mail xx@163.com <br><br>missingok #如果日志不存在, 则忽略该日志的警告信息 <br><br>notifempty #如果日志为空文件, 则不进行日志轮替 <br><br>minsize 大小 #日志轮替的最小值, 也就是日志一定要达到这个最小值才会轮替, 否则就算时间达到也不轮替 <br><br>size 大小 #日志只有大于指定大小才进行日志轮替, 而不是按照时间轮替, 如size 100k <br><br>dateext #使用日期作为日志轮替文件的后缀. 如secure-20130605 <br></p>
+<p>注意:<br></p>
+<ol>
+<li>rpm包安装的软件, 一般都有自己的轮替日志 <br></li>
+<li>源码包安装的软件, 一般要我们自己去设置这个软件的日志的轮替<br></li>
+<li>在logrotate.conf配置文件中, {}中的配置是针对某个服务的日志设定的, {}外的配置是针对所有服务的日志设定的(全局设定), {}中配置的选项比全局配置的选项优先级要高<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/usr/local/apache2/logs/access_log&#123;</div><div class="line">	daily</div><div class="line">	create</div><div class="line">	rotate <span class="number">30</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="logrotate-命令"><a href="#logrotate-命令" class="headerlink" title="logrotate 命令"></a>logrotate 命令</h5><p>logrotate [选项] 配置文件名 <br><br>如果此命令没有选项, 则会按照配置文件中的条件进行日志轮替 <br><br>-v #显示日志轮替过程, 加了-v选项, 会显示日志的轮替的过程 <br><br>-f #强制进行日志轮替, 不管日志轮替的条件是否已经符合, 强制配置文件中所有的日志进行轮替 <br></p>
 
       
     </div>

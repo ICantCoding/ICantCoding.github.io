@@ -143,7 +143,10 @@
 </li>
 <li><p>在开启opensips的时候, 我还多次忘记开启msyql服务, 和ssh服务了. <br></p>
 </li>
-<li></li>
+<li><p>关机重启后, 启动opensips发现 启动不了opensips了, 给出如下的错误:<br><br>ERROR: PID file /var/run/opensips.pid does not exist – OpenSIPS start failed <br><br>答: 这个是因为关机重启后, 我安装opensips的服务器的ip地址发生了改变, 我必须要再去更改/etc/opensips下配置文件中涉及到的ip地址信息, 更改到现在服务器的ip地址, 然后重新启动就可以了.<br></p>
+</li>
+<li><p>使用opensips的时候, 我都是把防火墙直接关了, 因为我不会配置防火墙呀, 恼火, 现在为了能够外部能够连接上opensips, 我就超级暴力的直接把防火墙关闭了 service iptables stop <br><br>或者直接永久的关闭防火墙: chkconfig iptables off <br></p>
+</li>
 </ol>
 
       
