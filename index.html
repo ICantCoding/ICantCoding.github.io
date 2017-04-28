@@ -82,6 +82,144 @@
     <header>
         <div class="icon"></div>
         
+        <time datetime="2017-04-26T07:32:37.000Z"><a href="/2017/04/26/Asterisk消息数据包/">2017-04-26</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/04/26/Asterisk消息数据包/">Asterisk消息数据包</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        <a id="more"></a>
+<p>Message<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">MESSAGE sip:user2@domain.com SIP/<span class="number">2.0</span></div><div class="line">Via: SIP/<span class="number">2.0</span>/TCP user1pc.domain.com;branch=z9hG4bK776sgdkse</div><div class="line">Max-Forwards: <span class="number">70</span></div><div class="line">From: sip:user1@domain.com;tag=<span class="number">49583</span></div><div class="line">To: sip:user2@domain.com</div><div class="line">Call-ID: asd88asd77a@<span class="number">1.2</span><span class="number">.3</span><span class="number">.4</span></div><div class="line">CSeq: <span class="number">1</span> MESSAGE</div><div class="line">Content-Type: text/plain</div><div class="line">Content-Length: <span class="number">18</span></div><div class="line"></div><div class="line">Watson, come here.</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/04/26/Asterisk消息数据包/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-04-26T05:56:18.000Z"><a href="/2017/04/26/Asterisk中GB28181函数解析/">2017-04-26</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/04/26/Asterisk中GB28181函数解析/">Asterisk中GB28181函数解析</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        <a id="more"></a>
+<p>//接受sip message消息, 并给与相应的处理<br>static void receive_message(struct sip_pvt<em> p, struct sip_request</em> req, struct ast_sockaddr<em> addr, const char</em> e);</p>
+<p>从sip的request的数据包中读取包数据. sip_content_buf<br>static char<em> get_content(struct sip_request</em> req);</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/04/26/Asterisk中GB28181函数解析/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-04-26T05:20:44.000Z"><a href="/2017/04/26/Asterisk中读GB28181/">2017-04-26</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/04/26/Asterisk中读GB28181/">Asterisk中读GB28181</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#copy-request-amp-p-gt-initreq-req"><span class="toc-text">copy_request(&p->initreq, req);</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-text">};</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-pvt-xxx-xxxx-param1…"><span class="toc-text">set_pvt_xxx_xxxx(param1…);</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<p>struct sip_request{<br>    ptrdiff_t rlpart1;<br>    ptrdiff_t rlpart2;<br>    int headers;<br>    int method;<br>    int lines; //the line number of body content<br>    unsigned int sdp_start;<br>    unsigned int sdp_count;<br>    char debug;<br>    char has_to_tag;<br>    char ignore;<br>    char authenticated;<br>    ptrdiff_t header[SIP_MAX_HEADERS];<br>    ptrdiff_t line[SIP_MAX_LINES];<br>    struct ast_str<em> data;<br>    struct ast_str</em> content;<br>    struct sip_socket socket;<br>    AST_LIST_ENTRY(sip_request) next;<br>    unsigned int reqsipoptions;<br>    unsigned char<em> raw_data;<br>    size_t raw_data_len;<br>};<br>struct sip_request 相关的方法<br>//从sip_request中拿到数据包内容<br>static char</em> get_content(struct sip_request* req);<br>//复制一个sip_reqeust</p>
+<h2 id="copy-request-amp-p-gt-initreq-req"><a href="#copy-request-amp-p-gt-initreq-req" class="headerlink" title="copy_request(&amp;p-&gt;initreq, req);"></a>copy_request(&amp;p-&gt;initreq, req);</h2><p>struct ast_threadstorage{<br>    pthread_once_t once;<br>    pthread_key_t key;<br>    void (<em>key_init)(void);<br>    int (</em>custom_init)(void*);<br>};</p>
+<p>static struct ast_threadstorage sip_content_buf = {<br>    .once = PTHREAD_ONCE_INIT;<br>    .key_init = __init_sip_content_buf;<br>    .custom_init = NULL;<br>};</p>
+<p>struct ast_str{<br>    size_t len2;<br>    size_t used2;<br>    struct ast_threadstorage<em> ts2;<br>    char str2[0];<br>};<br>在asterisk中, 一个通话的通信是通过使用帧来完成的, 帧是数据结构ast_frame的一个实例. 这个帧可以是媒体帧, 也可以是信令帧. frame.h文件中定义<br>struct ast_frame{<br>    enum ast_frame_type frametype;<br>    union ast_frame_subclass subclass;<br>    int datalen;<br>    int samples;<br>    int mallocd;<br>    size_t mallocd_hdr_len;<br>    int offset;<br>    const char</em> src;<br>    union {void* ptr; uint32_t uint32; char pad[8];}data;<br>    struct timeval delivery;<br>    AST_LIST_ENTRY(ast_frame) frame_list;<br>    unsigned int flags;<br>    long ts;<br>    long len;<br>    int seqno;<br>};<br>struct ast_frame 相关的函数方法<br>//这个方法会不会是把帧先放入到asterisk维护的一个队列中?<br>//param1:ast_channel通道, param2:帧<br>ast_queue_frame(p-&gt;owner, &amp;f);</p>
+<hr>
+<p>//暂未找到定义形式<br>struct ast_msg{</p>
+<h2 id=""><a href="#" class="headerlink" title="};"></a>};</h2><p>struct sip_pvt{<br>    struct sip_pvt <em>next;//这是一个链表了<br>    struct ast_channel </em>owner;//通道<br>    struct sip_socket socket;<br>};<br>//struct sip_pvt 相关方法<br>set_pvt_allow_methods(p, req);</p>
+<h2 id="set-pvt-xxx-xxxx-param1…"><a href="#set-pvt-xxx-xxxx-param1…" class="headerlink" title="set_pvt_xxx_xxxx(param1…);"></a>set_pvt_xxx_xxxx(param1…);</h2><p>//这个是读取sip.conf配置文件来配置的一个sip_setting, 如果是GB28181通道的话, 就可能是从gb28181.conf配置文件中读取数据来初始化…<br>static struct sip_settings sip_cfg;<br>struct sip_settings{<br>    int peer_rtupdate;<br>    int rtsave_sysname;<br>    int ignore_regexpire;<br>    int accept_outofcall_message; //accept message outside of a call.<br>};</p>
+<p>//在include/sip.h中定义<br>struct sip_peer{<br>    char name[80];<br>    const char<em> secret;<br>    const char</em> md5secret;<br>    const char<em> description;<br>    const char</em> remotesecret;<br>    const char<em> context;<br>    const char</em> messagecontext;<br>    const char<em> subscribecontext;<br>    const char</em> username;<br>    const char<em> accountcode;<br>    const char</em> tohost;<br>    const char<em> regexten;<br>    const char</em> fromuser;<br>    const char<em> fromdomain;<br>    const char</em> fullcontact;<br>    const char<em> cid_num;<br>    const char</em> cid_name;<br>    const char<em> cid_tag;<br>    const char</em> vmexten;<br>    const char<em> language;<br>    const char</em> mohinterpret;<br>    const char<em> mohsuggest;<br>    const char</em> parkinglot;<br>    …<br>};</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/04/26/Asterisk中读GB28181/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
         <time datetime="2017-04-21T03:40:51.000Z"><a href="/2017/04/21/Linux常识/">2017-04-21</a></time>
         
   
@@ -362,126 +500,6 @@
 
 
 
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-03-31T07:29:36.000Z"><a href="/2017/03/31/gcc的使用/">2017-03-31</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/03/31/gcc的使用/">gcc的使用</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>gcc 是linux下标准的编译器, 其中gcc编译涉及到很多命令, 这篇文章, 我会一遍学习gcc, 一边记录自己学习过程中的一些技巧和命令<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2017/03/31/gcc的使用/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2017/03/31/gcc的使用/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-03-31T01:20:55.000Z"><a href="/2017/03/31/Linux下程序调试/">2017-03-31</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/03/31/Linux下程序调试/">Linux下程序调试</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>这段时间在用linux下vim写一些功能代码, 一切都还不太熟悉, 在工作的这段时间内学习到很多的小技术点, 需要在这里记录一下<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2017/03/31/Linux下程序调试/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2017/03/31/Linux下程序调试/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-03-29T10:40:49.000Z"><a href="/2017/03/29/Opensips的Opensips-cfg详解/">2017-03-29</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/03/29/Opensips的Opensips-cfg详解/">Opensips的Opensips.cfg详解</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>在学习使用Opensips中, Opensips.cfg文件是最重要的配置主文件<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2017/03/29/Opensips的Opensips-cfg详解/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2017/03/29/Opensips的Opensips-cfg详解/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
  
 <nav id="pagination">
   
@@ -503,7 +521,7 @@
   
 <div class="widget tag">
   <h3 class="title" id="categories">Categories</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Asterisk/">Asterisk</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">20</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Opensips/">Opensips</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RabbitMq/">RabbitMq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发工具的使用/">开发工具的使用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Asterisk/">Asterisk</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">20</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Opensips/">Opensips</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RabbitMq/">RabbitMq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发工具的使用/">开发工具的使用</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
 </div>
  
 
@@ -521,7 +539,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/Asterisk-Modules-模块/" style="font-size: 10px;">Asterisk Modules(模块)</a> <a href="/tags/Asterisk-sip-conf配置详解/" style="font-size: 10px;">Asterisk sip.conf配置详解</a> <a href="/tags/Asterisk常用命令/" style="font-size: 10px;">Asterisk常用命令</a> <a href="/tags/Asterisk的源码安装/" style="font-size: 10px;">Asterisk的源码安装</a> <a href="/tags/Asterisk目录结构/" style="font-size: 10px;">Asterisk目录结构</a> <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux下程序调试/" style="font-size: 10px;">Linux下程序调试</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux实用又感觉奇葩的命令/" style="font-size: 10px;">Linux实用又感觉奇葩的命令</a> <a href="/tags/Linux常识/" style="font-size: 10px;">Linux常识</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux日志管理/" style="font-size: 10px;">Linux日志管理</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的服务管理/" style="font-size: 10px;">Linux的服务管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统分区/" style="font-size: 10px;">Linux系统分区</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/Linux系统管理/" style="font-size: 10px;">Linux系统管理</a> <a href="/tags/Linux记不住的命令/" style="font-size: 10px;">Linux记不住的命令</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL使用准则记录/" style="font-size: 10px;">MySQL使用准则记录</a> <a href="/tags/MySQL子查询与连接/" style="font-size: 10px;">MySQL子查询与连接</a> <a href="/tags/MySQL操作数据表中的记录/" style="font-size: 10px;">MySQL操作数据表中的记录</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/MySQL约束以及修改数据表/" style="font-size: 10px;">MySQL约束以及修改数据表</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Opensips-安装/" style="font-size: 10px;">Opensips 安装</a> <a href="/tags/Opensips常用命令/" style="font-size: 10px;">Opensips常用命令</a> <a href="/tags/Opensips模块使用/" style="font-size: 10px;">Opensips模块使用</a> <a href="/tags/Opensips的Opensips-cfg详解/" style="font-size: 10px;">Opensips的Opensips.cfg详解</a> <a href="/tags/PHP环境搭建/" style="font-size: 10px;">PHP环境搭建</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Qt中文乱码问题/" style="font-size: 10px;">Qt中文乱码问题</a> <a href="/tags/RabbitMq安装/" style="font-size: 10px;">RabbitMq安装</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/gcc的使用/" style="font-size: 10px;">gcc的使用</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/开发助手SVN介绍/" style="font-size: 10px;">开发助手SVN介绍</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/编程中的字符集说明/" style="font-size: 10px;">编程中的字符集说明</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
+    <a href="/tags/Asterisk-Modules-模块/" style="font-size: 10px;">Asterisk Modules(模块)</a> <a href="/tags/Asterisk-sip-conf配置详解/" style="font-size: 10px;">Asterisk sip.conf配置详解</a> <a href="/tags/Asterisk中GB28181函数解析/" style="font-size: 10px;">Asterisk中GB28181函数解析</a> <a href="/tags/Asterisk中读GB28181/" style="font-size: 10px;">Asterisk中读GB28181</a> <a href="/tags/Asterisk常用命令/" style="font-size: 10px;">Asterisk常用命令</a> <a href="/tags/Asterisk消息数据包/" style="font-size: 10px;">Asterisk消息数据包</a> <a href="/tags/Asterisk的源码安装/" style="font-size: 10px;">Asterisk的源码安装</a> <a href="/tags/Asterisk目录结构/" style="font-size: 10px;">Asterisk目录结构</a> <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux下程序调试/" style="font-size: 10px;">Linux下程序调试</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux实用又感觉奇葩的命令/" style="font-size: 10px;">Linux实用又感觉奇葩的命令</a> <a href="/tags/Linux常识/" style="font-size: 10px;">Linux常识</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux日志管理/" style="font-size: 10px;">Linux日志管理</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的服务管理/" style="font-size: 10px;">Linux的服务管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统分区/" style="font-size: 10px;">Linux系统分区</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/Linux系统管理/" style="font-size: 10px;">Linux系统管理</a> <a href="/tags/Linux记不住的命令/" style="font-size: 10px;">Linux记不住的命令</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL使用准则记录/" style="font-size: 10px;">MySQL使用准则记录</a> <a href="/tags/MySQL子查询与连接/" style="font-size: 10px;">MySQL子查询与连接</a> <a href="/tags/MySQL操作数据表中的记录/" style="font-size: 10px;">MySQL操作数据表中的记录</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/MySQL约束以及修改数据表/" style="font-size: 10px;">MySQL约束以及修改数据表</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Opensips-安装/" style="font-size: 10px;">Opensips 安装</a> <a href="/tags/Opensips常用命令/" style="font-size: 10px;">Opensips常用命令</a> <a href="/tags/Opensips模块使用/" style="font-size: 10px;">Opensips模块使用</a> <a href="/tags/Opensips的Opensips-cfg详解/" style="font-size: 10px;">Opensips的Opensips.cfg详解</a> <a href="/tags/PHP环境搭建/" style="font-size: 10px;">PHP环境搭建</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Qt中文乱码问题/" style="font-size: 10px;">Qt中文乱码问题</a> <a href="/tags/RabbitMq安装/" style="font-size: 10px;">RabbitMq安装</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/gcc的使用/" style="font-size: 10px;">gcc的使用</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/开发助手SVN介绍/" style="font-size: 10px;">开发助手SVN介绍</a> <a href="/tags/开发工具的使用/" style="font-size: 10px;">开发工具的使用</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/编程中的字符集说明/" style="font-size: 10px;">编程中的字符集说明</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
   </div>
 </div>
 
@@ -529,7 +547,7 @@
   
   <div class="widget tag">
     <h3 class="title">归档</h3>
-	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">2017年04月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017年03月</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">2017年04月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017年03月</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
   </div>
 
 </aside>
