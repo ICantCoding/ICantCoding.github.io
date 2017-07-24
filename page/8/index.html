@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>第 8 页 | ShanGe 的 Coding 漫漫路</title>
+  <title>Page 8 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
   
   
@@ -64,9 +64,9 @@
 		</div>
 		<div id="sub-nav" class="alignright">
 		    
-		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
 		    
-		      <a href="/customization"><i class="fa fa-question-circle"></i>留言</a>
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
 		    
 		</div>
 	</div>
@@ -76,6 +76,255 @@
   
     <div id="content" class="inner">
       <div id="main-col" class="alignleft"><div id="wrapper">
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-10T14:11:37.000Z"><a href="/2017/01/10/Linux环境变量配置/">2017-01-10</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/10/Linux环境变量配置/">Linux环境变量配置</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#环境变量配置文件简介"><span class="toc-text">环境变量配置文件简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#其他配置文件"><span class="toc-text">其他配置文件</span></a></li></ol></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="环境变量配置文件简介"><a href="#环境变量配置文件简介" class="headerlink" title="环境变量配置文件简介"></a>环境变量配置文件简介</h5><p>在介绍环境变量配置文件之前, 我们下来介绍 <strong style="color:red;">source</strong>这个命令.<br><br><strong style="color:red;">source 配置文件</strong><br><br><strong style="color:red;">. 配置文件</strong><br><br>在linux系统中, 我们如果修改了配置文件, 那么只有下次开机重启之后, 配置文件才会生效. 为了避免开启重启的麻烦, 我们使用source 或 . (注意.之后有一个空格)来是配置文件强制生效.<br></p>
+<p>环境变量配置文件中主要是定义对系统的操作环境生效的系统默认环境变量, 比如PATH, HISTSIZE, PS1, HOSTNAME等等默认环境变量. 只有在环境变量配置文件中写入的环境变量才是永久有效的. 如果只是按照我们在命令行中使用<strong style="color:red;">export 环境变量名=环境变量值</strong>来设置环境变量, 只会本次开机有效, 而不会永久有效.<br></p>
+<p>在linux系统中, 我们常用的环境变量配置文件有五个:<br><br><span style="color:red;">/etc/profile</span><br><br><span style="color:red;">/etc/profile.d/*.sh 代表/etc/profile.d目录下所有的.sh文件</span><br><br><span style="color:red;">~/.bash_profile</span><br><br><span style="color:red;">~/.bashrc</span><br><br><span style="color:red;">/etc/bashrc</span><br><br>我们来简单的介绍一下这五个文件:<br><br>1./etc目录下的文件, 是所有用户都可以读取到的环境变量配置文件.<br><br>2.~/(家目录)下的文件, 是指登录用户才能读取到的环境变量配置文件, 其他登录用户是读取不到的.<br><br><img src="/images/环境变量配置文件读取顺序.png" width="400" height="400"><br></p>
+<h6 id="其他配置文件"><a href="#其他配置文件" class="headerlink" title="其他配置文件"></a>其他配置文件</h6><p>1.注销时生效的环境变量配置文件,<strong style="color:red;">~/.bash_logout</strong><br><br>2.历史命令记录的配置文件, <strong style="color:red;">~/.bash_history</strong><br><br>3.本地终端欢迎信息配置文件, <strong style="color:red;">/etc/issue</strong><br><br><img src="/images/本地终端欢迎配置文件转义符.png" width="400" height="400"><br><br>4.远程终端欢迎信息配置文件, <strong style="color:red;">/etc/issue.net</strong><br><br>注意:<br><br>1).抓获一符在/ect/issue.net文件中不能使用, 使用了也没有任何含义.<br><br>2).是否显示此欢迎信息, 由ssh的配置文件/etc/ssh/sshd_config决定, 加入”Banner /etc/issue.net”行才能显示, 并记得重新启动SSH服务.(service sshd start).<br><br>5.登录后欢迎信息配置文件, <strong style="color:red;">/etc/motd</strong><br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/10/Linux环境变量配置/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-09T10:02:13.000Z"><a href="/2017/01/09/ios中的NSData类/">2017-01-09</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/09/ios中的NSData类/">ios中的NSData类</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>数据类, NSData是一个将数据保存为二进制的类, 这个类相当重要, 我们需要认真的理解和使用它!<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/01/09/ios中的NSData类/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/09/ios中的NSData类/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-03T02:06:24.000Z"><a href="/2017/01/03/ios开发中常用小代码/">2017-01-03</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/03/ios开发中常用小代码/">ios开发中常用小代码</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>开发中常用的一些小代码, 记录下来, 为了避免重复造轮子!<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/01/03/ios开发中常用小代码/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/03/ios开发中常用小代码/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-02T04:31:02.000Z"><a href="/2017/01/02/ios中的UITouch类/">2017-01-02</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/02/ios中的UITouch类/">ios中的UITouch类</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        <p>说说UITouch的简单常用属性:<br><br><figure class="highlight plain"><figcaption><span>-c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;touch所在的窗口视图控制器的名字---&gt;%@&quot;,((ViewController*)touch.window.rootViewController).viewControllerName);</div><div class="line">NSLog(@&quot;touch所在的视图控制器的名字---&gt;%@&quot;,((ViewController*)touch.view.nextResponder).viewControllerName);</div><div class="line">NSLog(@&quot;短时间内点击的次数---%lu&quot;,(unsigned long)touch.tapCount);</div><div class="line">NSLog(@&quot;触摸产生或变化的时间戳---&gt;%f&quot;,touch.timestamp);</div><div class="line">UITouchPhase touchPhase  = (UITouchPhase)touch.phase;</div><div class="line">switch(touchPhase)&#123;</div><div class="line">	case UITouchPhaseBegan:</div><div class="line">   		NSLog(@&quot;UITouchPhaseBegan...&quot;);</div><div class="line">      	break;</div><div class="line">   	case UITouchPhaseMoved:</div><div class="line">		NSLog(@&quot;UITouchPhaseMoved...&quot;);</div><div class="line">		break;</div><div class="line">	case UITouchPhaseStationary:</div><div class="line">		NSLog(@&quot;UITouchPhaseStationary...&quot;);</div><div class="line">		break;</div><div class="line">	case UITouchPhaseEnded:</div><div class="line">		NSLog(@&quot;UITouchPhaseEnded...&quot;);</div><div class="line">		break;</div><div class="line">	case UITouchPhaseCancelled:</div><div class="line">		NSLog(@&quot;UITouchPhaseCancelled...&quot;);</div><div class="line">		break;</div><div class="line">	default:</div><div class="line">		break;</div><div class="line">&#125;</div><div class="line">//取得当前位置</div><div class="line">CGPoint current=[touch locationInView:self.view];</div><div class="line">//取得前一个位置</div><div class="line">CGPoint previous=[touch previousLocationInView:self.view];</div><div class="line">注意如果传递的view为nil， 则将以窗口为view来获取到触摸点的坐标位置.</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/02/ios中的UITouch类/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-02T04:29:30.000Z"><a href="/2017/01/02/ios中的NSSet类/">2017-01-02</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/02/ios中的NSSet类/">ios中的NSSet类</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/02/ios中的NSSet类/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2016-12-29T13:46:00.000Z"><a href="/2016/12/29/ios中的各种事件/">2016-12-29</a></time>
+        
+  
+    <h1 class="title"><a href="/2016/12/29/ios中的各种事件/">ios中的各种事件</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>ios的精彩, 一定少不了ios中的事件机制. 我们有必要来研究一下ios的事件. ios中事件分三种(1)触摸事件、(2)运动事件、(3)远程控制事件.<br>我们会逐一讨论并理解.<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2016/12/29/ios中的各种事件/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+        <div class="alignright">
+          <a href="/2016/12/29/ios中的各种事件/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
     <article class="post">
   
   <div class="post-content">
@@ -263,253 +512,13 @@
 
 
 
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-11T11:35:40.000Z"><a href="/2016/12/11/Linux压缩解压命令/">2016-12-11</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/11/Linux压缩解压命令/">Linux压缩解压命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>linux下文件压缩包, 该如何解压啦？<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/11/Linux压缩解压命令/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/11/Linux压缩解压命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-11T11:06:58.000Z"><a href="/2016/12/11/Linux用户管理命令/">2016-12-11</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/11/Linux用户管理命令/">Linux用户管理命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>liunx下的多用户管理! 来看看—<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/11/Linux用户管理命令/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/11/Linux用户管理命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-08T13:30:30.000Z"><a href="/2016/12/08/Linux文件搜索命令/">2016-12-08</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/08/Linux文件搜索命令/">Linux文件搜索命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>windows下, 搜索文件我自己感觉很恼火呀！还是Linux下搜索文件方便! 我们可以根据文件名(-name), 文件大小(-size), 文件时间(-amin,-cmin,-mmin), 所属人(-user), 所属组(-group),等等来进行搜索, 我们一起来看看！<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/08/Linux文件搜索命令/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/08/Linux文件搜索命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-07T13:54:06.000Z"><a href="/2016/12/07/Linux权限管理命令/">2016-12-07</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/07/Linux权限管理命令/">Linux权限管理命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>文件都是具有权限的, 系统管理中, 合理的给用户分配权限是相当重要的话题! 在linux系统中只有两种角色可以更改文件的权限！1.root 2.文件的所有者. 在linux系统中只有一种角色可以更改文件的拥有者! 1.root.<br>下边我们来学习linux下, 如何管理文件权限.<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/07/Linux权限管理命令/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/07/Linux权限管理命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-06T14:48:49.000Z"><a href="/2016/12/06/Linux-系统目录分析/">2016-12-06</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/06/Linux-系统目录分析/">Linux-系统目录分析</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>今天来了解记录下, Linux系统各目录的作用<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/06/Linux-系统目录分析/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/06/Linux-系统目录分析/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2016-12-06T12:49:10.000Z"><a href="/2016/12/06/Linux-常用命令/">2016-12-06</a></time>
-        
-  
-    <h1 class="title"><a href="/2016/12/06/Linux-常用命令/">Linux 文件目录操作常用命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>Linux 常用命令！那是必须掌握的技能呀！不多说！一起来看看吧！<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/12/06/Linux-常用命令/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-        <div class="alignright">
-          <a href="/2016/12/06/Linux-常用命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
  
 <nav id="pagination">
   
-    <a href="/page/7/" class="alignleft prev">上一页</a>
+    <a href="/page/7/" class="alignleft prev">Prev</a>
   
   
-    <a href="/page/9/" class="alignright next">下一页</a>
+    <a href="/page/9/" class="alignright next">Next</a>
   
   <div class="clearfix"></div>
 </nav>
@@ -517,22 +526,22 @@
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
-<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
     <input type="hidden" name="wd" value="site:yoursite.com"> -->
-     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
   </form>
 </div> 
 
   
 <div class="widget tag">
-  <h3 class="title" id="categories">分类</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Apache/">Apache</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Asterisk/">Asterisk</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux编程/">Linux编程</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Opensips/">Opensips</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RabbitMq/">RabbitMq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发工具的使用/">开发工具的使用</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Apache/">Apache</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Asterisk/">Asterisk</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux编程/">Linux编程</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Makefile/">Makefile</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Opensips/">Opensips</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RabbitMq/">RabbitMq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发工具的使用/">开发工具的使用</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
 </div>
  
 
 
   <div class="widget tag">
-  <h3 class="title">日历云</h3>
+  <h3 class="title">Calendar</h3>
   <div id="calendar"></div>
 </div>
 
@@ -542,9 +551,9 @@
 
   
 <div class="widget tagcloud">
-  <h3 class="title">标签云</h3>
+  <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/Apache环境搭建/" style="font-size: 10px;">Apache环境搭建</a> <a href="/tags/Asterisk-Modules-模块/" style="font-size: 10px;">Asterisk Modules(模块)</a> <a href="/tags/Asterisk-sip-conf配置详解/" style="font-size: 10px;">Asterisk sip.conf配置详解</a> <a href="/tags/Asterisk中GB28181函数解析/" style="font-size: 10px;">Asterisk中GB28181函数解析</a> <a href="/tags/Asterisk中读GB28181/" style="font-size: 10px;">Asterisk中读GB28181</a> <a href="/tags/Asterisk常用命令/" style="font-size: 10px;">Asterisk常用命令</a> <a href="/tags/Asterisk消息数据包/" style="font-size: 10px;">Asterisk消息数据包</a> <a href="/tags/Asterisk的源码安装/" style="font-size: 10px;">Asterisk的源码安装</a> <a href="/tags/Asterisk目录结构/" style="font-size: 10px;">Asterisk目录结构</a> <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux-文件操作/" style="font-size: 10px;">Linux-文件操作</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux下程序调试/" style="font-size: 10px;">Linux下程序调试</a> <a href="/tags/Linux之防火墙/" style="font-size: 10px;">Linux之防火墙</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux实用又感觉奇葩的命令/" style="font-size: 10px;">Linux实用又感觉奇葩的命令</a> <a href="/tags/Linux常识/" style="font-size: 10px;">Linux常识</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux日志管理/" style="font-size: 10px;">Linux日志管理</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的服务管理/" style="font-size: 10px;">Linux的服务管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统分区/" style="font-size: 10px;">Linux系统分区</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/Linux系统管理/" style="font-size: 10px;">Linux系统管理</a> <a href="/tags/Linux编程函数汇总/" style="font-size: 10px;">Linux编程函数汇总</a> <a href="/tags/Linux记不住的命令/" style="font-size: 10px;">Linux记不住的命令</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL使用准则记录/" style="font-size: 10px;">MySQL使用准则记录</a> <a href="/tags/MySQL子查询与连接/" style="font-size: 10px;">MySQL子查询与连接</a> <a href="/tags/MySQL操作数据表中的记录/" style="font-size: 10px;">MySQL操作数据表中的记录</a> <a href="/tags/MySQL数据库和表的移植/" style="font-size: 10px;">MySQL数据库和表的移植</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/MySQL约束以及修改数据表/" style="font-size: 10px;">MySQL约束以及修改数据表</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Opensips-安装/" style="font-size: 10px;">Opensips 安装</a> <a href="/tags/Opensips常用命令/" style="font-size: 10px;">Opensips常用命令</a> <a href="/tags/Opensips模块使用/" style="font-size: 10px;">Opensips模块使用</a> <a href="/tags/Opensips的Opensips-cfg详解/" style="font-size: 10px;">Opensips的Opensips.cfg详解</a> <a href="/tags/PHP环境搭建/" style="font-size: 10px;">PHP环境搭建</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Qt中文乱码问题/" style="font-size: 10px;">Qt中文乱码问题</a> <a href="/tags/RabbitMq安装/" style="font-size: 10px;">RabbitMq安装</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/gcc的使用/" style="font-size: 10px;">gcc的使用</a> <a href="/tags/gdb调试器的使用/" style="font-size: 10px;">gdb调试器的使用</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/开发助手SVN介绍/" style="font-size: 10px;">开发助手SVN介绍</a> <a href="/tags/开发工具的使用/" style="font-size: 10px;">开发工具的使用</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/编程中的字符集说明/" style="font-size: 10px;">编程中的字符集说明</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
+    <a href="/tags/Apache环境搭建/" style="font-size: 10px;">Apache环境搭建</a> <a href="/tags/Asterisk-Modules-模块/" style="font-size: 10px;">Asterisk Modules(模块)</a> <a href="/tags/Asterisk-sip-conf配置详解/" style="font-size: 10px;">Asterisk sip.conf配置详解</a> <a href="/tags/Asterisk中GB28181函数解析/" style="font-size: 10px;">Asterisk中GB28181函数解析</a> <a href="/tags/Asterisk中读GB28181/" style="font-size: 10px;">Asterisk中读GB28181</a> <a href="/tags/Asterisk常用命令/" style="font-size: 10px;">Asterisk常用命令</a> <a href="/tags/Asterisk消息数据包/" style="font-size: 10px;">Asterisk消息数据包</a> <a href="/tags/Asterisk源码解析/" style="font-size: 10px;">Asterisk源码解析</a> <a href="/tags/Asterisk的源码安装/" style="font-size: 10px;">Asterisk的源码安装</a> <a href="/tags/Asterisk目录结构/" style="font-size: 10px;">Asterisk目录结构</a> <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Git使用大全/" style="font-size: 10px;">Git使用大全</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux-文件操作/" style="font-size: 10px;">Linux-文件操作</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux下的网络配置/" style="font-size: 10px;">Linux下的网络配置</a> <a href="/tags/Linux下程序调试/" style="font-size: 10px;">Linux下程序调试</a> <a href="/tags/Linux之防火墙/" style="font-size: 10px;">Linux之防火墙</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux实用又感觉奇葩的命令/" style="font-size: 10px;">Linux实用又感觉奇葩的命令</a> <a href="/tags/Linux常识/" style="font-size: 10px;">Linux常识</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux文件系统编程/" style="font-size: 10px;">Linux文件系统编程</a> <a href="/tags/Linux日志管理/" style="font-size: 10px;">Linux日志管理</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的服务管理/" style="font-size: 10px;">Linux的服务管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统分区/" style="font-size: 10px;">Linux系统分区</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/Linux系统管理/" style="font-size: 10px;">Linux系统管理</a> <a href="/tags/Linux编程函数汇总/" style="font-size: 10px;">Linux编程函数汇总</a> <a href="/tags/Linux编程应用/" style="font-size: 10px;">Linux编程应用</a> <a href="/tags/Linux记不住的命令/" style="font-size: 10px;">Linux记不住的命令</a> <a href="/tags/Makefile解析/" style="font-size: 10px;">Makefile解析</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL使用准则记录/" style="font-size: 10px;">MySQL使用准则记录</a> <a href="/tags/MySQL子查询与连接/" style="font-size: 10px;">MySQL子查询与连接</a> <a href="/tags/MySQL操作数据表中的记录/" style="font-size: 10px;">MySQL操作数据表中的记录</a> <a href="/tags/MySQL数据库和表的移植/" style="font-size: 10px;">MySQL数据库和表的移植</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/MySQL约束以及修改数据表/" style="font-size: 10px;">MySQL约束以及修改数据表</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Opensips-安装/" style="font-size: 10px;">Opensips 安装</a> <a href="/tags/Opensips常用命令/" style="font-size: 10px;">Opensips常用命令</a> <a href="/tags/Opensips模块使用/" style="font-size: 10px;">Opensips模块使用</a> <a href="/tags/Opensips的Opensips-cfg详解/" style="font-size: 10px;">Opensips的Opensips.cfg详解</a> <a href="/tags/PHP环境搭建/" style="font-size: 10px;">PHP环境搭建</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Qt中文乱码问题/" style="font-size: 10px;">Qt中文乱码问题</a> <a href="/tags/RabbitMq安装/" style="font-size: 10px;">RabbitMq安装</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/gcc的使用/" style="font-size: 10px;">gcc的使用</a> <a href="/tags/gdb调试器的使用/" style="font-size: 10px;">gdb调试器的使用</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/开发助手SVN介绍/" style="font-size: 10px;">开发助手SVN介绍</a> <a href="/tags/开发工具的使用/" style="font-size: 10px;">开发工具的使用</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/编程中的字符集说明/" style="font-size: 10px;">编程中的字符集说明</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
   </div>
 </div>
 
@@ -552,7 +561,7 @@
   
   <div class="widget tag">
     <h3 class="title">归档</h3>
-	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">2017年06月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">2017年05月</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">2017年04月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017年03月</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">2017年06月</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">2017年05月</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">2017年04月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017年03月</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
   </div>
 
 </aside>

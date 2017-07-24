@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>第 6 页 | ShanGe 的 Coding 漫漫路</title>
+  <title>Page 6 | ShanGe 的 Coding 漫漫路</title>
   <meta name="author" content="Tian Shanshan">
   
   
@@ -64,9 +64,9 @@
 		</div>
 		<div id="sub-nav" class="alignright">
 		    
-		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>Rss</a>
 		    
-		      <a href="/customization"><i class="fa fa-question-circle"></i>留言</a>
+		      <a href="/customization"><i class="fa fa-question-circle"></i>Customization</a>
 		    
 		</div>
 	</div>
@@ -76,6 +76,265 @@
   
     <div id="content" class="inner">
       <div id="main-col" class="alignleft"><div id="wrapper">
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-30T11:42:53.000Z"><a href="/2017/01/30/程序编译-链接过程/">2017-01-30</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/30/程序编译-链接过程/">C程序编译, 链接过程</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>这里简单的介绍一下程序编译, 链接这个过程.<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/01/30/程序编译-链接过程/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/30/程序编译-链接过程/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-30T04:08:23.000Z"><a href="/2017/01/30/socket的tcp粘包问题以及数据的无边界性/">2017-01-30</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/30/socket的tcp粘包问题以及数据的无边界性/">socket的tcp粘包问题以及数据的无边界性</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        
+    </div>
+
+        <p>socket缓冲区和数据的传递过程, 可以看出来数据的接收和发送是无关的. read()/recv()函数不管数据发送了多少次, 都会尽可能多的接收数据. 也就是说, read()/recv()和write()/send()的执行次数可能不同.<br><br>例如:<br><br>write()/send()重复执行三次, 每次都发送字符串”abc”, 那么目标机器上的read()/recv()可能分三次接收, 每次都接收”abc”, 也可能分两次接收, 第一次接收”abcab”, 第二次接收”cabc”, 也可能一次就接受到字符串”abcabcabc”.<br><br>这就是数据的 “粘包” 问题, 客户端发送的多个数据包被当做一个数据包接收. 也称数据的无边界性. read()/recv()函数不知道数据包的开始和结束标志(实际上也没有任何开始和结束标志), 只把它们当做连续的数据流.<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/30/socket的tcp粘包问题以及数据的无边界性/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-30T03:22:17.000Z"><a href="/2017/01/30/socket缓冲区以及阻塞模式/">2017-01-30</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/30/socket缓冲区以及阻塞模式/">socket缓冲区以及阻塞模式</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#socket缓冲区"><span class="toc-text">socket缓冲区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#阻塞模式"><span class="toc-text">阻塞模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+
+        <a id="more"></a>
+<h5 id="socket缓冲区"><a href="#socket缓冲区" class="headerlink" title="socket缓冲区"></a>socket缓冲区</h5><p>每个socket被创建后, 都会分配两个缓冲区, 输入缓冲区和输出缓冲区.<br><br><img class="../images/socket缓冲区.jpg 300 150">  <br><br>write()/send()并不立即向网络中传输数据, 而是先将数据写入缓冲区中, 再由TCP协议将数据从缓冲区发送到目标机器. 一旦将数据写入到缓冲区, 函数就可以成功返回, 不管它们有没有到达目标机器, 也不管它们何时被发送到网络, 这些都是TCP协议负责的事情.<br><br>TCP协议独立于write()/send()函数, 数据有可能刚被写入缓冲区就发送到网络, 也可能在缓冲区中不断积压,多次写入的数据被一次性发送到网络, 这取决于当时的网络情况, 当前线程是否空闲等诸多因素, 不由程序员控制.<br><br>read()/recv()函数也是如此, 也从输入缓冲区中读取数据, 而不是直接从网络中读取.<br><br>这些I/O缓冲区特性如下:<br><br>1) I/O缓冲区在每个TCP套接字中单独存在.<br><br>2) I/O缓冲区在创建套接字时自动生成.<br><br>3) 即使关闭套接字也会继续传送输出缓冲区中遗留的数据.<br><br>4) 关闭套接字将丢失输入缓冲区中的数据.<br><br>输入输出缓冲区的默认大小一般都是8K, <br></p>
+<h5 id="阻塞模式"><a href="#阻塞模式" class="headerlink" title="阻塞模式"></a>阻塞模式</h5><p>对于TCP套接字, 当使用write()/send()发送数据时:<br><br>1) 首先会检查缓冲区, 如果缓冲区的可用空间长度小于要发送的数据, 那么write()/send()会被阻塞(暂停执行), 直到缓冲区中的数据被发送到目标机器, 腾出足够的空间, 才唤醒write()/send()函数继续写入数据.<br><br>2) 如果TCP协议正在向网络发送数据, 那么输出缓冲区会被锁定, 不允许写入, write()/send()也会被阻塞, 直到数据发送完毕然后缓冲区解锁, write()/send()才会被唤醒.<br><br>3) 如果要写入的数据大于缓冲区的最大长度, 那么将分批写入.<br><br>4) 直到所有数据被写入缓冲区write()/send()才能返回.<br></p>
+<p>当使用read()/recv()读取数据时:<br><br>1) 首先会检查缓冲区, 如果缓冲区中有数据, 那么就读取, 否则函数会被阻塞, 直到网络上有数据到来.<br><br>2) 如果要读取的数据长度小于缓冲区中的数据长度, 那么就不能一次性将缓冲区中的所有数据读出, 剩余数据将不断积压, 直到有read()/recv()函数再次读取.<br><br>3) 直到读取到数据后 read()/recv()函数才会返回, 否则就一直被阻塞.<br></p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>这就是TCP套接字的阻塞模式, 所谓阻塞, 就是上一步动作没有完成, 下一步动作将暂停, 直到上一步动作完成后才能继续, 以保持同步.<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/30/socket缓冲区以及阻塞模式/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-29T02:41:12.000Z"><a href="/2017/01/29/使用socket-函数创建套接字/">2017-01-29</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/29/使用socket-函数创建套接字/">使用socket()函数创建套接字</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#在Linux下创建socket"><span class="toc-text">在Linux下创建socket</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用bind-函数"><span class="toc-text">使用bind()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#将套接字与IP地址127-0-0-1-端口1234绑定"><span class="toc-text">将套接字与IP地址127.0.0.1, 端口1234绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#connect-函数"><span class="toc-text">connect()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#listen-函数"><span class="toc-text">listen()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#accept-函数"><span class="toc-text">accept()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Linux下数据的接收和发送"><span class="toc-text">Linux下数据的接收和发送</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#windows下数据的接收和发送"><span class="toc-text">windows下数据的接收和发送</span></a></li></ol>
+    </div>
+
+        <p>在Linux中, 一切都是文件, 除了文本文件, 源文件, 二进制文件等, 一个硬件设备也可以被映射为一个虚拟的文件, 称为设备文件. stdin 称为标准输入文件, 它对应的硬件设备一般是键盘, stdout称为标准输出文件, 它对应的硬件设备一般是显示器 。对于所有的文件, 都可以使用read()函数读取数据, 使用write()函数写入数据.<br><br>“一切都是文件”的思想极大地简化了程序员的理解和操作, 使得对硬件设备的处理就像普通文件一样。所有Linux中创建的文件都有一个int类型的编号, 称为文件描述符(File Descriptor). 使用文件时, 只要知道文件描述符就可以了. stdin的描述符为0, stdout的描述符为1.<br><br>在 Linux中, socket也被认为是文件的一种, 和普通文件的操作没有区别, 所以在网络数据传输过程中自然可以使用与文件I/O相关的函数, 可以认为, 两台计算机之间的通信, 实际上是两个socket文件的相互读写.<br></p>
+<h5 id="在Linux下创建socket"><a href="#在Linux下创建socket" class="headerlink" title="在Linux下创建socket"></a>在Linux下创建socket</h5><p>在linux下使用<sys socket.h="">头文件中socket()函数来创建套接字, 原型为:<br><br>int socket(int af, int type, int protocol);<br><br>1)af参数为地址族(Address Family), 也就是IP地址类型, 常用的有AF_INET和AF_INET6。AF_INET表示ipv4地址, 例如127.0.0.1 , AF_INET6表示IPv6地址, 例如:1030:C9B4:FF!@:48AA:1A2B <br><br>2)type参数为数据传输方式, 常用的有SOCK_STREAM, SOCK_DGRAM.<br>3)protocol参数表示传输协议, 常用的有IPPROTO_TCP, IPPROTO_UDP, 分别表示TCP传输协议和UDP传输协议.<br><br>4)一般情况下有了af和type两个参数就可以创建套接字了, 操作系统会自动推演出协议类型, 除非遇到这样的情况：有两种不同的协议支持同一种地址类型和数据传输类型。如果我们不指明使用哪种协议，操作系统是没有办法自动推演的<br><br>5)如果af参数的值为AF_INET, 如果使用SOCK_STREAM传输数据, 那么满足这两个条件的协议只有TCP. 这种套接字称为TCP套接字.<br><br>int tcp_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);<br>6)如果af参数的值为AF_INET, 使用SOCK_DGRAM传输方式, 那么满足这两个条件的协议只是UDP, 这样的套接字称为UDP套接字.<br><br>int udp_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);<br>7)以上5，6点可以自动推算， 简易写法如下:<br><br>创建TCP套接字: int tcp_socket = socket(AF_INET, SOCK_STREAM, 0);<br><br>创建UDP套接字: int udp_socket = socket(AF_INET, SOCK_DGRAM, 0);<br></sys></p>
+<h5 id="使用bind-函数"><a href="#使用bind-函数" class="headerlink" title="使用bind()函数"></a>使用bind()函数</h5><p>socket()函数用来创建套接字, 确定套接字的各种属性, 然后服务器端口要用bind()函数将套接字与特定的IP地址和端口绑定起来, 只有这样, 流经该IP地址和端口的数据才能交给套接字处理.<br><br>bind()函数原型如下两种:<br>1) int bind(int sock, struct sockaddr<em> addr, socklen_t addrlen); #linux中<br><br>2) int bind(SOCKET sock, const struct sockaddr </em>addr, int addrlen); #windows中<br><br>sock为socket文件描述符, addr为sockaddr结构体变量的指针, addrlen为addr变量的大小, 可由sizeof()计算得出.<br></p>
+<h5 id="将套接字与IP地址127-0-0-1-端口1234绑定"><a href="#将套接字与IP地址127-0-0-1-端口1234绑定" class="headerlink" title="将套接字与IP地址127.0.0.1, 端口1234绑定"></a>将套接字与IP地址127.0.0.1, 端口1234绑定</h5><p>int serv_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);<br><br>struct sockaddr_in serv_addr;<br><br>memset(&amp;serv_addr, 0, sizeof(serv_addr));<br><br>serv_addr.sin_family = AF_INET;<br><br>serv_addr.sin_addr.s_addr = inet_addr(“127.0.0.1”);<br><br>serv_addr.sin_port = htons(1234);<br><br>bind(serv_sock, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));<br><br>这里我们使用了sockaddr_in结构体, 然后再强制转换为sockaddr类型.<br></p>
+<h5 id="connect-函数"><a href="#connect-函数" class="headerlink" title="connect()函数"></a>connect()函数</h5><p>connect()函数用来简历连接, 它的原型为:<br><br>1) int connect(int sock, struct sockaddr<em> serv_addr, socklen_t addrlen);//linux<br>2) int connect(SOCKET sock, const struct sockaddr</em> serv_addr, int addrlen);//windows</p>
+<h5 id="listen-函数"><a href="#listen-函数" class="headerlink" title="listen()函数"></a>listen()函数</h5><p>对于服务器端程序, 使用bind()绑定套接字后, 还需要使用listen()函数让套接字进入被动监听状态, 再调用accept()函数, 就可以随时响应客户端的请求了.<br><br>listen()函数可以让套接字进入被动监听的状态, 它的原型为:<br><br>1)int listen(int sock, int backlog);//Linux<br><br>2)int listen(SOCKET sock, int backlog);//Windows<br><br>sock为需要进入监听状态的套接字, backlog为请求队列的最大长度.<br><br>所谓被动监听是指当没有客户端请求时, 套接字处于“睡眠”状态, 只有当接收到客户端请求时, 套接字才会被“唤醒”来响应请求.<br><br>请求队列:<br><br>当套接字正在处理客户端请求时, 如果有新的请求进来, 套接字是没法处理的, 只能把它放进缓冲区, 待当前请求处理完毕后, 再从缓冲区中读取出来处理. 如果不断有新的请求进来, 它们就按照先后顺序在缓冲区中排队, 直到缓冲区满, 这个缓冲区就称为请求队列(Request Queue).<br><br>缓冲区的长度(能存放多少个客户端请求)可以通过listen()函数的backlog参数指定, 但究竟为多少并没有什么标准, 可以根据你的需求来定, 并发量小的话可以是10或者20. 如果将backlog的值设置为SOMAXCONN, 就由系统来决定请求队列长度, 这个值一般比较大, 可能是几百, 或者更多.<br><br>当请求队列满时, 就不再接收新的请求, 对于Linux, 客户端会收到ECONNREFUSED错误, 对于Windows, 客户端会收到WSAECONNREFUSED错误.<br><br>注意: listen()只是让套接字处于监听状态, 并没有接收请求. 接收请求需要使用accept()函数.<br></p>
+<h5 id="accept-函数"><a href="#accept-函数" class="headerlink" title="accept()函数"></a>accept()函数</h5><p>当套接字处于监听状态时, 可以通过accept()函数来接收客户端请求, 它的原型为:<br><br>1) int accept(int sock, struct sockaddr <em>addr, socklen_t</em> addrlen);//Linux <br><br>2) SOCKET accept(SOCKET sock, struct sockaddr <em>addr, int </em>addrlen);//Windows <br><br>accept()返回一个新的套接字来和客户端通信, addr保存了客户端的IP地址和端口号, 而sock是服务器端的套接字, 大家注意区分 。 后面和客户端通信时, 要使用这个新生成的套接字, 而不是原来服务器端的套接字.<br><br>注意:listen()只是让套接字进入监听状态, 并没有真正接收客户端请求, listen()后面的代码会继续执行, 直到遇到accept(). accept()会阻塞程序执行(后面代码不能执行) , 直到有新的请求到来.<br></p>
+<h5 id="Linux下数据的接收和发送"><a href="#Linux下数据的接收和发送" class="headerlink" title="Linux下数据的接收和发送"></a>Linux下数据的接收和发送</h5><p>Linux下不区分套接字文件和普通文件, 使用write()可以向套接字中写入数据, 使用read()可以从套接字中读取数据.<br><br>两台计算机之间的通信相当于两个套接字之间的通信, 在服务器端用write()向套接字写入数据, 客户端就能收到, 然后再使用read()从套接字中读取出来, 就完成了一次通信.<br><br>write()的原型为:<br><br>ssize_t write(int fd, const void *buf, size_t nbytes);<br><br>fd为要写入的文件的描述符, buf为要写入的数据的缓冲区地址, nbytes为要写入的数据的字节数.<br><br>write()函数会将缓冲区buf中的nbytes个字节写入文件fd，成功则返回写入的字节数, 失败则返回-1。</p>
+<p>read()的原型为:<br><br>ssize_t read(int fd, void* buf, size_t nbytes);<br><br>fd为要读取的文件的描述符, buf为要接收数据的缓冲区地址, nbytes为要读取的数据的字节数.<br><br>read()函数会从fd文件中读取nbytes个字节并保存到缓冲区buf, 成功则返回读取到的字节数,(但遇到文件结尾则返回0)， 失败则返回-1。<br></p>
+<h5 id="windows下数据的接收和发送"><a href="#windows下数据的接收和发送" class="headerlink" title="windows下数据的接收和发送"></a>windows下数据的接收和发送</h5><p>int send(SOCKET sock, const char<em> buf, int len, int flags);<br><br>int recv(SOCKET sock, char</em> buf, int len, int flags);<br></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/29/使用socket-函数创建套接字/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-28T16:02:48.000Z"><a href="/2017/01/29/Windows下的socket程序/">2017-01-29</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/29/Windows下的socket程序/">Windows下的socket程序</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>这里演示下windows下的socket程序, 毕竟windows和linux是有很大区别的两个操作系统.<br/><br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/01/29/Windows下的socket程序/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/29/Windows下的socket程序/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-28T12:26:52.000Z"><a href="/2017/01/28/Linux下socket程序演示/">2017-01-28</a></time>
+        
+  
+    <h1 class="title"><a href="/2017/01/28/Linux下socket程序演示/">Linux下socket程序演示</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>本节演示了Linux下的代码, server.cpp是服务器端代码, client.cpp是客户端代码, 要实现的功能是:客户端从服务器读取一个字符串并打印出来.<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/01/28/Linux下socket程序演示/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+        <div class="alignright">
+          <a href="/2017/01/28/Linux下socket程序演示/#comment" class="comment-link">Comments</a>
+        </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
     <article class="post">
   
   <div class="post-content">
@@ -252,301 +511,13 @@
 
 
 
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-01-16T13:05:07.000Z"><a href="/2017/01/16/Linux-Shell基础if语句/">2017-01-16</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/01/16/Linux-Shell基础if语句/">Linux-Shell基础if语句</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#if-结合测试语句使用"><span class="toc-text">if 结合测试语句使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#单分支if条件语句"><span class="toc-text">单分支if条件语句</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#判断apache是否启动的Shell代码"><span class="toc-text">判断apache是否启动的Shell代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#多分支if条件语句"><span class="toc-text">多分支if条件语句</span></a></li></ol>
-    </div>
-
-        <a id="more"></a>
-<h5 id="if-结合测试语句使用"><a href="#if-结合测试语句使用" class="headerlink" title="if 结合测试语句使用"></a>if 结合测试语句使用</h5><h5 id="单分支if条件语句"><a href="#单分支if条件语句" class="headerlink" title="单分支if条件语句"></a>单分支if条件语句</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if [ 条件判断是 ];then</div><div class="line">	程序内容</div><div class="line">fi</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if [ 条件判断式 ] </div><div class="line">	then</div><div class="line">		程序</div><div class="line">fi</div></pre></td></tr></table></figure>
-<p>注意:<br></p>
-<ol>
-<li>if语句使用fi结尾, 和一般语音使用大括号结尾不同.<br></li>
-<li>[ 条件判断式 ]就是使用test命令来判断, 所以中括号和条件判断式之间必须有空格.<br></li>
-<li>then 后面跟符合条件之后执行的程序, 可以放在[]之后, 用;分割. 也可以换行写入,这个时候就不需要;了.<br><br>举例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">rate=$(df -h | grep &quot;dev/sda3&quot; | awk &apos;&#123;print $5&#125;&apos; | cut -d &quot;%&quot; -f 1)</div><div class="line">if [ $rate -ge 80 ]</div><div class="line">	then</div><div class="line">		echo &quot;Warning! /dev/sda3 is full!!!&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">sourceDirectory=/etc</div><div class="line">destination=/tmp/iftest</div><div class="line">date=$(date +%y%m%d)</div><div class="line">size=$(du -sh $sourceDirectory)</div><div class="line">if [ -d $destination ]</div><div class="line">	then</div><div class="line">		echo &quot;开始压缩，复制...1&quot;</div><div class="line">		echo &quot;Date : $date!&quot; &gt; $destination/etcinfo.txt</div><div class="line">		echo &quot;Data size : $size&quot; &gt;&gt; $destination/etcinfo.txt</div><div class="line">		cd $destination</div><div class="line">		tar -zcvf etc-copy-$date.tar.gz $sourceDirectory</div><div class="line">	else</div><div class="line">		echo &quot;开始压缩，复制...2&quot;</div><div class="line">		mkdir $destination</div><div class="line">		echo &quot;Date : $date!&quot; &gt; $destination/etcinfo.txt</div><div class="line">		echo &quot;Data size : $size&quot; &gt;&gt; $destination/etcinfo.txt</div><div class="line">		cd $destination</div><div class="line">		tar -zcvf etc$date.tar.gz $sourceDirectory</div><div class="line">fi</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h5 id="判断apache是否启动的Shell代码"><a href="#判断apache是否启动的Shell代码" class="headerlink" title="判断apache是否启动的Shell代码"></a>判断apache是否启动的Shell代码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">port=$(nmap -sT 192.168.1.156 | grep tcp | grep http | awk &apos;&#123;print $2&#125;&apos;)</div><div class="line">if [ $port == &quot;open&quot; ]</div><div class="line">	then </div><div class="line">		echo &quot;$(date) httpd is ok!&quot; &gt;&gt; /tmp/autostart-acc.log</div><div class="line">	else</div><div class="line">		/etc/rc.d/init.d/httpd start &amp;&gt; /dev/null</div><div class="line">		echo &quot;$(date) restart httpd !!&quot; &gt;&gt; /tmp/autostart-err.log</div><div class="line">if</div></pre></td></tr></table></figure>
-<h5 id="多分支if条件语句"><a href="#多分支if条件语句" class="headerlink" title="多分支if条件语句"></a>多分支if条件语句</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if [ 条件判断式1 ]</div><div class="line">	then </div><div class="line">		当条件判断式1成立时，执行程序1</div><div class="line">elif [ 条件判断式2 ]</div><div class="line">	then </div><div class="line">		当条件判断式2成立时，执行程序2</div><div class="line">......</div><div class="line">else</div><div class="line">	当所有条件都不成立时, 最后执行的程序</div><div class="line">fi</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">read -p &quot;please input a file name: &quot; -t 30 filaName</div><div class="line">echo $fileName</div><div class="line">if [ -z $fileName ]</div><div class="line">	then </div><div class="line">		echo &quot;Error, please input a file name!&quot;</div><div class="line">		exit 1</div><div class="line">elif [ ! -e $fileName ]</div><div class="line">	then </div><div class="line">		echo &quot;Your input is not a file!&quot;</div><div class="line">		exit 2</div><div class="line">elif [ -f $fileName ]</div><div class="line">	then</div><div class="line">		echo &quot;$file is a regulare file!&quot;</div><div class="line">		exit 3</div><div class="line">elif [ -d $fileName ]</div><div class="line">	then 	</div><div class="line">		echo &quot;$file is a directory!&quot;</div><div class="line">		exit 4</div><div class="line">else</div><div class="line">		echo &quot;$fileName is an other file!&quot;</div><div class="line">fi</div><div class="line">echo hahaha</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        <div class="alignright">
-          <a href="/2017/01/16/Linux-Shell基础if语句/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-01-14T10:18:13.000Z"><a href="/2017/01/14/Linux-Shell基础条件判断/">2017-01-14</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/01/14/Linux-Shell基础条件判断/">Linux-Shell基础条件判断</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#两种判断格式"><span class="toc-text">两种判断格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#按照文件类型进行判断"><span class="toc-text">按照文件类型进行判断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#按照文件权限进行判断"><span class="toc-text">按照文件权限进行判断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#两个文件之间进行比较"><span class="toc-text">两个文件之间进行比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#两个整数之间比较"><span class="toc-text">两个整数之间比较</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#字符串的判断"><span class="toc-text">字符串的判断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#多重条件判断"><span class="toc-text">多重条件判断</span></a></li></ol>
-    </div>
-
-        <a id="more"></a>
-<h5 id="两种判断格式"><a href="#两种判断格式" class="headerlink" title="两种判断格式"></a>两种判断格式</h5><p>test -e /root/install.log <br><br>[ -e /root/install.log ] 一定要注意, [之后,]之前一定要有空格, 不然语法会出错误.<br><br>可以用echo $? 来查看上一条语句是否正确.<br></p>
-<h5 id="按照文件类型进行判断"><a href="#按照文件类型进行判断" class="headerlink" title="按照文件类型进行判断"></a>按照文件类型进行判断</h5><p>-b 文件  #判断文件是否存在, 并且是否为块设备文件(是块设备文件为真).<br><br>-c 文件  #判断文件是否存在, 并且是否为字符设备文件(是字符设备文件为真). <br><br>-d 文件  #判断文件是否存在, 并且是否为目录文件(是目录为真).<br><br>-e 文件  #判断文件是否存在(存在为真).<br><br>-f 文件  #判断文件是否存在, 并且是否为普通文件.<br><br>-L 文件  #判断文件是否存在, 并且是否为符号链接文件.(是符号链接文件为真).<br><br>-p 文件  #判断文件是否存在, 并且是否为管道文件.(是管道文件为真).<br><br>-s 文件  #判断文件是否存在, 并且是否为非空.(非空为真).<br><br>-S 文件  #判断该文件是否存在, 并且是否为套接字文件.(是套接字文件为真).<br><br>举例:<br><br>[ -d /root ] &amp;&amp; echo “yes” || echo “no” <br></p>
-<h5 id="按照文件权限进行判断"><a href="#按照文件权限进行判断" class="headerlink" title="按照文件权限进行判断"></a>按照文件权限进行判断</h5><p>-r 文件  #判断该文件是否存在, 并且是否该文件拥有读权限(有读权限为真, 不管是user, group, other谁有读权限, 都算真) <br><br>-w 文件  #判断该文件是否存在, 并且是否该文件拥有写权限(同上).<br><br>-x 文件  #判断该文件是否存在, 并且是否该文件拥有执行权限(同上).<br><br>-u 文件  #判断该文件是否存在, 并且是否该文件拥有SUID权限.<br><br>-g 文件  #判断该文件是否存在, 并且是否该文件拥有SGID权限.<br><br>-k 文件  #判断该文件是否存在, 并且是否该文件拥有SBit权限.<br><br>举例:<br><br>[ -w /root/student.txt] &amp;&amp; echo yes || echo no <br></p>
-<h5 id="两个文件之间进行比较"><a href="#两个文件之间进行比较" class="headerlink" title="两个文件之间进行比较"></a>两个文件之间进行比较</h5><p>文件1 -nt 文件2   #判断文件1的修改时间是否比文件2的新, (如果新则为真) <br><br>文件1 -ot 文件2   #判断文件1的修改时间是否比文件2的旧, (如果旧则为真) <br><br>文件1 -ef 文件2   #判断文件1是否和文件2的node号一致, 可以理解为两个文件是否为同一个文件。这个判断用于判断硬链接是很好的方法.<br><br>回顾一下: 查看文件inode的方法为 ll -i <br><br>举例:<br><br>ln /root/student.txt /tmp/stu.txt  #这里为/root/student.txt创建一个硬链接.<br><br>[ /root/student.txt -ef /tmp/stu.txt ] &amp;&amp; echo “yes” || echo “no” <br></p>
-<h5 id="两个整数之间比较"><a href="#两个整数之间比较" class="headerlink" title="两个整数之间比较"></a>两个整数之间比较</h5><p>整数1 -eq 整数2   #判断整数1是否和整数2相等.(相等为真).<br><br>整数1 -ne 整数2   #判断整数1是否和整数2不相等.(不相等为真).<br><br>整数1 -gt 整数2   #判断整数1是否大于整数2.(大于为真).<br><br>整数1 -lt 整数2   #判断整数1是否小于整数2.(小于为真).<br><br>整数1 -ge 整数2   #判断整数1是否大于等于整数2.(大于等于为真).<br><br>整数1 -le 整数2   #判断整数1是否小于等于整数2.(小于等于为真). <br><br>举例:<br><br>[ 23 -gt 22 ] &amp;&amp; echo yes || echo no <br></p>
-<h5 id="字符串的判断"><a href="#字符串的判断" class="headerlink" title="字符串的判断"></a>字符串的判断</h5><p>-z 字符串  #判断字符串是否为空(为空返回真).<br><br>-n 字符串  #判断字符串是否为空(非空返回真). <br><br>字符串1 == 字符串2  #判断字符串1是否和字符串2相等. <br><br>字符串1 != 字符串2  #判断字符串1是否和字符串2不相等. <br><br>举例1:<br><br>aa=10<br><br>bb=20<br><br>[ “$aa” == “$bb” ] &amp;&amp; echo yes || echo no <br><br>举例2:<br><br>name=tianshanshan<br>[ -z “$name” ] &amp;&amp; echo yes || echo no <br></p>
-<h5 id="多重条件判断"><a href="#多重条件判断" class="headerlink" title="多重条件判断"></a>多重条件判断</h5><p>判断1 -a 判断2   #逻辑与, 判断1和判断2都成立, 最终的结果才为真. <br><br>判断1 -o 判断2   #逻辑或, 判断1和判断2有一个成立, 最终的结果就为真. <br><br>! 判断           #逻辑非, 使原始的判断取反.<br><br>举例:<br><br>aa=24 <br><br>[ -n “$aa” -a “$aa” -gt 23 ] &amp;&amp; echo yes || echo no <br></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        <div class="alignright">
-          <a href="/2017/01/14/Linux-Shell基础条件判断/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-01-14T09:53:11.000Z"><a href="/2017/01/14/Linux-Shell基础字符处理命令/">2017-01-14</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/01/14/Linux-Shell基础字符处理命令/">Linux-Shell基础字符处理命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#字符处理命令"><span class="toc-text">字符处理命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#排序命令sort"><span class="toc-text">排序命令sort</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#统计命令wc"><span class="toc-text">统计命令wc</span></a></li></ol>
-    </div>
-
-        <a id="more"></a>
-<h5 id="字符处理命令"><a href="#字符处理命令" class="headerlink" title="字符处理命令"></a>字符处理命令</h5><h5 id="排序命令sort"><a href="#排序命令sort" class="headerlink" title="排序命令sort"></a>排序命令sort</h5><p><strong style="color:red;">sort [选项] 文件名</strong><br><br>选项:<br><br>-f    #忽略大小写.<br><br>-n    #以数值型进行排序, 默认使用字符串型排序.<br><br>-r    #反向排序.<br><br>-t    #指定分隔符, 默认的分割符是制表符.<br><br>-k n[,m] #按照指定的字段范围排序. 从第n字段开始, m字段结束.<br><br>举例:<br><br>sort -n -t “:” -k 3,3 /etc/passwd <br></p>
-<h5 id="统计命令wc"><a href="#统计命令wc" class="headerlink" title="统计命令wc"></a>统计命令wc</h5><p><strong style="color:red;">wc [选项] 文件名</strong><br><br>选项:<br><br>-l    #只统计行数.<br><br>-w    #只统计单词书.<br><br>-m    #只统计字符数.<br></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        <div class="alignright">
-          <a href="/2017/01/14/Linux-Shell基础字符处理命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-01-14T08:13:14.000Z"><a href="/2017/01/14/Linux-Shell基础sed命令/">2017-01-14</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/01/14/Linux-Shell基础sed命令/">Linux-Shell基础sed命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#sed命令"><span class="toc-text">sed命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sed-选项-‘-动作-’-文件名"><span class="toc-text">sed [选项] ‘[动作]’ 文件名</span></a></li></ol>
-    </div>
-
-        <a id="more"></a>
-<h5 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h5><p>sed是一种几乎包括在所有UNIX平台(包括Linux)的轻量级流编辑器. sed主要是用来将数据进行选取, 替换, 删除, 新增的命令.<br></p>
-<h5 id="sed-选项-‘-动作-’-文件名"><a href="#sed-选项-‘-动作-’-文件名" class="headerlink" title="sed [选项] ‘[动作]’ 文件名"></a>sed [选项] ‘[动作]’ 文件名</h5><p>选项:<br><br>-n : 一般sed命令会把所有数据都输出到屏幕, 如果加入此选择, 则只会把进过sed命令处理的行输出到屏幕.<br><br>-e : 允许对输入数据应用多条sed命令编辑器. <strong style="color:red;">sed -e ‘s/Liming//g;s/Gao//g’ student.txt, 同时把Liming和Gao替换为空.</strong><br><br>-i : 用sed的修改结果直接修改读取数据的文件, 而不是由屏幕输出.<br><br>动作: <br><br>a : 追加, 在当前行后添加一行或多行, 添加多行时. 除最后一行外, 每行末尾需要用”\”代表数据未完结. <strong style="color:red;">sed ‘2a hello world’ student.txt</strong><br><br>c : 行替换, 用c后面的字符串替换原数据行, 替换多行时, 除最后一行外, 每行末尾需用”\”代表数据未完结. <strong style="color:red">sed ‘2c No Such Person’ student.txt</strong><b r=""><br>i : 插入, 在当前行钱插入一行或多行. 插入多行时, 除最后一行外, 每行末尾需要用”\”代表数据未完结. <strong style="color:red;">sed ‘2i hello world \ <br><br>world!’ student.txt</strong><br><br>d : 删除, 删除指定的行. <strong style="color:red;">sed ‘2,3d’ student.txt</strong><br><br>p : 打印, 输出指定的行. <strong style="color:red;">sed -n ‘2p’ student.txt</strong><br><br>s : 字串替换, 用一个字符串替换另一个字符串. 格式为”行范围s/旧字符串/新字符串/g”. <strong style="color:red;">sed ‘4s/99/55/g’ student.txt</strong><br></b></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        <div class="alignright">
-          <a href="/2017/01/14/Linux-Shell基础sed命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-01-13T14:26:40.000Z"><a href="/2017/01/13/Linux系统常用软件安装/">2017-01-13</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/01/13/Linux系统常用软件安装/">Linux系统常用软件安装</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#mysql"><span class="toc-text">mysql</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#g"><span class="toc-text">g++</span></a></li></ol>
-    </div>
-
-        <a id="more"></a>
-<h5 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h5><p>ubuntu上:<br></p>
-<ol>
-<li>apt-get install mysql-server  #安装mysql服务部分<br></li>
-<li>apt-get install mysql-client  #安装mysql客户端部分<br></li>
-<li>apt-get install libmysqlclient-dev  #安装msql的开发版本库<br></li>
-<li>netstat -tap | grep mysql #检测mysql安装成功没有 <br></li>
-</ol>
-<h5 id="g"><a href="#g" class="headerlink" title="g++"></a>g++</h5><p>centos6.5上:<br><br>yum list gcc-c++ #先获取到g++包名, 一般为gcc-c++.i686 <br><br>yum install gcc-c++.i686 #安装便是了 <br></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        <div class="alignright">
-          <a href="/2017/01/13/Linux系统常用软件安装/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-01-13T13:47:12.000Z"><a href="/2017/01/13/Linux-Shell基础awk命令/">2017-01-13</a></time>
-        
-  
-    <h1 class="title"><a href="/2017/01/13/Linux-Shell基础awk命令/">Linux-Shell基础awk命令</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#awk命令简单编程"><span class="toc-text">awk命令简单编程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#awk命令的工作方式"><span class="toc-text">awk命令的工作方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#awk命令中的BEGIN"><span class="toc-text">awk命令中的BEGIN</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#awk命令中的END"><span class="toc-text">awk命令中的END</span></a></li></ol>
-    </div>
-
-        <a id="more"></a>
-<h5 id="awk命令简单编程"><a href="#awk命令简单编程" class="headerlink" title="awk命令简单编程"></a>awk命令简单编程</h5><p><strong style="color:red;">awk ‘条件1{动作1} 条件2{动作2} …’ 文件名</strong><br><br>条件: 一般使用关系表达式作为条件.<br><br>动作: 一般有格式化输出, 流程控制语句.<br><br>注意: awk默认使用的分割符号是tab(换行符号)和” “(空格).<br><br>举例分析:<br>awk ‘{printf $2 “\t” $6 “\n” }’ student.txt <br><br>其中$1,$2,$3…这些表示第几列, $0表示全部列.<br><br>df -h | grep sda1 | awk ‘{print $5}’ | cut -d “%” -f 1 <br><br>注意: print和printf是awk中的, print默认最后带一个换行符, printf默认最后不带换行符号.<br></p>
-<h5 id="awk命令的工作方式"><a href="#awk命令的工作方式" class="headerlink" title="awk命令的工作方式"></a>awk命令的工作方式</h5><p>awk命令执行是先去读取目标中的一行,然后再去执行条件和动作. <br></p>
-<h5 id="awk命令中的BEGIN"><a href="#awk命令中的BEGIN" class="headerlink" title="awk命令中的BEGIN"></a>awk命令中的BEGIN</h5><p>awk ‘BEGIN{printf “This is a transcript\n”}{printf $2 “\t” %6 “\n”}’ student.txt <br><br>BEGIN是一个条件, 指读取行之前执行该条件里边的动作语句.<br><br>结合awk的执行步骤, 有时候, 我们要在awk读取目标前,就执行一句动作, 那我们就可以在这个动作前加上BEGIN这个条件.<br><br>举例:<br>cat /etc/passwd | grep /bin/bash | awk ‘BEGIN{FS=”:”}{print $1 “\t” $3}’ <br><br>其中FS是awk的变量, 表示修改awk的分割符位: <br></p>
-<h5 id="awk命令中的END"><a href="#awk命令中的END" class="headerlink" title="awk命令中的END"></a>awk命令中的END</h5><p>END也是一个条件, 指读取玩目标之后执行一个动作. <br><br>awk ‘END{print “read over!”}{print $1 “\t” $2}’ <br></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-        <div class="alignright">
-          <a href="/2017/01/13/Linux-Shell基础awk命令/#comment" class="comment-link">Comments</a>
-        </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
  
 <nav id="pagination">
   
-    <a href="/page/5/" class="alignleft prev">上一页</a>
+    <a href="/page/5/" class="alignleft prev">Prev</a>
   
   
-    <a href="/page/7/" class="alignright next">下一页</a>
+    <a href="/page/7/" class="alignright next">Next</a>
   
   <div class="clearfix"></div>
 </nav>
@@ -554,22 +525,22 @@
       <aside id="sidebar" class="alignright">
    <div class="search">
   <form action="/search/index.html" method="get" accept-charset="utf-8">
-<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+<!--     <input type="search" name="wd"results="0" placeholder="Search">
     <input type="hidden" name="wd" value="site:yoursite.com"> -->
-     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+     <input type="text" id="search" class="st-default-search-input" placeholder="Search" style="height: 100%" />
   </form>
 </div> 
 
   
 <div class="widget tag">
-  <h3 class="title" id="categories">分类</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Apache/">Apache</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Asterisk/">Asterisk</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux编程/">Linux编程</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Opensips/">Opensips</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RabbitMq/">RabbitMq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发工具的使用/">开发工具的使用</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
+  <h3 class="title" id="categories">Categories</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Apache/">Apache</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Asterisk/">Asterisk</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux编程/">Linux编程</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Makefile/">Makefile</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NSTimer/">NSTimer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Opensips/">Opensips</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT学习/">QT学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RabbitMq/">RabbitMq</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/">Runloop</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Runloop/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TCP-IP/">TCP/IP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Runtime/">Runtime</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios/">ios</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios开发篇/">ios开发篇</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ios项目开发经验/">ios项目开发经验</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习记录表/">学习记录表</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发工具的使用/">开发工具的使用</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/程序底部原理/">程序底部原理</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">2</span></li></ul> 
 </div>
  
 
 
   <div class="widget tag">
-  <h3 class="title">日历云</h3>
+  <h3 class="title">Calendar</h3>
   <div id="calendar"></div>
 </div>
 
@@ -579,9 +550,9 @@
 
   
 <div class="widget tagcloud">
-  <h3 class="title">标签云</h3>
+  <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/Apache环境搭建/" style="font-size: 10px;">Apache环境搭建</a> <a href="/tags/Asterisk-Modules-模块/" style="font-size: 10px;">Asterisk Modules(模块)</a> <a href="/tags/Asterisk-sip-conf配置详解/" style="font-size: 10px;">Asterisk sip.conf配置详解</a> <a href="/tags/Asterisk中GB28181函数解析/" style="font-size: 10px;">Asterisk中GB28181函数解析</a> <a href="/tags/Asterisk中读GB28181/" style="font-size: 10px;">Asterisk中读GB28181</a> <a href="/tags/Asterisk常用命令/" style="font-size: 10px;">Asterisk常用命令</a> <a href="/tags/Asterisk消息数据包/" style="font-size: 10px;">Asterisk消息数据包</a> <a href="/tags/Asterisk的源码安装/" style="font-size: 10px;">Asterisk的源码安装</a> <a href="/tags/Asterisk目录结构/" style="font-size: 10px;">Asterisk目录结构</a> <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux-文件操作/" style="font-size: 10px;">Linux-文件操作</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux下程序调试/" style="font-size: 10px;">Linux下程序调试</a> <a href="/tags/Linux之防火墙/" style="font-size: 10px;">Linux之防火墙</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux实用又感觉奇葩的命令/" style="font-size: 10px;">Linux实用又感觉奇葩的命令</a> <a href="/tags/Linux常识/" style="font-size: 10px;">Linux常识</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux日志管理/" style="font-size: 10px;">Linux日志管理</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的服务管理/" style="font-size: 10px;">Linux的服务管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统分区/" style="font-size: 10px;">Linux系统分区</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/Linux系统管理/" style="font-size: 10px;">Linux系统管理</a> <a href="/tags/Linux编程函数汇总/" style="font-size: 10px;">Linux编程函数汇总</a> <a href="/tags/Linux记不住的命令/" style="font-size: 10px;">Linux记不住的命令</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL使用准则记录/" style="font-size: 10px;">MySQL使用准则记录</a> <a href="/tags/MySQL子查询与连接/" style="font-size: 10px;">MySQL子查询与连接</a> <a href="/tags/MySQL操作数据表中的记录/" style="font-size: 10px;">MySQL操作数据表中的记录</a> <a href="/tags/MySQL数据库和表的移植/" style="font-size: 10px;">MySQL数据库和表的移植</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/MySQL约束以及修改数据表/" style="font-size: 10px;">MySQL约束以及修改数据表</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Opensips-安装/" style="font-size: 10px;">Opensips 安装</a> <a href="/tags/Opensips常用命令/" style="font-size: 10px;">Opensips常用命令</a> <a href="/tags/Opensips模块使用/" style="font-size: 10px;">Opensips模块使用</a> <a href="/tags/Opensips的Opensips-cfg详解/" style="font-size: 10px;">Opensips的Opensips.cfg详解</a> <a href="/tags/PHP环境搭建/" style="font-size: 10px;">PHP环境搭建</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Qt中文乱码问题/" style="font-size: 10px;">Qt中文乱码问题</a> <a href="/tags/RabbitMq安装/" style="font-size: 10px;">RabbitMq安装</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/gcc的使用/" style="font-size: 10px;">gcc的使用</a> <a href="/tags/gdb调试器的使用/" style="font-size: 10px;">gdb调试器的使用</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/开发助手SVN介绍/" style="font-size: 10px;">开发助手SVN介绍</a> <a href="/tags/开发工具的使用/" style="font-size: 10px;">开发工具的使用</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/编程中的字符集说明/" style="font-size: 10px;">编程中的字符集说明</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
+    <a href="/tags/Apache环境搭建/" style="font-size: 10px;">Apache环境搭建</a> <a href="/tags/Asterisk-Modules-模块/" style="font-size: 10px;">Asterisk Modules(模块)</a> <a href="/tags/Asterisk-sip-conf配置详解/" style="font-size: 10px;">Asterisk sip.conf配置详解</a> <a href="/tags/Asterisk中GB28181函数解析/" style="font-size: 10px;">Asterisk中GB28181函数解析</a> <a href="/tags/Asterisk中读GB28181/" style="font-size: 10px;">Asterisk中读GB28181</a> <a href="/tags/Asterisk常用命令/" style="font-size: 10px;">Asterisk常用命令</a> <a href="/tags/Asterisk消息数据包/" style="font-size: 10px;">Asterisk消息数据包</a> <a href="/tags/Asterisk源码解析/" style="font-size: 10px;">Asterisk源码解析</a> <a href="/tags/Asterisk的源码安装/" style="font-size: 10px;">Asterisk的源码安装</a> <a href="/tags/Asterisk目录结构/" style="font-size: 10px;">Asterisk目录结构</a> <a href="/tags/C程序编译-链接过程/" style="font-size: 10px;">C程序编译, 链接过程</a> <a href="/tags/GCD/" style="font-size: 10px;">GCD</a> <a href="/tags/Git使用大全/" style="font-size: 10px;">Git使用大全</a> <a href="/tags/Linux-常用命令/" style="font-size: 10px;">Linux 常用命令</a> <a href="/tags/Linux-Shell基础/" style="font-size: 10px;">Linux-Shell基础</a> <a href="/tags/Linux-Shell基础awk命令/" style="font-size: 10px;">Linux-Shell基础awk命令</a> <a href="/tags/Linux-Shell基础case语句/" style="font-size: 10px;">Linux-Shell基础case语句</a> <a href="/tags/Linux-Shell基础cut命令/" style="font-size: 10px;">Linux-Shell基础cut命令</a> <a href="/tags/Linux-Shell基础for循环语句/" style="font-size: 10px;">Linux-Shell基础for循环语句</a> <a href="/tags/Linux-Shell基础if语句/" style="font-size: 10px;">Linux-Shell基础if语句</a> <a href="/tags/Linux-Shell基础printf命令/" style="font-size: 10px;">Linux-Shell基础printf命令</a> <a href="/tags/Linux-Shell基础sed命令/" style="font-size: 10px;">Linux-Shell基础sed命令</a> <a href="/tags/Linux-Shell基础while和until语句/" style="font-size: 10px;">Linux-Shell基础while和until语句</a> <a href="/tags/Linux-Shell基础字符处理命令/" style="font-size: 10px;">Linux-Shell基础字符处理命令</a> <a href="/tags/Linux-Shell基础条件判断/" style="font-size: 10px;">Linux-Shell基础条件判断</a> <a href="/tags/Linux-文件操作/" style="font-size: 10px;">Linux-文件操作</a> <a href="/tags/Linux下socket程序演示/" style="font-size: 10px;">Linux下socket程序演示</a> <a href="/tags/Linux下的网络配置/" style="font-size: 10px;">Linux下的网络配置</a> <a href="/tags/Linux下程序调试/" style="font-size: 10px;">Linux下程序调试</a> <a href="/tags/Linux之防火墙/" style="font-size: 10px;">Linux之防火墙</a> <a href="/tags/Linux使用错误详记/" style="font-size: 10px;">Linux使用错误详记</a> <a href="/tags/Linux实用又感觉奇葩的命令/" style="font-size: 10px;">Linux实用又感觉奇葩的命令</a> <a href="/tags/Linux常识/" style="font-size: 10px;">Linux常识</a> <a href="/tags/Linux文件搜索命令/" style="font-size: 10px;">Linux文件搜索命令</a> <a href="/tags/Linux文件系统编程/" style="font-size: 10px;">Linux文件系统编程</a> <a href="/tags/Linux日志管理/" style="font-size: 10px;">Linux日志管理</a> <a href="/tags/Linux权限管理命令/" style="font-size: 10px;">Linux权限管理命令</a> <a href="/tags/Linux环境变量配置/" style="font-size: 10px;">Linux环境变量配置</a> <a href="/tags/Linux用户和用户组管理/" style="font-size: 10px;">Linux用户和用户组管理</a> <a href="/tags/Linux的服务管理/" style="font-size: 10px;">Linux的服务管理</a> <a href="/tags/Linux的软件包管理/" style="font-size: 10px;">Linux的软件包管理</a> <a href="/tags/Linux目录分析/" style="font-size: 10px;">Linux目录分析</a> <a href="/tags/Linux系统分区/" style="font-size: 10px;">Linux系统分区</a> <a href="/tags/Linux系统常用软件安装/" style="font-size: 10px;">Linux系统常用软件安装</a> <a href="/tags/Linux系统管理/" style="font-size: 10px;">Linux系统管理</a> <a href="/tags/Linux编程函数汇总/" style="font-size: 10px;">Linux编程函数汇总</a> <a href="/tags/Linux编程应用/" style="font-size: 10px;">Linux编程应用</a> <a href="/tags/Linux记不住的命令/" style="font-size: 10px;">Linux记不住的命令</a> <a href="/tags/Makefile解析/" style="font-size: 10px;">Makefile解析</a> <a href="/tags/MySQL-初涉/" style="font-size: 10px;">MySQL 初涉</a> <a href="/tags/MySQL使用准则记录/" style="font-size: 10px;">MySQL使用准则记录</a> <a href="/tags/MySQL子查询与连接/" style="font-size: 10px;">MySQL子查询与连接</a> <a href="/tags/MySQL操作数据表中的记录/" style="font-size: 10px;">MySQL操作数据表中的记录</a> <a href="/tags/MySQL数据库和表的移植/" style="font-size: 10px;">MySQL数据库和表的移植</a> <a href="/tags/MySQL数据类型/" style="font-size: 10px;">MySQL数据类型</a> <a href="/tags/MySQL约束以及修改数据表/" style="font-size: 10px;">MySQL约束以及修改数据表</a> <a href="/tags/NSTimer/" style="font-size: 10px;">NSTimer</a> <a href="/tags/Opensips-安装/" style="font-size: 10px;">Opensips 安装</a> <a href="/tags/Opensips常用命令/" style="font-size: 10px;">Opensips常用命令</a> <a href="/tags/Opensips模块使用/" style="font-size: 10px;">Opensips模块使用</a> <a href="/tags/Opensips的Opensips-cfg详解/" style="font-size: 10px;">Opensips的Opensips.cfg详解</a> <a href="/tags/PHP环境搭建/" style="font-size: 10px;">PHP环境搭建</a> <a href="/tags/QT学习-QT容器类/" style="font-size: 10px;">QT学习-QT容器类</a> <a href="/tags/Qt中文乱码问题/" style="font-size: 10px;">Qt中文乱码问题</a> <a href="/tags/RabbitMq安装/" style="font-size: 10px;">RabbitMq安装</a> <a href="/tags/Runloop/" style="font-size: 10px;">Runloop</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/Shell基础/" style="font-size: 10px;">Shell基础</a> <a href="/tags/Socket简介/" style="font-size: 10px;">Socket简介</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/Windows下的socket程序/" style="font-size: 10px;">Windows下的socket程序</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/gcc的使用/" style="font-size: 10px;">gcc的使用</a> <a href="/tags/gdb调试器的使用/" style="font-size: 10px;">gdb调试器的使用</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/ios中的NSData类/" style="font-size: 10px;">ios中的NSData类</a> <a href="/tags/ios中的NSSet类/" style="font-size: 10px;">ios中的NSSet类</a> <a href="/tags/ios中的UITouch类/" style="font-size: 10px;">ios中的UITouch类</a> <a href="/tags/ios中的各种事件/" style="font-size: 10px;">ios中的各种事件</a> <a href="/tags/ios国际化/" style="font-size: 10px;">ios国际化</a> <a href="/tags/ios开发常用小代码/" style="font-size: 10px;">ios开发常用小代码</a> <a href="/tags/linux下创建静态库并使用/" style="font-size: 10px;">linux下创建静态库并使用</a> <a href="/tags/linux压缩解压命令/" style="font-size: 10px;">linux压缩解压命令</a> <a href="/tags/linux用户管理命令/" style="font-size: 10px;">linux用户管理命令</a> <a href="/tags/linux网络命令/" style="font-size: 10px;">linux网络命令</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/objective-c/" style="font-size: 20px;">objective-c</a> <a href="/tags/socket的tcp粘包问题以及数据的无边界性/" style="font-size: 10px;">socket的tcp粘包问题以及数据的无边界性</a> <a href="/tags/socket缓冲区以及阻塞模式/" style="font-size: 10px;">socket缓冲区以及阻塞模式</a> <a href="/tags/使用socket-函数创建套接字/" style="font-size: 10px;">使用socket()函数创建套接字</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/学习记录表/" style="font-size: 10px;">学习记录表</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/开发助手SVN介绍/" style="font-size: 10px;">开发助手SVN介绍</a> <a href="/tags/开发工具的使用/" style="font-size: 10px;">开发工具的使用</a> <a href="/tags/策略模式/" style="font-size: 10px;">策略模式</a> <a href="/tags/编程中的字符集说明/" style="font-size: 10px;">编程中的字符集说明</a> <a href="/tags/网络通信协议/" style="font-size: 10px;">网络通信协议</a> <a href="/tags/静态链接库和动态链接库/" style="font-size: 10px;">静态链接库和动态链接库</a>
   </div>
 </div>
 
@@ -589,7 +560,7 @@
   
   <div class="widget tag">
     <h3 class="title">归档</h3>
-	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">2017年06月</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">2017年05月</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">2017年04月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017年03月</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">2017年06月</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">2017年05月</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">2017年04月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017年03月</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">2017年02月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">2017年01月</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">2016年12月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">2016年11月</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">2016年10月</a><span class="archive-list-count">6</span></li></ul>
   </div>
 
 </aside>
